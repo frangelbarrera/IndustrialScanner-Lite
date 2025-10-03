@@ -17,7 +17,7 @@ This project addresses that challenge by providing a **safe, read‑only, and au
 - ✅ Generates standardized **JSON and HTML reports** for forensic and compliance use.  
 - ✅ Builds **executive dashboards** with consolidated metrics and visualizations for quick decision‑making.  
 
-The goal is to **bridge the gap between cybersecurity practices and industrial automation realities**, giving professionals and recruiters a clear view of how modern security tooling can be adapted to protect critical infrastructure systems.
+The goal is to **bridge the gap between cybersecurity practices and industrial automation realities**, giving professionals a clear view of how modern security tooling can be adapted to protect critical infrastructure systems.
 
 ---
 
@@ -191,14 +191,5 @@ This allows you to test the toolkit immediately without external dependencies.
 
 ---
 
-## ✅ Best Practices
-
-- **Safety-first:** Modbus scanner is read-only. Never run against production PLCs.  
-- **Consistency:** Keep outputs in `reports/<protocol>_batch/`.  
-- **Charts:** Dashboards use Chart.js from CDN.  
-- **Version control:** Add generated reports to `.gitignore` unless you want to showcase sample outputs.  
-- **Recruiter-ready:** Screenshots in `docs/images/` demonstrate dashboards visually.  
-
----
 
 
