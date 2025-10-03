@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "generated_at": "2025-09-30T11:43:25Z",
+    "pcap_file": "pcaps\\s7\\wincc_s400_production.pcapng"
+  },
+  "results": [],
+  "summary": {
+    "total_packets": 1658,
+    "s7_packets": 0,
+    "suspect_functions": 0,
+    "unique_hosts": []
+  }
+}

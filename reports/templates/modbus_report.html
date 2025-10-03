@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>IndustrialScanner-Lite | Modbus Scan Report</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; color: #222; }
+    h1 { margin-bottom: 4px; }
+    .meta { color: #555; margin-bottom: 16px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 12px; }
+    th, td { border: 1px solid #ddd; padding: 8px; font-size: 14px; }
+    th { background: #f4f4f4; text-align: left; }
+    .ok { color: #2e7d32; font-weight: bold; }
+    .warn { color: #e65100; font-weight: bold; }
+    .bad { color: #c62828; font-weight: bold; }
+    .code { font-family: monospace; font-size: 13px; background: #fafafa; padding: 6px; border: 1px solid #eee; }
+    .section { margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <h1>Modbus Scan Report</h1>
+  <div class="meta">
+    <div><strong>Generated:</strong> {{ report.meta.generated_at }}</div>
+    <div><strong>Port:</strong> {{ report.meta.port }} | <strong>Unit ID:</strong> {{ report.meta.unit_id }} | <strong>Timeout:</strong> {{ report.meta.timeout }}s</div>
+    <div><strong>Targets:</strong> {{ report.meta.targets | join(', ') }}</div>
+  </div>
+
+  <div class="section">
+    <h2>Summary</h2>
+    <table>
+      <tr>
+        <th>Reachable</th>
+        <th>Unauthenticated Read</th>
+        <th>Broad Register Access</th>
+      </tr>
+      <tr>
+        <td>{{ report.summary.reachable }}</td>
+        <td>{{ report.summary.unauthenticated_read }}</td>
+        <td>{{ report.summary.broad_register_access }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Per-Host Details</h2>
+    <table>
+      <tr>
+        <th>IP</th>
+        <th>Reachable</th>
+        <th>Latency (ms)</th>
+        <th>Reads</th>
+        <th>Exposure</th>
+        <th>Errors</th>
+      </tr>
+      {% for r in report.results %}
+      <tr>
+        <td>{{ r.ip }}:{{ r.port }} (unit {{ r.unit_id }})</td>
+        <td>{% if r.reachable %}<span class="ok">Yes</span>{% else %}<span class="bad">No</span>{% endif %}</td>
+        <td>{{ r.latency_ms }}</td>
+        <td>
+          <div><strong>Coils:</strong> {{ r.reads.coils if r.reads.coils else '—' }}</div>
+          <div><strong>Discrete Inputs:</strong> {{ r.reads.discrete_inputs if r.reads.discrete_inputs else '—' }}</div>
+          <div><strong>Holding Registers:</strong> {{ r.reads.holding_registers if r.reads.holding_registers else '—' }}</div>
+          <div><strong>Input Registers:</strong> {{ r.reads.input_registers if r.reads.input_registers else '—' }}</div>
+        </td>
+        <td>
+          <div><strong>Unauthenticated Read:</strong>
+            {% if r.exposure.unauthenticated_read %}<span class="warn">Yes</span>{% else %}No{% endif %}
+          </div>
+          <div><strong>Broad Register Access:</strong>
+            {% if r.exposure.broad_register_access %}<span class="warn">Yes</span>{% else %}No{% endif %}
+          </div>
+        </td>
+        <td>
+          {% if r.errors and r.errors|length > 0 %}
+            <div class="code">{{ r.errors | join(' | ') }}</div>
+          {% else %}
+            —
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Notes</h2>
+    <ul>
+      <li>This scan is read-only to avoid unintended actuator changes.</li>
+      <li>Small windows are used to minimize stress on PLCs and legacy devices.</li>
+      <li>Broader access signals potential exposure and should be reviewed against network segmentation and ACLs.</li>
+    </ul>
+  </div>
+</body>
+</html>

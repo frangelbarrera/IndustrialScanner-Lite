@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "generated_at": "2025-09-30T11:43:18Z",
+    "pcap_file": "pcaps\\s7\\wincc_s300_setup-alarm-read-write.pcapng"
+  },
+  "results": [],
+  "summary": {
+    "total_packets": 164,
+    "s7_packets": 0,
+    "suspect_functions": 0,
+    "unique_hosts": []
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "generated_at": "2025-09-30T11:37:24Z",
+    "pcap_file": "pcaps\\s7\\tia_s300_flashLed.pcapng"
+  },
+  "results": [],
+  "summary": {
+    "total_packets": 4,
+    "s7_packets": 0,
+    "suspect_functions": 0,
+    "unique_hosts": []
+  }
+}

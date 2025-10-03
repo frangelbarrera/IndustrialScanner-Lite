@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "generated_at": "2025-09-30T10-58-35Z",
+    "pcap_file": "pcaps\\dnp3\\auth_change_session_keys.pcap"
+  },
+  "results": [
+    {
+      "src": "192.168.1.2",
+      "dst": "192.168.1.1",
+      "function": "UnknownDNP3",
+      "length": 21,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.1.1",
+      "dst": "192.168.1.2",
+      "function": "UnknownDNP3",
+      "length": 40,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.1.2",
+      "dst": "192.168.1.1",
+      "function": "UnknownDNP3",
+      "length": 99,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.1.1",
+      "dst": "192.168.1.2",
+      "function": "UnknownDNP3",
+      "length": 58,
+      "hints": [],
+      "suspect": false
+    }
+  ],
+  "summary": {
+    "total_packets": 8,
+    "dnp3_packets": 4,
+    "suspect_functions": 0,
+    "unique_hosts": [
+      "192.168.1.1",
+      "192.168.1.2"
+    ]
+  }
+}

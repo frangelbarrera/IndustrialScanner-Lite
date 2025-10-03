@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "generated_at": "2025-09-30T10-58-35Z",
+    "pcap_file": "pcaps\\dnp3\\file_read.pcap"
+  },
+  "results": [
+    {
+      "src": "192.168.1.2",
+      "dst": "192.168.1.1",
+      "function": "UnknownDNP3",
+      "length": 67,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.1.1",
+      "dst": "192.168.1.2",
+      "function": "UnknownDNP3",
+      "length": 38,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.1.2",
+      "dst": "192.168.1.1",
+      "function": "UnknownDNP3",
+      "length": 31,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.1.1",
+      "dst": "192.168.1.2",
+      "function": "UnknownDNP3",
+      "length": 54,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.1.2",
+      "dst": "192.168.1.1",
+      "function": "UnknownDNP3",
+      "length": 36,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.1.1",
+      "dst": "192.168.1.2",
+      "function": "UnknownDNP3",
+      "length": 38,
+      "hints": [],
+      "suspect": false
+    }
+  ],
+  "summary": {
+    "total_packets": 7,
+    "dnp3_packets": 6,
+    "suspect_functions": 0,
+    "unique_hosts": [
+      "192.168.1.1",
+      "192.168.1.2"
+    ]
+  }
+}

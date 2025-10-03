@@ -1,0 +1,778 @@
+{
+  "meta": {
+    "generated_at": "2025-09-30T10-58-35Z",
+    "pcap_file": "pcaps\\dnp3\\dnp3_test_data_part1.pcap"
+  },
+  "results": [
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 15,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 25,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 24,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 24,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 24,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 15,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 25,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 24,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 91,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 15,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 86,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 15,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 91,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 15,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 86,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 15,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 91,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 15,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 61,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 15,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 91,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 15,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 79,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 15,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 91,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 15,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 69,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 15,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 15,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 23,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.9",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 15,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 23,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.9",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 18,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.9",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 24,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.9",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 21,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.9",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 27,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 93,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.9",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 24,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.9",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 24,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 15,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 24,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 25,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 24,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 25,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 24,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 21,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 27,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 93,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 15,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 23,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 15,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 23,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 24,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 24,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 24,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.8",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 24,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.8",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.3",
+      "dst": "10.0.0.9",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.9",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 24,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "10.0.0.9",
+      "dst": "10.0.0.3",
+      "function": "UnknownDNP3",
+      "length": 24,
+      "hints": [],
+      "suspect": false
+    }
+  ],
+  "summary": {
+    "total_packets": 181,
+    "dnp3_packets": 95,
+    "suspect_functions": 0,
+    "unique_hosts": [
+      "10.0.0.8",
+      "10.0.0.3",
+      "10.0.0.9"
+    ]
+  }
+}

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>IndustrialScanner-Lite | Modbus Scan Report</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; color: #222; }
+    h1 { margin-bottom: 4px; }
+    .meta { color: #555; margin-bottom: 16px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 12px; }
+    th, td { border: 1px solid #ddd; padding: 8px; font-size: 14px; }
+    th { background: #f4f4f4; text-align: left; }
+    .ok { color: #2e7d32; font-weight: bold; }
+    .warn { color: #e65100; font-weight: bold; }
+    .bad { color: #c62828; font-weight: bold; }
+    .code { font-family: monospace; font-size: 13px; background: #fafafa; padding: 6px; border: 1px solid #eee; }
+    .section { margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <h1>Modbus Scan Report</h1>
+  <div class="meta">
+    <div><strong>Generated:</strong> 2025-09-30T11:58:09Z</div>
+    <div><strong>Port:</strong> 502 | <strong>Unit ID:</strong> 1 | <strong>Timeout:</strong> 2.0s</div>
+    <div><strong>Targets:</strong> 127.0.0.1</div>
+  </div>
+
+  <div class="section">
+    <h2>Summary</h2>
+    <table>
+      <tr>
+        <th>Reachable</th>
+        <th>Unauthenticated Read</th>
+        <th>Broad Register Access</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Per-Host Details</h2>
+    <table>
+      <tr>
+        <th>IP</th>
+        <th>Reachable</th>
+        <th>Latency (ms)</th>
+        <th>Reads</th>
+        <th>Exposure</th>
+        <th>Errors</th>
+      </tr>
+      
+      <tr>
+        <td>127.0.0.1:502 (unit 1)</td>
+        <td><span class="ok">Yes</span></td>
+        <td>8003.28</td>
+        <td>
+          <div><strong>Coils:</strong> —</div>
+          <div><strong>Discrete Inputs:</strong> —</div>
+          <div><strong>Holding Registers:</strong> —</div>
+          <div><strong>Input Registers:</strong> —</div>
+        </td>
+        <td>
+          <div><strong>Unauthenticated Read:</strong>
+            No
+          </div>
+          <div><strong>Broad Register Access:</strong>
+            No
+          </div>
+        </td>
+        <td>
+          
+            —
+          
+        </td>
+      </tr>
+      
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Notes</h2>
+    <ul>
+      <li>This scan is read-only to avoid unintended actuator changes.</li>
+      <li>Small windows are used to minimize stress on PLCs and legacy devices.</li>
+      <li>Broader access signals potential exposure and should be reviewed against network segmentation and ACLs.</li>
+    </ul>
+  </div>
+</body>
+</html>

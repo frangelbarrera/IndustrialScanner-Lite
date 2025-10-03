@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "generated_at": "2025-09-30T11:58:09Z",
+    "targets": [
+      "127.0.0.1"
+    ],
+    "port": 502,
+    "unit_id": 1,
+    "timeout": 2.0
+  },
+  "results": [
+    {
+      "ip": "127.0.0.1",
+      "port": 502,
+      "unit_id": 1,
+      "reachable": true,
+      "latency_ms": 8003.28,
+      "reads": {
+        "coils": null,
+        "discrete_inputs": null,
+        "holding_registers": null,
+        "input_registers": null
+      },
+      "exposure": {
+        "unauthenticated_read": false,
+        "broad_register_access": false
+      },
+      "errors": []
+    }
+  ],
+  "summary": {
+    "reachable": 1,
+    "unauthenticated_read": 0,
+    "broad_register_access": 0
+  }
+}

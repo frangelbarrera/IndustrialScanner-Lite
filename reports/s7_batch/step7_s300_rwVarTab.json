@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "generated_at": "2025-09-30T11:37:23Z",
+    "pcap_file": "pcaps\\s7\\step7_s300_rwVarTab.pcapng"
+  },
+  "results": [],
+  "summary": {
+    "total_packets": 24,
+    "s7_packets": 0,
+    "suspect_functions": 0,
+    "unique_hosts": []
+  }
+}

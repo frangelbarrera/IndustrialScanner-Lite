@@ -1,0 +1,193 @@
+{
+  "meta": {
+    "generated_at": "2025-09-30T10-58-35Z",
+    "pcap_file": "pcaps\\dnp3\\dnp3_test_data_part2.pcap"
+  },
+  "results": [
+    {
+      "src": "192.168.66.33",
+      "dst": "192.168.66.34",
+      "function": "UnknownDNP3",
+      "length": 24,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.34",
+      "dst": "192.168.66.33",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.33",
+      "dst": "192.168.66.34",
+      "function": "UnknownDNP3",
+      "length": 35,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.34",
+      "dst": "192.168.66.33",
+      "function": "UnknownDNP3",
+      "length": 37,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.33",
+      "dst": "192.168.66.34",
+      "function": "UnknownDNP3",
+      "length": 35,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.34",
+      "dst": "192.168.66.33",
+      "function": "UnknownDNP3",
+      "length": 37,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.33",
+      "dst": "192.168.66.34",
+      "function": "UnknownDNP3",
+      "length": 35,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.34",
+      "dst": "192.168.66.33",
+      "function": "UnknownDNP3",
+      "length": 37,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.33",
+      "dst": "192.168.66.34",
+      "function": "UnknownDNP3",
+      "length": 35,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.34",
+      "dst": "192.168.66.33",
+      "function": "UnknownDNP3",
+      "length": 37,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.33",
+      "dst": "192.168.66.34",
+      "function": "UnknownDNP3",
+      "length": 35,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.34",
+      "dst": "192.168.66.33",
+      "function": "UnknownDNP3",
+      "length": 37,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.33",
+      "dst": "192.168.66.34",
+      "function": "UnknownDNP3",
+      "length": 18,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.34",
+      "dst": "192.168.66.33",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.33",
+      "dst": "192.168.66.34",
+      "function": "UnknownDNP3",
+      "length": 18,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.34",
+      "dst": "192.168.66.33",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.33",
+      "dst": "192.168.66.34",
+      "function": "UnknownDNP3",
+      "length": 18,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.34",
+      "dst": "192.168.66.33",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.33",
+      "dst": "192.168.66.34",
+      "function": "UnknownDNP3",
+      "length": 18,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.34",
+      "dst": "192.168.66.33",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.33",
+      "dst": "192.168.66.34",
+      "function": "UnknownDNP3",
+      "length": 18,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.66.34",
+      "dst": "192.168.66.33",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    }
+  ],
+  "summary": {
+    "total_packets": 33,
+    "dnp3_packets": 22,
+    "suspect_functions": 0,
+    "unique_hosts": [
+      "192.168.66.34",
+      "192.168.66.33"
+    ]
+  }
+}

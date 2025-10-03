@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "generated_at": "2025-09-30T10-58-35Z",
+    "pcap_file": "pcaps\\dnp3\\disable_unsolcited_and_response.pcap"
+  },
+  "results": [
+    {
+      "src": "192.168.60.1",
+      "dst": "192.168.60.130",
+      "function": "UnknownDNP3",
+      "length": 24,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.60.130",
+      "dst": "192.168.60.1",
+      "function": "UnknownDNP3",
+      "length": 17,
+      "hints": [],
+      "suspect": false
+    }
+  ],
+  "summary": {
+    "total_packets": 10,
+    "dnp3_packets": 2,
+    "suspect_functions": 0,
+    "unique_hosts": [
+      "192.168.60.1",
+      "192.168.60.130"
+    ]
+  }
+}

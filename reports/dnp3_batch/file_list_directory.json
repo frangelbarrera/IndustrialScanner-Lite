@@ -1,0 +1,121 @@
+{
+  "meta": {
+    "generated_at": "2025-09-30T10-58-35Z",
+    "pcap_file": "pcaps\\dnp3\\file_list_directory.pcap"
+  },
+  "results": [
+    {
+      "src": "192.168.1.2",
+      "dst": "192.168.1.1",
+      "function": "UnknownDNP3",
+      "length": 52,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.1.1",
+      "dst": "192.168.1.2",
+      "function": "UnknownDNP3",
+      "length": 38,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.1.2",
+      "dst": "192.168.1.1",
+      "function": "UnknownDNP3",
+      "length": 31,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.1.1",
+      "dst": "192.168.1.2",
+      "function": "UnknownDNP3",
+      "length": 292,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.1.1",
+      "dst": "192.168.1.2",
+      "function": "UnknownDNP3",
+      "length": 292,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.1.1",
+      "dst": "192.168.1.2",
+      "function": "UnknownDNP3",
+      "length": 292,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.1.1",
+      "dst": "192.168.1.2",
+      "function": "UnknownDNP3",
+      "length": 292,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.1.1",
+      "dst": "192.168.1.2",
+      "function": "UnknownDNP3",
+      "length": 28,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.1.2",
+      "dst": "192.168.1.1",
+      "function": "UnknownDNP3",
+      "length": 31,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.1.1",
+      "dst": "192.168.1.2",
+      "function": "UnknownDNP3",
+      "length": 292,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.1.1",
+      "dst": "192.168.1.2",
+      "function": "UnknownDNP3",
+      "length": 52,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.1.2",
+      "dst": "192.168.1.1",
+      "function": "UnknownDNP3",
+      "length": 36,
+      "hints": [],
+      "suspect": false
+    },
+    {
+      "src": "192.168.1.1",
+      "dst": "192.168.1.2",
+      "function": "UnknownDNP3",
+      "length": 38,
+      "hints": [],
+      "suspect": false
+    }
+  ],
+  "summary": {
+    "total_packets": 19,
+    "dnp3_packets": 13,
+    "suspect_functions": 0,
+    "unique_hosts": [
+      "192.168.1.1",
+      "192.168.1.2"
+    ]
+  }
+}
