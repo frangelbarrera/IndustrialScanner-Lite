@@ -1,8 +1,5 @@
-```markdown
-# IndustrialScanner-Lite
 
-[![Python](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+# IndustrialScanner-Lite
 
 ---
 
@@ -40,7 +37,7 @@ python -m modbus_scanner.modbus_scan --targets 127.0.0.1 --unit 1
 # Example: Process S7 PCAPs and build dashboard
 python run_dnp3_all.py
 python build_s7_index.py
-```
+
 
 Dashboards will be generated in the `reports/` folder as HTML files.
 
