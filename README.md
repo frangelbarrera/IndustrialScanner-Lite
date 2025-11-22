@@ -191,5 +191,8 @@ This allows you to test the toolkit immediately without external dependencies.
 
 ---
 
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 
