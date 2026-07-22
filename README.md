@@ -3,6 +3,14 @@
 
 ---
 
+[![License: MIT](https://img.shields.io/github/license/frangelbarrera/IndustrialScanner-Lite?style=flat-square)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/frangelbarrera/IndustrialScanner-Lite?style=flat-square)](https://github.com/frangelbarrera/IndustrialScanner-Lite/stargazers)
+[![Last Commit](https://img.shields.io/github/last-commit/frangelbarrera/IndustrialScanner-Lite?style=flat-square)](https://github.com/frangelbarrera/IndustrialScanner-Lite/commits)
+[![Issues](https://img.shields.io/github/issues/frangelbarrera/IndustrialScanner-Lite?style=flat-square)](https://github.com/frangelbarrera/IndustrialScanner-Lite/issues)
+[![Top Language](https://img.shields.io/github/languages/top/frangelbarrera/IndustrialScanner-Lite?style=flat-square)](https://github.com/frangelbarrera/IndustrialScanner-Lite)
+[![Contributors](https://img.shields.io/github/contributors/frangelbarrera/IndustrialScanner-Lite?style=flat-square)](https://github.com/frangelbarrera/IndustrialScanner-Lite/graphs/contributors)
+[![Repo Size](https://img.shields.io/github/repo-size/frangelbarrera/IndustrialScanner-Lite?style=flat-square)](https://github.com/frangelbarrera/IndustrialScanner-Lite)
+
 ##  Introduction
 
 **IndustrialScanner-Lite** is a modular cybersecurity and automation toolkit designed for **Industrial Control Systems (ICS)** and **Operational Technology (OT)** environments.  
