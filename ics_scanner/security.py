@@ -23,6 +23,10 @@ def html_escape(value: Any) -> str:
     """Strict HTML entity escaping for any untrusted value."""
     if value is None:
         return ""
+    if isinstance(value, bytes):
+        # PCAP-derived fields often arrive as bytes. Decode with replacement
+        # so invalid UTF-8 (e.g. malformed protocol bytes) doesn't crash.
+        value = value.decode("utf-8", errors="replace")
     if isinstance(value, (list, tuple, set)):
         return ", ".join(html_escape(v) for v in value)
     return html.escape(str(value), quote=True)
