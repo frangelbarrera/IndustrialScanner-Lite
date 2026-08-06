@@ -72,10 +72,11 @@ def write_json_report(data: Dict[str, Any], out_path: Path) -> Path:
 
 def write_html_report(data: Dict[str, Any], out_path: Path, template_path: Optional[Path] = None) -> Path:
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    tpath = template_path or html_template_path("s7_report.html")
-    template_str = tpath.read_text(encoding="utf-8")
-    template = Template(template_str)
-    html = template.render(report=data)
+    # SECURITY: use autoescape=True. Original code emitted raw bytes from PCAPs.
+    from ics_scanner.security import safe_render
+    template_dir = (template_path.parent) if template_path else Path("reports/templates")
+    template_name = (template_path.name) if template_path else "s7_report.html"
+    html = safe_render(template_name, {"report": data}, template_dir=str(template_dir))
     out_path.write_text(html, encoding="utf-8")
     return out_path
 

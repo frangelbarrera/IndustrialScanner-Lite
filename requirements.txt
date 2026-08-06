@@ -1,3 +1,7 @@
-pymodbus==3.6.5
-Jinja2==3.1.4
-scapy==2.5.0
+pymodbus>=3.6.5,<4
+Jinja2>=3.1.4,<4
+scapy>=2.5.0,<3
+click>=8.1
+rich>=13.7
+pydantic>=2.5
+markupsafe>=2.1

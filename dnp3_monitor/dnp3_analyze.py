@@ -64,23 +64,38 @@ def save_json(report: Dict[str, Any], json_out: str) -> None:
         json.dump(report, f, indent=2)
 
 def build_html(report: Dict[str, Any]) -> str:
-    
+    """Build DNP3 HTML report with proper HTML escaping (XSS fix).
+
+    Original code used f-strings to embed PCAP-derived bytes directly into HTML,
+    enabling stored XSS when reports were generated from attacker-controlled PCAPs.
+    This implementation uses markupsafe.escape() on every untrusted field.
+    """
+    from markupsafe import escape
+
     rows = []
     for r in report.get("results", []):
         func = r.get("function", "")
-        func_html = f"<span class='bad'>{func}</span>" if r.get("suspect") else func
+        func_html = (
+            f"<span class='bad'>{escape(func)}</span>" if r.get("suspect") else escape(func)
+        )
         hints = ", ".join(r.get("hints", []))
         rows.append(
-            f"<tr>"
-            f"<td>{r.get('src','')}</td>"
-            f"<td>{r.get('dst','')}</td>"
+            "<tr>"
+            f"<td>{escape(r.get('src',''))}</td>"
+            f"<td>{escape(r.get('dst',''))}</td>"
             f"<td>{func_html}</td>"
-            f"<td>{r.get('length','')}</td>"
-            f"<td>{hints}</td>"
-            f"</tr>"
+            f"<td>{escape(r.get('length',''))}</td>"
+            f"<td>{escape(hints)}</td>"
+            "</tr>"
         )
 
-    html = f"""<!doctype html>
+    # All values below are tool-internal constants, NOT user-controlled.
+    gen = report['meta']['generated_at']
+    pcap = report['meta']['pcap_file']
+    summary = report['summary']
+    hosts = ", ".join(summary['unique_hosts'])
+
+    return f"""<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -98,8 +113,8 @@ def build_html(report: Dict[str, Any]) -> str:
 <body>
   <h1>DNP3 Analysis Report</h1>
   <div class="meta">
-    <div><strong>Generated:</strong> {report['meta']['generated_at']}</div>
-    <div><strong>PCAP File:</strong> {report['meta']['pcap_file']}</div>
+    <div><strong>Generated:</strong> {escape(gen)}</div>
+    <div><strong>PCAP File:</strong> {escape(pcap)}</div>
   </div>
 
   <h2>Summary</h2>
@@ -111,10 +126,10 @@ def build_html(report: Dict[str, Any]) -> str:
       <th>Unique Hosts</th>
     </tr>
     <tr>
-      <td>{report['summary']['total_packets']}</td>
-      <td>{report['summary']['dnp3_packets']}</td>
-      <td>{report['summary']['suspect_functions']}</td>
-      <td>{", ".join(report['summary']['unique_hosts'])}</td>
+      <td>{summary['total_packets']}</td>
+      <td>{summary['dnp3_packets']}</td>
+      <td>{summary['suspect_functions']}</td>
+      <td>{escape(hosts)}</td>
     </tr>
   </table>
 
@@ -139,7 +154,6 @@ def build_html(report: Dict[str, Any]) -> str:
 </body>
 </html>
 """
-    return html
 
 def save_html(report: Dict[str, Any], html_out: str) -> None:
     os.makedirs(os.path.dirname(html_out), exist_ok=True)

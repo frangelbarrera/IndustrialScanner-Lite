@@ -1,0 +1,119 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ics-ot-scanner"
+version = "0.2.0.dev0"
+description = "Read-only ICS/OT security analyzer for Modbus/TCP, S7Comm and DNP3."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "IndustrialScanner-Lite contributors" },
+]
+keywords = [
+    "ics", "ot", "scada", "modbus", "s7comm", "dnp3",
+    "industrial", "cybersecurity", "pentest", "passive",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security",
+    "Topic :: System :: Networking :: Monitoring",
+]
+dependencies = [
+    "pymodbus>=3.6.5,<4",
+    "Jinja2>=3.1.4,<4",
+    "scapy>=2.5.0,<3",
+    "click>=8.1",
+    "rich>=13.7",
+    "pydantic>=2.5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=4.1",
+    "pytest-asyncio>=0.23",
+    "hypothesis>=6.92",
+    "ruff>=0.5",
+    "mypy>=1.8",
+    "bandit>=1.7",
+    "pip-audit>=2.7",
+    "pre-commit>=3.6",
+]
+docs = [
+    "mkdocs>=1.6",
+    "mkdocs-material>=9.5",
+    "mkdocstrings[python]>=0.24",
+]
+
+[project.scripts]
+ics-scan = "ics_scanner.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/frangelbarrera/IndustrialScanner-Lite"
+Issues = "https://github.com/frangelbarrera/IndustrialScanner-Lite/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["modbus_scanner*", "s7_comm_analyzer*", "dnp3_monitor*", "ics_scanner*"]
+exclude = ["tests*", "pcaps*", "reports*", "docs*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    "E", "F", "W",      # pycodestyle + pyflakes
+    "I",                 # isort
+    "B",                 # bugbear
+    "C4",                # comprehensions
+    "UP",                # pyupgrade
+    "SIM",               # simplify
+    "RUF",               # ruff-specific
+    "S",                 # bandit-style security
+    "T20",               # no print() in production code
+    "PT",                # pytest style
+    "PL",                # pylint
+]
+ignore = ["E501"]       # line length handled by formatter
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+files = ["modbus_scanner", "s7_comm_analyzer", "dnp3_monitor"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+addopts = "-ra -q --cov=modbus_scanner --cov=s7_comm_analyzer --cov=dnp3_monitor --cov-report=term-missing --cov-report=html"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests that require live devices",
+    "fuzz: marks property-based / fuzz tests",
+]
+
+[tool.bandit]
+exclude_dirs = ["tests", "pcaps", "reports"]
+skips = ["B101"]   # assert usage in tests
+
+[tool.coverage.run]
+source = ["modbus_scanner", "s7_comm_analyzer", "dnp3_monitor"]
+omit = ["*/tests/*", "*/__pycache__/*"]
