@@ -1,4 +1,5 @@
 """Tests for the protocol parser plugin registry."""
+
 from __future__ import annotations
 
 from ics_scanner.plugins import ParserEntry, discover_parsers, list_parsers, load_parser

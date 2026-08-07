@@ -10,6 +10,7 @@ under the `industrial_scanner.parsers` group in their pyproject.toml:
 
 Parsers must implement the `ProtocolParser` protocol defined below.
 """
+
 from __future__ import annotations
 
 import importlib.metadata as importlib_metadata
@@ -42,10 +43,11 @@ class ProtocolParser(Protocol):
 @dataclass(frozen=True)
 class ParserEntry:
     """A registered parser plugin."""
-    name: str                       # short identifier (e.g., 'modbus')
-    protocol_name: str              # human-readable (e.g., 'Modbus/TCP')
-    module: str                     # python module path
-    class_name: str                 # parser class name
+
+    name: str  # short identifier (e.g., 'modbus')
+    protocol_name: str  # human-readable (e.g., 'Modbus/TCP')
+    module: str  # python module path
+    class_name: str  # parser class name
     description: str = ""
 
 
@@ -118,6 +120,7 @@ def load_parser(entry: ParserEntry) -> ProtocolParser | None:
     """
     try:
         import importlib
+
         module = importlib.import_module(entry.module)
         cls = getattr(module, entry.class_name)
         return cls()

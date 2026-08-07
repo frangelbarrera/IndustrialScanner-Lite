@@ -1,4 +1,5 @@
 """Tests for MITRE ATT&CK for ICS mapping."""
+
 from __future__ import annotations
 
 from ics_scanner.mitre_attack import (

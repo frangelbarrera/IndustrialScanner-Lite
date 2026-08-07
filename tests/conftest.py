@@ -1,4 +1,5 @@
 """Pytest configuration shared by all tests."""
+
 import sys
 from pathlib import Path
 

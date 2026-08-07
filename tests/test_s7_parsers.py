@@ -1,4 +1,5 @@
 """Tests for the strict S7Comm parser (binary decoding, not heuristics)."""
+
 from __future__ import annotations
 
 from scapy.all import IP, TCP, Ether, Raw
@@ -24,8 +25,9 @@ def _s7pkt(payload: bytes):
     return Ether() / IP(src="10.0.0.1", dst="10.0.0.2") / TCP(dport=102) / Raw(load=payload)
 
 
-def _build_s7_frame(rosctr: int, func: int = 0, param_len: int = 0,
-                    data: bytes = b"", pdu_ref: int = 0) -> bytes:
+def _build_s7_frame(
+    rosctr: int, func: int = 0, param_len: int = 0, data: bytes = b"", pdu_ref: int = 0
+) -> bytes:
     """Build a minimal S7Comm frame for testing.
 
     S7 header (10 bytes):

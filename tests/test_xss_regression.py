@@ -1,4 +1,5 @@
 """Verify that HTML reports escape untrusted input (XSS regression)."""
+
 from __future__ import annotations
 
 from dnp3_monitor.dnp3_analyze import build_html
@@ -16,8 +17,14 @@ def test_dnp3_html_escapes_untrusted_payload():
             "unique_hosts": [malicious],
         },
         "results": [
-            {"src": malicious, "dst": malicious, "function": malicious,
-             "length": 0, "hints": [malicious], "suspect": True}
+            {
+                "src": malicious,
+                "dst": malicious,
+                "function": malicious,
+                "length": 0,
+                "hints": [malicious],
+                "suspect": True,
+            }
         ],
     }
     html = build_html(report)

@@ -4,6 +4,7 @@ Passive analyzer for Siemens S7Comm traffic.
 Scans all PCAP/PCAPNG files inside pcaps/s7/, extracts metadata, detects
 sensitive function codes, and generates JSON/HTML reports in reports/s7_batch/.
 """
+
 from __future__ import annotations
 
 import json
@@ -43,7 +44,12 @@ def analyze_pcap(pcap_path: str) -> dict[str, Any]:
                 summary["unique_hosts"].add(parsed["src"])
                 summary["unique_hosts"].add(parsed["dst"])
                 if parsed["function_code"] in {
-                    "WriteVar", "Start", "Stop", "DownloadBlock", "CopyRamToRom", "FirmwareUpdate"
+                    "WriteVar",
+                    "Start",
+                    "Stop",
+                    "DownloadBlock",
+                    "CopyRamToRom",
+                    "FirmwareUpdate",
                 }:
                     summary["suspect_functions"] += 1
 

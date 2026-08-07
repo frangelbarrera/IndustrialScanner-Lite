@@ -2,6 +2,7 @@
 DNP3 Monitor: PCAP analysis for DNP3 traffic over TCP/UDP port 20000.
 Generates JSON and HTML reports with summary and per-packet details.
 """
+
 import json
 import os
 from datetime import datetime
@@ -14,23 +15,22 @@ from .parsers import parse_dnp3_packet
 
 def utc_ts() -> str:
     from datetime import UTC
+
     return datetime.now(UTC).strftime("%Y-%m-%dT%H-%M-%SZ")
+
 
 def analyze_pcap(pcap_path: str) -> dict[str, Any]:
     packets = rdpcap(pcap_path)
     results: list[dict[str, Any]] = []
 
-    summary = {
-        "total_packets": 0,
-        "dnp3_packets": 0,
-        "suspect_functions": 0,
-        "unique_hosts": set()
-    }
+    summary = {"total_packets": 0, "dnp3_packets": 0, "suspect_functions": 0, "unique_hosts": set()}
 
     for pkt in packets:
         summary["total_packets"] += 1
         is_dnp3 = False
-        if (TCP in pkt and (pkt[TCP].dport == 20000 or pkt[TCP].sport == 20000)) or (UDP in pkt and (pkt[UDP].dport == 20000 or pkt[UDP].sport == 20000)):
+        if (TCP in pkt and (pkt[TCP].dport == 20000 or pkt[TCP].sport == 20000)) or (
+            UDP in pkt and (pkt[UDP].dport == 20000 or pkt[UDP].sport == 20000)
+        ):
             is_dnp3 = True
 
         if not is_dnp3:
@@ -55,14 +55,16 @@ def analyze_pcap(pcap_path: str) -> dict[str, Any]:
             "total_packets": summary["total_packets"],
             "dnp3_packets": summary["dnp3_packets"],
             "suspect_functions": summary["suspect_functions"],
-            "unique_hosts": list(filter(None, summary["unique_hosts"]))
-        }
+            "unique_hosts": list(filter(None, summary["unique_hosts"])),
+        },
     }
+
 
 def save_json(report: dict[str, Any], json_out: str) -> None:
     os.makedirs(os.path.dirname(json_out), exist_ok=True)
     with open(json_out, "w", encoding="utf-8") as f:
         json.dump(report, f, indent=2)
+
 
 def build_html(report: dict[str, Any]) -> str:
     """Build DNP3 HTML report with proper HTML escaping (XSS fix).
@@ -76,25 +78,23 @@ def build_html(report: dict[str, Any]) -> str:
     rows = []
     for r in report.get("results", []):
         func = r.get("function", "")
-        func_html = (
-            f"<span class='bad'>{escape(func)}</span>" if r.get("suspect") else escape(func)
-        )
+        func_html = f"<span class='bad'>{escape(func)}</span>" if r.get("suspect") else escape(func)
         hints = ", ".join(r.get("hints", []))
         rows.append(
             "<tr>"
-            f"<td>{escape(r.get('src',''))}</td>"
-            f"<td>{escape(r.get('dst',''))}</td>"
+            f"<td>{escape(r.get('src', ''))}</td>"
+            f"<td>{escape(r.get('dst', ''))}</td>"
             f"<td>{func_html}</td>"
-            f"<td>{escape(r.get('length',''))}</td>"
+            f"<td>{escape(r.get('length', ''))}</td>"
             f"<td>{escape(hints)}</td>"
             "</tr>"
         )
 
     # All values below are tool-internal constants, NOT user-controlled.
-    gen = report['meta']['generated_at']
-    pcap = report['meta']['pcap_file']
-    summary = report['summary']
-    hosts = ", ".join(summary['unique_hosts'])
+    gen = report["meta"]["generated_at"]
+    pcap = report["meta"]["pcap_file"]
+    summary = report["summary"]
+    hosts = ", ".join(summary["unique_hosts"])
 
     return f"""<!doctype html>
 <html lang="en">
@@ -127,9 +127,9 @@ def build_html(report: dict[str, Any]) -> str:
       <th>Unique Hosts</th>
     </tr>
     <tr>
-      <td>{summary['total_packets']}</td>
-      <td>{summary['dnp3_packets']}</td>
-      <td>{summary['suspect_functions']}</td>
+      <td>{summary["total_packets"]}</td>
+      <td>{summary["dnp3_packets"]}</td>
+      <td>{summary["suspect_functions"]}</td>
       <td>{escape(hosts)}</td>
     </tr>
   </table>
@@ -143,7 +143,7 @@ def build_html(report: dict[str, Any]) -> str:
       <th>Length</th>
       <th>Hints</th>
     </tr>
-    {''.join(rows)}
+    {"".join(rows)}
   </table>
 
   <h2>Notes</h2>
@@ -156,11 +156,13 @@ def build_html(report: dict[str, Any]) -> str:
 </html>
 """
 
+
 def save_html(report: dict[str, Any], html_out: str) -> None:
     os.makedirs(os.path.dirname(html_out), exist_ok=True)
     html = build_html(report)
     with open(html_out, "w", encoding="utf-8") as f:
         f.write(html)
+
 
 def main(
     pcap_file: str,

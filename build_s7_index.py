@@ -4,6 +4,7 @@ Global Index Generator for S7Comm Analyzer with charts.
 Reads all JSON reports in reports/s7_batch/ and builds reports/s7_index.html
 with an executive summary, links to HTML reports, and Chart.js visualizations.
 """
+
 from __future__ import annotations
 
 import html as html_lib
@@ -27,12 +28,14 @@ def load_reports():
             with open(path, encoding="utf-8") as f:
                 data = json.load(f)
             html_name = fname.replace(".json", ".html")
-            reports.append({
-                "json": fname,
-                "html": html_name,
-                "meta": data.get("meta", {}),
-                "summary": data.get("summary", {}),
-            })
+            reports.append(
+                {
+                    "json": fname,
+                    "html": html_name,
+                    "meta": data.get("meta", {}),
+                    "summary": data.get("summary", {}),
+                }
+            )
         except Exception as e:
             print(f"[WARN] Could not read {fname}: {e}")
     return reports
@@ -72,17 +75,20 @@ def build_index(reports):
     parts.append(f"<div><strong>Generated:</strong> {html_lib.escape(now)}</div>")
 
     parts.append("<table>")
-    parts.append("<tr><th>Report</th><th>PCAP File</th><th>Total Packets</th>"
-                "<th>S7 Packets</th><th>Suspect Functions</th><th>Unique Hosts</th></tr>")
+    parts.append(
+        "<tr><th>Report</th><th>PCAP File</th><th>Total Packets</th>"
+        "<th>S7 Packets</th><th>Suspect Functions</th><th>Unique Hosts</th></tr>"
+    )
     for r in reports:
         meta = r["meta"]
         summ = r["summary"]
         suspect = summ.get("suspect_functions", 0)
-        suspect_html = (f"<span class='bad'>{suspect}</span>"
-                        if suspect > 0 else str(suspect))
+        suspect_html = f"<span class='bad'>{suspect}</span>" if suspect > 0 else str(suspect)
         parts.append("<tr>")
-        parts.append(f"<td><a href='s7_batch/{html_lib.escape(r['html'])}'>"
-                     f"{html_lib.escape(r['html'])}</a></td>")
+        parts.append(
+            f"<td><a href='s7_batch/{html_lib.escape(r['html'])}'>"
+            f"{html_lib.escape(r['html'])}</a></td>"
+        )
         parts.append(f"<td>{html_lib.escape(str(meta.get('pcap_file', '')))}</td>")
         parts.append(f"<td>{summ.get('total_packets', '')}</td>")
         parts.append(f"<td>{summ.get('s7_packets', '')}</td>")
@@ -140,13 +146,17 @@ def build_index(reports):
     parts.append("</script>")
 
     parts.append("<h2>Notes</h2><ul>")
-    parts.append("<li>This index consolidates all reports generated in "
-                "<code>reports/s7_batch/</code>.</li>")
+    parts.append(
+        "<li>This index consolidates all reports generated in <code>reports/s7_batch/</code>.</li>"
+    )
     parts.append("<li>Click on the report name to open the detailed HTML view.</li>")
-    parts.append("<li>Values in red indicate detected suspect functions (Start, Stop, "
-                "WriteVar, DownloadBlock, CopyRamToRom, FirmwareUpdate).</li>")
-    parts.append("<li>The charts display the global distribution of packets and "
-                "suspect functions.</li>")
+    parts.append(
+        "<li>Values in red indicate detected suspect functions (Start, Stop, "
+        "WriteVar, DownloadBlock, CopyRamToRom, FirmwareUpdate).</li>"
+    )
+    parts.append(
+        "<li>The charts display the global distribution of packets and suspect functions.</li>"
+    )
     parts.append("</ul>")
     parts.append("</body></html>")
     return "\n".join(parts)

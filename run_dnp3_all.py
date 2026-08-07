@@ -11,6 +11,7 @@ from dnp3_monitor import dnp3_analyze
 PCAP_DIR = os.path.join("pcaps", "dnp3")
 REPORT_DIR = os.path.join("reports", "dnp3_batch")
 
+
 def main():
     if not os.path.exists(PCAP_DIR):
         print(f"[ERROR] Folder {PCAP_DIR} does not exist")
@@ -40,6 +41,7 @@ def main():
             print(f"[OK] {fname} → {out['json']} | {out['html']}")
         except Exception as e:
             print(f"[ERROR] Failed {fname}: {e}")
+
 
 if __name__ == "__main__":
     main()

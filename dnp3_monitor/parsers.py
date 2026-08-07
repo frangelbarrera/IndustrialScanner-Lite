@@ -7,6 +7,7 @@ than ASCII substring matching, which produces reliable classifications.
 
 Reference: IEEE 1815-2012, Wireshark packet-dnp.c.
 """
+
 from __future__ import annotations
 
 from scapy.all import Raw
@@ -15,7 +16,7 @@ from scapy.all import Raw
 # DNP3 link-layer constants
 # ---------------------------------------------------------------------------
 DNP3_SYNC_0 = 0x05
-DNP3_SYNC_1 = 0x64     # Master/outstation link frame
+DNP3_SYNC_1 = 0x64  # Master/outstation link frame
 DNP3_SYNC_1_RTU = 0xC4  # RTU back-to-back frame (rare)
 
 # Link function codes (LCB byte 1, lower 4 bits)

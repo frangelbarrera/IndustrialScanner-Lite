@@ -1,4 +1,5 @@
 """Tests for the strict DNP3 parser (binary decoding per IEEE 1815-2012)."""
+
 from __future__ import annotations
 
 from scapy.all import IP, TCP, Ether, Raw
@@ -22,9 +23,9 @@ def _dnp3pkt(payload: bytes):
     return Ether() / IP(src="10.0.0.1", dst="10.0.0.2") / TCP(dport=20000) / Raw(load=payload)
 
 
-def _build_dnp3_frame(link_func: int = LINK_FUNC_USER_DATA,
-                     app_func: int = APP_FUNC_READ,
-                     with_app: bool = True) -> bytes:
+def _build_dnp3_frame(
+    link_func: int = LINK_FUNC_USER_DATA, app_func: int = APP_FUNC_READ, with_app: bool = True
+) -> bytes:
     """Build a minimal DNP3 frame for testing.
 
     Link layer (10 bytes):
@@ -55,9 +56,9 @@ def _build_dnp3_frame(link_func: int = LINK_FUNC_USER_DATA,
     ctrl = 0xC0 | (link_func & 0x0F)  # DIR=1, PRM=1, FCB=0, FCV=1
     frame = (
         bytes([DNP3_SYNC_0, DNP3_SYNC_1, length, ctrl])
-        + (1024).to_bytes(2, "little")   # dest
-        + (1).to_bytes(2, "little")     # src
-        + b"\x00\x00"                    # link CRC placeholder
+        + (1024).to_bytes(2, "little")  # dest
+        + (1).to_bytes(2, "little")  # src
+        + b"\x00\x00"  # link CRC placeholder
     )
     if link_func == LINK_FUNC_USER_DATA and with_app:
         # transport byte + app control + app function
@@ -137,6 +138,7 @@ class TestClassifyAppFunction:
 class TestParseDnp3Packet:
     def test_no_raw_returns_none(self):
         from scapy.all import IP, TCP, Ether
+
         pkt = Ether() / IP() / TCP()
         assert parse_dnp3_packet(pkt) is None
 

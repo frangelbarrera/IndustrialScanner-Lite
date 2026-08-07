@@ -5,6 +5,7 @@ Safe, read-only Modbus/TCP scanner for OT networks. It probes hosts, reads
 small register/coil windows, assesses exposure risks, and generates
 JSON/HTML reports.
 """
+
 from __future__ import annotations
 
 import json
@@ -72,9 +73,7 @@ def probe_host(ip: str, port: int, unit_id: int, timeout: float = 2.0) -> dict[s
         try:
             rr = client.read_discrete_inputs(address=0, count=16, unit=unit_id)
             if not isinstance(rr, ModbusIOException) and rr.isError() is False:
-                result["reads"]["discrete_inputs"] = (
-                    list(rr.bits) if rr.bits is not None else []
-                )
+                result["reads"]["discrete_inputs"] = list(rr.bits) if rr.bits is not None else []
                 result["exposure"]["unauthenticated_read"] = True
         except Exception as e:
             result["errors"].append(f"discrete_inputs_read_error: {safe_str(e)}")
@@ -119,10 +118,8 @@ def probe_host(ip: str, port: int, unit_id: int, timeout: float = 2.0) -> dict[s
     return result
 
 
-def scan_targets(
-    targets: list[str], port: int, unit_id: int, timeout: float
-) -> dict[str, Any]:
-    aggregate = {
+def scan_targets(targets: list[str], port: int, unit_id: int, timeout: float) -> dict[str, Any]:
+    aggregate: dict[str, Any] = {
         "meta": {
             "generated_at": utc_ts(),
             "targets": targets,
@@ -137,18 +134,20 @@ def scan_targets(
             "broad_register_access": 0,
         },
     }
+    results: list[dict[str, Any]] = aggregate["results"]
+    summary: dict[str, int] = aggregate["summary"]
 
     for ip in targets:
         LOG.info("Probing %s:%d (unit %d)", ip, port, unit_id)
         res = probe_host(ip, port, unit_id, timeout)
-        aggregate["results"].append(res)
+        results.append(res)
 
         if res["reachable"]:
-            aggregate["summary"]["reachable"] += 1
+            summary["reachable"] += 1
         if res["exposure"]["unauthenticated_read"]:
-            aggregate["summary"]["unauthenticated_read"] += 1
+            summary["unauthenticated_read"] += 1
         if res["exposure"]["broad_register_access"]:
-            aggregate["summary"]["broad_register_access"] += 1
+            summary["broad_register_access"] += 1
 
     return aggregate
 
@@ -201,9 +200,7 @@ def main(
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(
-        description="IndustrialScanner Modbus read-only scanner"
-    )
+    parser = argparse.ArgumentParser(description="IndustrialScanner Modbus read-only scanner")
     parser.add_argument(
         "--targets",
         required=True,

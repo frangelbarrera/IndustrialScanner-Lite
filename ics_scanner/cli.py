@@ -1,4 +1,5 @@
 """Unified CLI entry point for IndustrialScanner (Click + Rich)."""
+
 from __future__ import annotations
 
 import sys
@@ -31,11 +32,21 @@ def cli() -> None:
 @click.option("--timeout", default=2.0, show_default=True, help="Socket timeout (s)")
 @click.option("--json-out", default=None, help="JSON report path")
 @click.option("--html-out", default=None, help="HTML report path")
-@click.option("--allow-public", is_flag=True, default=False,
-              help="Allow scanning public IPs (REQUIRES WRITTEN AUTHORIZATION)")
-def modbus_cmd(targets: str, port: int, unit: int, timeout: float,
-               json_out: str | None, html_out: str | None,
-               allow_public: bool) -> None:
+@click.option(
+    "--allow-public",
+    is_flag=True,
+    default=False,
+    help="Allow scanning public IPs (REQUIRES WRITTEN AUTHORIZATION)",
+)
+def modbus_cmd(
+    targets: str,
+    port: int,
+    unit: int,
+    timeout: float,
+    json_out: str | None,
+    html_out: str | None,
+    allow_public: bool,
+) -> None:
     from modbus_scanner.modbus_scan import (
         expand_targets,
         scan_targets,
@@ -62,10 +73,14 @@ def modbus_cmd(targets: str, port: int, unit: int, timeout: float,
     console.print(f"[green]OK[/green] HTML: {html_path}")
 
     t = Table(title="Modbus Scan Summary")
-    t.add_column("IP"); t.add_column("Reachable"); t.add_column("Latency ms"); t.add_column("Errors")
+    t.add_column("IP")
+    t.add_column("Reachable")
+    t.add_column("Latency ms")
+    t.add_column("Errors")
     for r in data["results"]:
-        t.add_row(r["ip"], "OK" if r["reachable"] else "FAIL",
-                  str(r["latency_ms"]), str(len(r["errors"])))
+        t.add_row(
+            r["ip"], "OK" if r["reachable"] else "FAIL", str(r["latency_ms"]), str(len(r["errors"]))
+        )
     console.print(t)
 
 
@@ -94,6 +109,7 @@ def s7_cmd(pcap: str, json_out: str | None, html_out: str | None) -> None:
 @click.option("--html-out", default=None)
 def dnp3_cmd(pcap: str, json_out: str | None, html_out: str | None) -> None:
     from dnp3_monitor.dnp3_analyze import analyze_pcap, save_html, save_json
+
     data = analyze_pcap(pcap)
     base = Path(pcap).stem
     json_path = json_out or f"reports/dnp3_batch/{base}.json"

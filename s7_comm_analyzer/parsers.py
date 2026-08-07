@@ -15,7 +15,10 @@ The S7 header byte 1 is the ROSCTR (Request/Response type), NOT the function
 code. Function codes live in the parameter block which starts at byte 10 of
 the S7 header.
 """
+
 from __future__ import annotations
+
+from typing import Any, Dict, Optional
 
 from scapy.all import Raw
 
@@ -25,10 +28,10 @@ from scapy.all import Raw
 S7_PROTOCOL_ID = 0x32
 
 # ROSCTR (byte 1 of S7 header) — message type, NOT function code
-ROSCTR_JOB = 0x01         # Request (Job)
-ROSCTR_ACK = 0x02         # Acknowledgement
-ROSCTR_ACK_DATA = 0x03    # Response with data
-ROSCTR_USERDATA = 0x07    # Userdata (programming commands)
+ROSCTR_JOB = 0x01  # Request (Job)
+ROSCTR_ACK = 0x02  # Acknowledgement
+ROSCTR_ACK_DATA = 0x03  # Response with data
+ROSCTR_USERDATA = 0x07  # Userdata (programming commands)
 
 ROSCTR_NAMES = {
     ROSCTR_JOB: "Job",
@@ -42,10 +45,10 @@ ROSCTR_NAMES = {
 # Reference: Wireshark packet-s7comm.c, "param_func" enumeration.
 FUNC_READ_VAR = 0x04
 FUNC_WRITE_VAR = 0x05
-FUNC_START = 0x28           # 0x28 = Start CPU
-FUNC_STOP = 0x29            # 0x29 = Stop CPU
-FUNC_START_DELETE = 0x2A    # (rarely seen)
-FUNC_SETUP_COMM = 0xF0      # Setup communication (handshake)
+FUNC_START = 0x28  # 0x28 = Start CPU
+FUNC_STOP = 0x29  # 0x29 = Stop CPU
+FUNC_START_DELETE = 0x2A  # (rarely seen)
+FUNC_SETUP_COMM = 0xF0  # Setup communication (handshake)
 
 # Block / firmware / RAM operations (parameter function group 0x3 series)
 FUNC_DOWNLOAD_BLOCK = 0x3A
@@ -77,14 +80,19 @@ FUNC_NAMES = {
 # Function codes that represent control operations and should be flagged as
 # suspect when present in traffic (potential unauthorized control attempts).
 SUSPECT_FUNCS = {
-    "WriteVar", "Start", "Stop", "DownloadBlock", "DeleteBlock",
-    "CopyRamToRom", "FirmwareUpdate", "Password",
+    "WriteVar",
+    "Start",
+    "Stop",
+    "DownloadBlock",
+    "DeleteBlock",
+    "CopyRamToRom",
+    "FirmwareUpdate",
+    "Password",
 }
 
 # Indicative ASCII strings sometimes present in payloads (kept for additional
 # context tags, not as the primary classification mechanism).
-BLOCK_HINTS = [b"OB1", b"OB", b"DB", b"FB", b"FC", b"System", b"PLC",
-               b"Firmware", b"Update"]
+BLOCK_HINTS = [b"OB1", b"OB", b"DB", b"FB", b"FC", b"System", b"PLC", b"Firmware", b"Update"]
 
 
 def _parse_s7_header(payload: bytes) -> dict[str, int] | None:
@@ -108,7 +116,7 @@ def _parse_s7_header(payload: bytes) -> dict[str, int] | None:
     }
 
 
-def _parse_parameter_block(payload: bytes, header: dict[str, int]) -> dict[str, int] | None:
+def _parse_parameter_block(payload: bytes, header: dict[str, int]) -> dict[str, Any] | None:
     """Parse the S7 parameter block that follows the 10-byte S7 header.
 
     The parameter block begins at byte 10. Byte 0 of the parameter block is
@@ -122,12 +130,11 @@ def _parse_parameter_block(payload: bytes, header: dict[str, int]) -> dict[str, 
         "function_group": payload[param_offset],
         "sub_function": payload[param_offset + 1] if param_len > 1 else 0,
         "param_len": param_len,
-        "raw": payload[param_offset:param_offset + param_len],
+        "raw": payload[param_offset : param_offset + param_len],
     }
 
 
-def _classify_function(header: dict[str, int],
-                       param: dict[str, int] | None) -> str:
+def _classify_function(header: dict[str, int], param: dict[str, Any] | None) -> str:
     """Classify the S7 operation by combining header and parameter info."""
     # If we have a parameter block with a known function code, use it.
     if param is not None:

@@ -109,11 +109,9 @@ IndustrialScanner uses a plugin architecture. To add a new protocol:
        def protocol_name(self) -> str:
            return "MyProtocol"
 
-       def can_parse(self, packet) -> bool:
-           ...
+       def can_parse(self, packet) -> bool: ...
 
-       def parse(self, packet) -> Optional[dict]:
-           ...
+       def parse(self, packet) -> Optional[dict]: ...
    ```
 
 3. Register it via entry points in your `pyproject.toml`:

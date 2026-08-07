@@ -1,17 +1,17 @@
-"""
-Utilities for IndustrialScanner Modbus scanner.
-"""
+"""Utilities for IndustrialScanner Modbus scanner."""
+
+from __future__ import annotations
 
 import ipaddress
 import logging
-from datetime import datetime
+from datetime import UTC, datetime
 from pathlib import Path
+
+__all__ = ["expand_targets", "html_template_path", "safe_str", "setup_logger", "utc_ts"]
 
 
 def setup_logger(name: str) -> logging.Logger:
-    """
-    Configure a lightweight console logger.
-    """
+    """Configure a lightweight console logger."""
     logger = logging.getLogger(name)
     if not logger.handlers:
         logger.setLevel(logging.INFO)
@@ -23,17 +23,12 @@ def setup_logger(name: str) -> logging.Logger:
 
 
 def utc_ts() -> str:
-    """
-    Return ISO-like timestamp in UTC.
-    """
-    from datetime import UTC
+    """Return ISO-like timestamp in UTC."""
     return datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def safe_str(e: Exception) -> str:
-    """
-    Safely stringify exceptions for logging.
-    """
+    """Safely stringify exceptions for logging."""
     try:
         return str(e)
     except Exception:
@@ -41,8 +36,7 @@ def safe_str(e: Exception) -> str:
 
 
 def expand_targets(arg: str) -> list[str]:
-    """
-    Expand targets from multiple input formats:
+    """Expand targets from multiple input formats:
     - "192.168.0.10,192.168.0.11"
     - "192.168.0.0/24" (CIDR)
     - "@targets.txt" (file with one IP per line)
@@ -77,8 +71,6 @@ def expand_targets(arg: str) -> list[str]:
 
 
 def html_template_path(name: str) -> Path:
-    """
-    Resolve bundled HTML template path.
-    """
+    """Resolve bundled HTML template path."""
     base = Path(__file__).resolve().parents[1] / "reports" / "templates"
     return base / name

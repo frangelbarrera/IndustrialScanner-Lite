@@ -10,6 +10,7 @@ Modules:
   - s7: Passive S7Comm analyzer (from PCAP)
   - dnp3: Passive DNP3 analyzer (from PCAP)
 """
+
 from __future__ import annotations
 
 import argparse
@@ -28,12 +29,15 @@ def build_parser() -> argparse.ArgumentParser:
 
     p_modbus = sub.add_parser("modbus", help="Read-only Modbus/TCP scanner")
     p_modbus.add_argument(
-        "--targets", required=True,
+        "--targets",
+        required=True,
         help="Comma-separated IPs, CIDR (e.g., 192.168.0.0/24), or @file with one IP per line",
     )
     p_modbus.add_argument("--port", type=int, default=502, help="Modbus/TCP port (default: 502)")
     p_modbus.add_argument("--unit", type=int, default=1, help="Modbus Unit ID (default: 1)")
-    p_modbus.add_argument("--timeout", type=float, default=2.0, help="Socket timeout in seconds (default: 2.0)")
+    p_modbus.add_argument(
+        "--timeout", type=float, default=2.0, help="Socket timeout in seconds (default: 2.0)"
+    )
     p_modbus.add_argument("--json-out", type=str, default=None, help="Path for JSON report")
     p_modbus.add_argument("--html-out", type=str, default=None, help="Path for HTML report")
 
@@ -65,6 +69,7 @@ def dispatch(args: argparse.Namespace) -> None:
         # The CLI honors --pcap by calling analyze_pcap() and writing the
         # requested output paths.
         from pathlib import Path
+
         data = analyze_pcap(args.pcap)
         ts = utc_ts().replace(":", "-")
         base = Path(args.pcap).stem

@@ -2,6 +2,7 @@
 ics_scanner: shared security primitives, MITRE ATT&CK mapping, and
 protocol parser plugin registry for IndustrialScanner.
 """
+
 from __future__ import annotations
 
 from .mitre_attack import (

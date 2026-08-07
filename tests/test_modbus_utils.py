@@ -1,4 +1,5 @@
 """Tests for modbus_scanner utility functions."""
+
 from __future__ import annotations
 
 from modbus_scanner.utils import expand_targets, safe_str, utc_ts
@@ -19,7 +20,9 @@ class TestExpandTargets:
 
     def test_file_input(self, tmp_path):
         f = tmp_path / "targets.txt"
-        f.write_text("10.0.0.1\n10.0.0.2\n\n# comment line will be returned as-is\n", encoding="utf-8")
+        f.write_text(
+            "10.0.0.1\n10.0.0.2\n\n# comment line will be returned as-is\n", encoding="utf-8"
+        )
         result = expand_targets(f"@{f}")
         assert "10.0.0.1" in result
         assert "10.0.0.2" in result
@@ -40,4 +43,5 @@ class TestSafeStr:
         class Bad(Exception):
             def __str__(self):
                 raise RuntimeError("oops")
+
         assert safe_str(Bad()) == "Bad"
