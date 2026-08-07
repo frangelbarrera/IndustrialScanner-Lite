@@ -93,12 +93,56 @@ SUSPECT_FUNCS = {
 BLOCK_HINTS = [b"OB1", b"OB", b"DB", b"FB", b"FC", b"System", b"PLC", b"Firmware", b"Update"]
 
 
+# TPKT/COTP framing constants
+# S7Comm runs over TPKT (RFC 1006) on TCP/102, which wraps the S7 PDU in:
+#   [TPKT header 4 bytes][COTP header 3-17 bytes][S7 PDU]
+# TPKT header: version(1) = 0x03, reserved(1) = 0x00, length(2, big-endian)
+# COTP header: length(1), PDU type(1), ref(1)  (for DT class 0: 0x02 0xF0 0x80)
+TPKT_VERSION = 0x03
+TPKT_HEADER_LEN = 4
+COTP_DT_PDU_TYPE = 0xF0  # Data (DT) PDU type
+COTP_HEADER_LEN_MIN = 3  # length(1) + PDU type(1) + ref(1)
+
+
+def _unwrap_tpkt_cotp(payload: bytes) -> bytes:
+    """Strip TPKT/COTP framing to expose the inner S7 PDU.
+
+    S7Comm frames are carried over TPKT (RFC 1006) which adds a 4-byte
+    header, then COTP (ISO 8073) which adds a 3-17 byte header. The S7
+    PDU begins after both.
+
+    If the payload does not look like TPKT/COTP, return it unchanged —
+    the caller will treat it as a raw S7 PDU (backwards-compatible with
+    captures that omit TPKT/COTP framing).
+    """
+    if len(payload) < TPKT_HEADER_LEN + 1:
+        return payload
+    # Check TPKT magic: version 0x03, reserved 0x00
+    if payload[0] != TPKT_VERSION or payload[1] != 0x00:
+        # Not TPKT-framed; assume raw S7 PDU
+        return payload
+    tpkt_len = int.from_bytes(payload[2:4], "big")
+    if tpkt_len < TPKT_HEADER_LEN + COTP_HEADER_LEN_MIN or tpkt_len > len(payload):
+        # Malformed TPKT length
+        return payload
+    # COTP header: first byte is the length of the COTP header (excluding
+    # the length byte itself). For DT (Data Transfer) PDU type 0xF0, the
+    # standard header is 0x02 0xF0 0x80 (length=2, type=DT, ref=0x80).
+    cotp_len_byte = payload[TPKT_HEADER_LEN]
+    cotp_header_len = cotp_len_byte + 1  # +1 for the length byte itself
+    if TPKT_HEADER_LEN + cotp_header_len > len(payload):
+        return payload
+    return payload[TPKT_HEADER_LEN + cotp_header_len :]
+
+
 def _parse_s7_header(payload: bytes) -> "dict[str, int] | None":
     """Parse the S7 header (10 bytes minimum) from a payload.
 
-    Returns a dict with: protocol_id, rosctr, pdu_ref, param_len, data_len.
-    Returns None if the payload is too short or not an S7 frame.
+    If the payload is wrapped in TPKT/COTP framing, the framing is stripped
+    first. Returns None if the payload is too short or not an S7 frame.
     """
+    # Strip TPKT/COTP framing if present
+    payload = _unwrap_tpkt_cotp(payload)
     if len(payload) < 10:
         return None
     if payload[0] != S7_PROTOCOL_ID:
@@ -155,11 +199,18 @@ def _guess_function(payload: bytes) -> str:
     Strict implementation: parses the S7 header and the parameter block
     to identify the function code. Falls back to 'Unknown' for ambiguous
     frames rather than guessing from ASCII substrings.
+
+    The payload may be wrapped in TPKT/COTP framing (RFC 1006 / ISO 8073),
+    which is stripped before parsing.
     """
-    header = _parse_s7_header(payload)
+    # Strip TPKT/COTP framing if present (one-time unwrap, reused below)
+    unwrapped = _unwrap_tpkt_cotp(payload)
+    header = _parse_s7_header(unwrapped)
     if header is None:
         return "NonS7Payload"
-    param = _parse_parameter_block(payload, header)
+    # _parse_parameter_block expects the unwrapped payload (S7 PDU starting
+    # at byte 0 = protocol_id 0x32)
+    param = _parse_parameter_block(unwrapped, header)
     return _classify_function(header, param)
 
 
