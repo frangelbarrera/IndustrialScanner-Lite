@@ -41,8 +41,8 @@ def load_reports():
     return reports
 
 
-def build_index(reports):
-    now = datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%SZ")
+def build_index(reports, now_override=None):
+    now = now_override or datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%SZ")
 
     labels = []
     total_packets = []
