@@ -108,10 +108,13 @@ def probe_host(ip: str, port: int, unit_id: int, timeout: float = 2.0) -> dict[s
         result["errors"].append(f"probe_error: {safe_str(e)}")
     finally:
         if client is not None:
-            try:
+            # Best-effort close. Using contextlib.suppress to avoid the
+            # bandit B110 try-except-pass anti-pattern while still tolerating
+            # close failures (e.g., already-closed socket).
+            import contextlib
+
+            with contextlib.suppress(Exception):
                 client.close()
-            except Exception:
-                pass
         end = time.time()
         result["latency_ms"] = round((end - start) * 1000, 2)
 

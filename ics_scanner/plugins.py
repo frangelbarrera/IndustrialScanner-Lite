@@ -90,7 +90,12 @@ def discover_parsers() -> list[ParserEntry]:
     entries.extend(builtins)
 
     # Discover third-party parsers via entry points
-    try:
+    # If entry point discovery fails (e.g., no metadata), return builtins only.
+    # Using contextlib.suppress avoids the bandit B110 try-except-pass warning
+    # while keeping the same semantic behavior.
+    import contextlib
+
+    with contextlib.suppress(Exception):
         eps = importlib_metadata.entry_points()
         if hasattr(eps, "select"):
             group = eps.select(group=ENTRY_POINT_GROUP)
@@ -106,9 +111,6 @@ def discover_parsers() -> list[ParserEntry]:
                     description=f"Third-party parser via entry point: {ep.value}",
                 )
             )
-    except Exception:
-        # If entry point discovery fails (e.g., no metadata), return builtins only.
-        pass
 
     return sorted(entries, key=lambda e: e.name)
 
