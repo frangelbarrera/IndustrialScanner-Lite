@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Security primitives shared by every protocol module.
 """
@@ -9,8 +8,9 @@ import ipaddress
 import logging
 import os
 import re
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Batch runner for DNP3 Monitor
 Processes all PCAP/PCAPNG files in pcaps/dnp3/ and generates JSON/HTML reports
@@ -6,6 +5,7 @@ in reports/dnp3_batch/
 """
 
 import os
+
 from dnp3_monitor import dnp3_analyze
 
 PCAP_DIR = os.path.join("pcaps", "dnp3")

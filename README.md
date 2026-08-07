@@ -1,6 +1,6 @@
 <div align="center">
 
-# IndustrialScanner-Lite
+# IndustrialScanner
 
 **Read-only security analyzer for Industrial Control Systems (ICS) / Operational Technology (OT)**
 
@@ -10,15 +10,15 @@ Modbus/TCP &middot; Siemens S7Comm &middot; DNP3
 
 ---
 
-[![License: MIT](https://img.shields.io/github/license/frangelbarrera/IndustrialScanner-Lite?style=flat-square)](LICENSE)
-[![CI](https://img.shields.io/github/actions/workflow/status/frangelbarrera/IndustrialScanner-Lite/ci.yml?branch=feature/world-class-refactor&style=flat-square&label=CI)](https://github.com/frangelbarrera/IndustrialScanner-Lite/actions)
+[![License: MIT](https://img.shields.io/github/license/frangelbarrera/IndustrialScanner?style=flat-square)](LICENSE)
+[![CI](https://img.shields.io/github/actions/workflow/status/frangelbarrera/IndustrialScanner/ci.yml?branch=feature/world-class-refactor&style=flat-square&label=CI)](https://github.com/frangelbarrera/IndustrialScanner/actions)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue?style=flat-square)](https://www.python.org/downloads/)
 [![Ruff](https://img.shields.io/badge/code%20style-ruff-261230?style=flat-square)](https://docs.astral.sh/ruff/)
 [![Coverage](https://img.shields.io/badge/coverage-todo-orange?style=flat-square)](https://pytest.org)
 [![Security: bandit](https://img.shields.io/badge/security-bandit-1f6feb?style=flat-square)](https://github.com/PyCQA/bandit)
-[![Stars](https://img.shields.io/github/stars/frangelbarrera/IndustrialScanner-Lite?style=flat-square)](https://github.com/frangelbarrera/IndustrialScanner-Lite/stargazers)
-[![Last Commit](https://img.shields.io/github/last-commit/frangelbarrera/IndustrialScanner-Lite?style=flat-square)](https://github.com/frangelbarrera/IndustrialScanner-Lite/commits)
-[![Issues](https://img.shields.io/github/issues/frangelbarrera/IndustrialScanner-Lite?style=flat-square)](https://github.com/frangelbarrera/IndustrialScanner-Lite/issues)
+[![Stars](https://img.shields.io/github/stars/frangelbarrera/IndustrialScanner?style=flat-square)](https://github.com/frangelbarrera/IndustrialScanner/stargazers)
+[![Last Commit](https://img.shields.io/github/last-commit/frangelbarrera/IndustrialScanner?style=flat-square)](https://github.com/frangelbarrera/IndustrialScanner/commits)
+[![Issues](https://img.shields.io/github/issues/frangelbarrera/IndustrialScanner?style=flat-square)](https://github.com/frangelbarrera/IndustrialScanner/issues)
 
 > ⚠️ **Read-only research / education tool.** Never deploy against production OT environments without explicit written authorization. See [`SECURITY.md`](SECURITY.md) and the [Safe Harbor](SECURITY.md#safe-harbor) section.
 
@@ -26,7 +26,7 @@ Modbus/TCP &middot; Siemens S7Comm &middot; DNP3
 
 ## What it does
 
-IndustrialScanner-Lite gives OT/ICS security practitioners a **safe, read-only, automated analysis suite** for the three most common industrial protocols:
+IndustrialScanner gives OT/ICS security practitioners a **safe, read-only, automated analysis suite** for the three most common industrial protocols:
 
 | Module | Protocol | Mode | Output |
 |---|---|---|---|
@@ -43,7 +43,7 @@ The suite is intentionally split into **report generation** (scanners/analyzers)
 
 ICS/OT networks are not regular IT networks. They prioritize **availability and safety** over speed and convenience, and they use specialized protocols that traditional security tooling ignores. A single misconfiguration can halt a substation, a production line, or a water treatment plant.
 
-Commercial ICS/OT tooling (Claroty, Nozomi, Dragos) is excellent but expensive and closed-source. IndustrialScanner-Lite closes that gap by giving practitioners, researchers, and educators a transparent, auditable, and free toolkit to understand the security posture of their OT assets.
+Commercial ICS/OT tooling (Claroty, Nozomi, Dragos) is excellent but expensive and closed-source. IndustrialScanner closes that gap by giving practitioners, researchers, and educators a transparent, auditable, and free toolkit to understand the security posture of their OT assets.
 
 ---
 
@@ -51,8 +51,8 @@ Commercial ICS/OT tooling (Claroty, Nozomi, Dragos) is excellent but expensive a
 
 ```bash
 # 1. Clone
-git clone https://github.com/frangelbarrera/IndustrialScanner-Lite.git
-cd IndustrialScanner-Lite
+git clone https://github.com/frangelbarrera/IndustrialScanner.git
+cd IndustrialScanner
 
 # 2. Install
 python -m venv .venv && source .venv/bin/activate
@@ -81,7 +81,7 @@ Outputs land in `reports/` as HTML dashboards with Chart.js visualizations.
 ## Repository layout
 
 ```text
-IndustrialScanner-Lite/
+IndustrialScanner/
 ├─ modbus_scanner/        # Active read-only Modbus/TCP scanner
 │  ├─ modbus_scan.py
 │  └─ utils.py
@@ -255,7 +255,7 @@ Key highlights:
 
 ## Compliance references
 
-IndustrialScanner-Lite is positioned against the following standards (see [`docs/compliance.md`](docs/compliance.md) for the full gap analysis):
+IndustrialScanner is positioned against the following standards (see [`docs/compliance.md`](docs/compliance.md) for the full gap analysis):
 
 - **IEC 62443** (industrial automation and control systems security)
 - **NIST SP 800-82 Rev 3** (Guide to Operational Technology (OT) Security)

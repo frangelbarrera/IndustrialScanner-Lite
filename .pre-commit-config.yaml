@@ -1,4 +1,4 @@
-# Pre-commit hooks for IndustrialScanner-Lite
+# Pre-commit hooks for IndustrialScanner
 # Install: `pip install pre-commit && pre-commit install`
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit

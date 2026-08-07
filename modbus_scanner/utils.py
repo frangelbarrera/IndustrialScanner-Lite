@@ -1,13 +1,11 @@
-# -*- coding: utf-8 -*-
 """
-Utilities for IndustrialScanner-Lite Modbus scanner.
+Utilities for IndustrialScanner Modbus scanner.
 """
 
 import ipaddress
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import List
 
 
 def setup_logger(name: str) -> logging.Logger:
@@ -28,7 +26,8 @@ def utc_ts() -> str:
     """
     Return ISO-like timestamp in UTC.
     """
-    return datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+    from datetime import UTC
+    return datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def safe_str(e: Exception) -> str:
@@ -41,7 +40,7 @@ def safe_str(e: Exception) -> str:
         return e.__class__.__name__
 
 
-def expand_targets(arg: str) -> List[str]:
+def expand_targets(arg: str) -> list[str]:
     """
     Expand targets from multiple input formats:
     - "192.168.0.10,192.168.0.11"
@@ -49,7 +48,7 @@ def expand_targets(arg: str) -> List[str]:
     - "@targets.txt" (file with one IP per line)
     """
     arg = arg.strip()
-    out: List[str] = []
+    out: list[str] = []
 
     if arg.startswith("@"):
         # File mode

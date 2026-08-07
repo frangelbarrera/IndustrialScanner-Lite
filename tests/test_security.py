@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Test suite for ics_scanner.security primitives."""
 from __future__ import annotations
 

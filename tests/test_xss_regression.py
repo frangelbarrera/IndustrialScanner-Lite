@@ -1,8 +1,5 @@
-# -*- coding: utf-8 -*-
 """Verify that HTML reports escape untrusted input (XSS regression)."""
 from __future__ import annotations
-
-from pathlib import Path
 
 from dnp3_monitor.dnp3_analyze import build_html
 

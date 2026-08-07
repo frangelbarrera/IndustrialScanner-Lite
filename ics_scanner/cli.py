@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-"""Unified CLI entry point for IndustrialScanner-Lite (Click + Rich)."""
+"""Unified CLI entry point for IndustrialScanner (Click + Rich)."""
 from __future__ import annotations
 
 import sys
@@ -10,16 +9,16 @@ from rich.console import Console
 from rich.table import Table
 
 from ics_scanner.security import (
+    TargetPolicyError,
     configure_logging,
     filter_targets,
-    TargetPolicyError,
 )
 
 console = Console()
 log = configure_logging("ics_scanner.cli")
 
 
-@click.group(help="IndustrialScanner-Lite — read-only ICS/OT analyzer.")
+@click.group(help="IndustrialScanner — read-only ICS/OT analyzer.")
 @click.version_option(package_name="ics-ot-scanner")
 def cli() -> None:
     """Entry group."""
@@ -40,8 +39,8 @@ def modbus_cmd(targets: str, port: int, unit: int, timeout: float,
     from modbus_scanner.modbus_scan import (
         expand_targets,
         scan_targets,
-        write_json_report,
         write_html_report,
+        write_json_report,
     )
     from modbus_scanner.utils import utc_ts
 
@@ -75,8 +74,8 @@ def modbus_cmd(targets: str, port: int, unit: int, timeout: float,
 @click.option("--json-out", default=None)
 @click.option("--html-out", default=None)
 def s7_cmd(pcap: str, json_out: str | None, html_out: str | None) -> None:
-    from s7_comm_analyzer.s7_analyze import analyze_pcap, write_json_report, write_html_report
     from modbus_scanner.utils import utc_ts
+    from s7_comm_analyzer.s7_analyze import analyze_pcap, write_html_report, write_json_report
 
     data = analyze_pcap(pcap)
     base = Path(pcap).stem
@@ -94,7 +93,7 @@ def s7_cmd(pcap: str, json_out: str | None, html_out: str | None) -> None:
 @click.option("--json-out", default=None)
 @click.option("--html-out", default=None)
 def dnp3_cmd(pcap: str, json_out: str | None, html_out: str | None) -> None:
-    from dnp3_monitor.dnp3_analyze import analyze_pcap, save_json, save_html
+    from dnp3_monitor.dnp3_analyze import analyze_pcap, save_html, save_json
     data = analyze_pcap(pcap)
     base = Path(pcap).stem
     json_path = json_out or f"reports/dnp3_batch/{base}.json"

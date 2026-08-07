@@ -1,10 +1,10 @@
-# Security Policy — IndustrialScanner-Lite
+# Security Policy — IndustrialScanner
 
 > **Repository status:** This repository is being **archived** (read-only). It
 > remains available for educational reference, but no active development or
 > security fixes are planned. See *Supported Versions* below.
 
-IndustrialScanner-Lite is a Python toolkit for **passive analysis of ICS/OT
+IndustrialScanner is a Python toolkit for **passive analysis of ICS/OT
 traffic** (Siemens S7Comm over TCP/102, DNP3 over TCP-UDP/20000) and
 **read-only active probing** of Modbus/TCP devices (port 502). It is designed
 for auditors, researchers, and educators working on industrial control systems
@@ -31,7 +31,7 @@ need a fixed version are encouraged to maintain a private fork.
 Please report security issues **privately** before any public disclosure:
 
 - **Email:** `frangelrcbarrera@gmail.com`
-- **Subject prefix:** `[SECURITY] IndustrialScanner-Lite — <short summary>`
+- **Subject prefix:** `[SECURITY] IndustrialScanner — <short summary>`
 - **PGP:** Not available at this time. If the issue is sensitive, send a
   short summary first and request an encrypted channel.
 
@@ -168,7 +168,7 @@ disclosure of its current limitations:
 
 - **Maintainer:** Frangel Raúl Crespo Barrera
 - **Email:** `frangelrcbarrera@gmail.com`
-- **GitHub:** [`frangelbarrera/IndustrialScanner-Lite`](https://github.com/frangelbarrera/IndustrialScanner-Lite)
+- **GitHub:** [`frangelbarrera/IndustrialScanner`](https://github.com/frangelbarrera/IndustrialScanner)
 
 For non-security questions, please open a regular GitHub issue while the
 repository is still interactive. After archiving, the issue tracker will be

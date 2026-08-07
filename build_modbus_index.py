@@ -1,42 +1,50 @@
-# -*- coding: utf-8 -*-
 """
 Global Index Generator for Modbus Scanner with charts.
-Reads all JSON reports in reports/modbus_batch/ and builds a modbus_index.html
-with executive summary, links to HTML reports, and Chart.js visualizations.
-"""
 
-import os
+Reads all JSON reports in reports/modbus_batch/ and builds reports/modbus_index.html
+with an executive summary, links to HTML reports, and Chart.js visualizations.
+"""
+from __future__ import annotations
+
+import html as html_lib
 import json
+import os
 from datetime import datetime
 
 REPORT_DIR = os.path.join("reports", "modbus_batch")
 OUTPUT_FILE = os.path.join("reports", "modbus_index.html")
+
 
 def load_reports():
     reports = []
     if not os.path.exists(REPORT_DIR):
         return reports
     for fname in os.listdir(REPORT_DIR):
-        if fname.endswith(".json"):
-            path = os.path.join(REPORT_DIR, fname)
-            try:
-                with open(path, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                html_name = fname.replace(".json", ".html")
-                reports.append({
-                    "json": fname,
-                    "html": html_name,
-                    "meta": data.get("meta", {}),
-                    "summary": data.get("summary", {})
-                })
-            except Exception as e:
-                print(f"[WARN] Could not read {fname}: {e}")
+        if not fname.endswith(".json"):
+            continue
+        path = os.path.join(REPORT_DIR, fname)
+        try:
+            with open(path, encoding="utf-8") as f:
+                data = json.load(f)
+            html_name = fname.replace(".json", ".html")
+            reports.append({
+                "json": fname,
+                "html": html_name,
+                "meta": data.get("meta", {}),
+                "summary": data.get("summary", {}),
+            })
+        except Exception as e:
+            print(f"[WARN] Could not read {fname}: {e}")
     return reports
 
-def build_index(reports):
-    now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%SZ")
 
-    labels, total_packets, modbus_packets, suspects = [], [], [], []
+def build_index(reports):
+    now = datetime.now(datetime.UTC).strftime("%Y-%m-%d %H:%M:%SZ")
+
+    labels = []
+    total_packets = []
+    modbus_packets = []
+    suspects = []
 
     for r in reports:
         labels.append(r["html"])
@@ -45,52 +53,54 @@ def build_index(reports):
         modbus_packets.append(summ.get("modbus_packets", 0))
         suspects.append(summ.get("suspect_functions", 0))
 
-    html = []
-    html.append("<!doctype html><html lang='en'><head>")
-    html.append("<meta charset='utf-8'>")
-    html.append("<title>IndustrialScanner-Lite | Modbus Global Report Index</title>")
-    html.append("<script src='https://cdn.jsdelivr.net/npm/chart.js'></script>")
-    html.append("<style>")
-    html.append("body { font-family: Arial, sans-serif; margin: 24px; color: #222; }")
-    html.append("h1 { margin-bottom: 4px; }")
-    html.append("table { border-collapse: collapse; width: 100%; margin-top: 12px; }")
-    html.append("th, td { border: 1px solid #ddd; padding: 8px; font-size: 14px; }")
-    html.append("th { background: #f4f4f4; text-align: left; }")
-    html.append(".bad { color: #c62828; font-weight: bold; }")
-    html.append(".charts { display: flex; gap: 40px; margin-top: 24px; }")
-    html.append(".chart-container { width: 45%; }")
-    html.append("</style></head><body>")
-    html.append("<h1>Modbus Global Report Index</h1>")
-    html.append(f"<div><strong>Generated:</strong> {now}</div>")
+    parts = []
+    parts.append("<!doctype html><html lang='en'><head>")
+    parts.append("<meta charset='utf-8'>")
+    parts.append("<title>IndustrialScanner | Modbus Global Report Index</title>")
+    parts.append("<script src='https://cdn.jsdelivr.net/npm/chart.js'></script>")
+    parts.append("<style>")
+    parts.append("body { font-family: Arial, sans-serif; margin: 24px; color: #222; }")
+    parts.append("h1 { margin-bottom: 4px; }")
+    parts.append("table { border-collapse: collapse; width: 100%; margin-top: 12px; }")
+    parts.append("th, td { border: 1px solid #ddd; padding: 8px; font-size: 14px; }")
+    parts.append("th { background: #f4f4f4; text-align: left; }")
+    parts.append(".bad { color: #c62828; font-weight: bold; }")
+    parts.append(".charts { display: flex; gap: 40px; margin-top: 24px; }")
+    parts.append(".chart-container { width: 45%; }")
+    parts.append("</style></head><body>")
+    parts.append("<h1>Modbus Global Report Index</h1>")
+    parts.append(f"<div><strong>Generated:</strong> {html_lib.escape(now)}</div>")
 
-    # Consolidated table
-    html.append("<table>")
-    html.append("<tr><th>Report</th><th>PCAP File</th><th>Total Packets</th><th>Modbus Packets</th><th>Suspect Functions</th><th>Unique Hosts</th></tr>")
+    parts.append("<table>")
+    parts.append("<tr><th>Report</th><th>PCAP File</th><th>Total Packets</th>"
+                "<th>Modbus Packets</th><th>Suspect Functions</th><th>Unique Hosts</th></tr>")
     for r in reports:
-        meta, summ = r["meta"], r["summary"]
+        meta = r["meta"]
+        summ = r["summary"]
         suspect = summ.get("suspect_functions", 0)
-        suspect_html = f"<span class='bad'>{suspect}</span>" if suspect > 0 else str(suspect)
-        html.append("<tr>")
-        html.append(f"<td><a href='modbus_batch/{r['html']}'>{r['html']}</a></td>")
-        html.append(f"<td>{meta.get('pcap_file','')}</td>")
-        html.append(f"<td>{summ.get('total_packets','')}</td>")
-        html.append(f"<td>{summ.get('modbus_packets','')}</td>")
-        html.append(f"<td>{suspect_html}</td>")
-        html.append(f"<td>{', '.join(summ.get('unique_hosts', []))}</td>")
-        html.append("</tr>")
-    html.append("</table>")
+        suspect_html = (f"<span class='bad'>{suspect}</span>"
+                        if suspect > 0 else str(suspect))
+        parts.append("<tr>")
+        parts.append(f"<td><a href='modbus_batch/{html_lib.escape(r['html'])}'>"
+                     f"{html_lib.escape(r['html'])}</a></td>")
+        parts.append(f"<td>{html_lib.escape(str(meta.get('pcap_file', '')))}</td>")
+        parts.append(f"<td>{summ.get('total_packets', '')}</td>")
+        parts.append(f"<td>{summ.get('modbus_packets', '')}</td>")
+        parts.append(f"<td>{suspect_html}</td>")
+        parts.append(f"<td>{html_lib.escape(', '.join(summ.get('unique_hosts', [])))}</td>")
+        parts.append("</tr>")
+    parts.append("</table>")
 
-    # Charts
-    html.append("<div class='charts'>")
-    html.append("<div class='chart-container'><canvas id='chartPackets'></canvas></div>")
-    html.append("<div class='chart-container'><canvas id='chartSuspects'></canvas></div>")
-    html.append("</div>")
-    html.append("<script>")
-    html.append(f"const labels = {labels};")
-    html.append(f"const totalPackets = {total_packets};")
-    html.append(f"const modbusPackets = {modbus_packets};")
-    html.append(f"const suspects = {suspects};")
-    html.append("""
+    parts.append("<div class='charts'>")
+    parts.append("<div class='chart-container'><canvas id='chartPackets'></canvas></div>")
+    parts.append("<div class='chart-container'><canvas id='chartSuspects'></canvas></div>")
+    parts.append("</div>")
+    parts.append("<script>")
+    parts.append(f"const labels = {labels};")
+    parts.append(f"const totalPackets = {total_packets};")
+    parts.append(f"const modbusPackets = {modbus_packets};")
+    parts.append(f"const suspects = {suspects};")
+    parts.append("""
     new Chart(document.getElementById('chartPackets'), {
         type: 'bar',
         data: {
@@ -127,23 +137,27 @@ def build_index(reports):
         options: { responsive: true, plugins: { legend: { position: 'right' } } }
     });
     """)
-    html.append("</script>")
+    parts.append("</script>")
 
-    # Notes
-    html.append("<h2>Notes</h2><ul>")
-    html.append("<li>This index consolidates all reports generated in <code>reports/modbus_batch/</code>.</li>")
-    html.append("<li>Click on the report name to open the detailed HTML view.</li>")
-    html.append("<li>Values in red indicate suspect Modbus functions (e.g., Write Multiple Registers, Force Coils, Diagnostics).</li>")
-    html.append("<li>The charts display the global distribution of packets and suspect functions.</li>")
-    html.append("</ul>")
-    html.append("</body></html>")
-    return "\n".join(html)
+    parts.append("<h2>Notes</h2><ul>")
+    parts.append("<li>This index consolidates all reports generated in "
+                "<code>reports/modbus_batch/</code>.</li>")
+    parts.append("<li>Click on the report name to open the detailed HTML view.</li>")
+    parts.append("<li>Values in red indicate suspect Modbus functions (e.g., Write Multiple "
+                "Registers, Force Coils, Diagnostics).</li>")
+    parts.append("<li>The charts display the global distribution of packets and "
+                "suspect functions.</li>")
+    parts.append("</ul>")
+    parts.append("</body></html>")
+    return "\n".join(parts)
+
 
 if __name__ == "__main__":
     reports = load_reports()
     if not reports:
         print("[INFO] No JSON reports found in reports/modbus_batch/")
     else:
+        os.makedirs("reports", exist_ok=True)
         html = build_index(reports)
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
             f.write(html)

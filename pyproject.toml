@@ -3,14 +3,14 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ics-ot-scanner"
+name = "industrial-scanner"
 version = "0.2.0.dev0"
 description = "Read-only ICS/OT security analyzer for Modbus/TCP, S7Comm and DNP3."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [
-    { name = "IndustrialScanner-Lite contributors" },
+    { name = "Frangel Barrera", email = "frangelrcbarrera@gmail.com" },
 ]
 keywords = [
     "ics", "ot", "scada", "modbus", "s7comm", "dnp3",
@@ -56,11 +56,11 @@ docs = [
 ]
 
 [project.scripts]
-ics-scan = "ics_scanner.cli:main"
+industrial-scanner = "ics_scanner.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/frangelbarrera/IndustrialScanner-Lite"
-Issues = "https://github.com/frangelbarrera/IndustrialScanner-Lite/issues"
+Homepage = "https://github.com/frangelbarrera/IndustrialScanner"
+Issues = "https://github.com/frangelbarrera/IndustrialScanner/issues"
 
 [tool.setuptools.packages.find]
 where = ["."]
@@ -85,7 +85,31 @@ select = [
     "PT",                # pytest style
     "PL",                # pylint
 ]
-ignore = ["E501"]       # line length handled by formatter
+ignore = [
+    "E501",       # line length handled by formatter
+    "PLC0415",    # import inside function (deliberate, breaks circular deps)
+    "PLR2004",    # magic values in tests/build scripts are fine
+    "PLR0915",    # too many statements (parsers have many branches by nature)
+    "PLR0913",    # too many arguments (CLI signatures match spec)
+    "PLR0917",    # too many positional args (same)
+    "PLW2901",    # redefined-loop-name (iterators in build_*.py)
+    "RUF013",     # implicit Optional (false positive with PEP 563)
+    "E702",       # multiple statements on one line (compact style)
+    "S110",       # try-except-pass (used for best-effort cleanup in protocol modules)
+    "S112",       # try-except-continue (used for batch processing of malformed reports)
+    "SIM105",     # contextlib.suppress (less readable than try/except in some cases)
+    "PLR0912",    # too many branches (probe_host has 4 read paths by design)
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Tests use assert, print, and may have magic values for test fixtures.
+"tests/**/*.py" = ["S101", "S106", "PLR2004", "T201", "PT011"]
+# Build scripts are CLI utilities where print() is appropriate.
+"build_*.py" = ["T201"]
+# Legacy CLI uses print() for backward compat.
+"cli.py" = ["T201"]
+# run_*.py batch runners use print() for progress.
+"run_*.py" = ["T201"]
 
 [tool.ruff.format]
 quote-style = "double"

@@ -1,8 +1,5 @@
-# -*- coding: utf-8 -*-
 """Tests for modbus_scanner utility functions."""
 from __future__ import annotations
-
-from pathlib import Path
 
 from modbus_scanner.utils import expand_targets, safe_str, utc_ts
 

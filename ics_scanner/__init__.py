@@ -1,31 +1,43 @@
-# -*- coding: utf-8 -*-
 """
-ics_scanner: shared security primitives for IndustrialScanner-Lite.
-
-This package centralizes:
-  - HTML/JSON output sanitization (XSS prevention).
-  - Target validation (private IPs only by default, CIDR limits).
-  - Structured logging.
-  - Path traversal guards for report paths.
+ics_scanner: shared security primitives, MITRE ATT&CK mapping, and
+protocol parser plugin registry for IndustrialScanner.
 """
 from __future__ import annotations
 
+from .mitre_attack import (
+    ATTACKTechnique,
+    enrich_report_with_attack,
+    map_function_to_techniques,
+)
+from .plugins import (
+    ProtocolParser,
+    discover_parsers,
+    list_parsers,
+    load_parser,
+)
 from .security import (
-    html_escape,
-    safe_render,
-    is_safe_target,
     TargetPolicyError,
-    safe_join_path,
     configure_logging,
+    html_escape,
+    is_safe_target,
+    safe_join_path,
+    safe_render,
 )
 
 __all__ = [
-    "html_escape",
-    "safe_render",
-    "is_safe_target",
+    "ATTACKTechnique",
+    "ProtocolParser",
     "TargetPolicyError",
-    "safe_join_path",
     "configure_logging",
+    "discover_parsers",
+    "enrich_report_with_attack",
+    "html_escape",
+    "is_safe_target",
+    "list_parsers",
+    "load_parser",
+    "map_function_to_techniques",
+    "safe_join_path",
+    "safe_render",
 ]
 
 __version__ = "0.2.0.dev0"

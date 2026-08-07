@@ -1,44 +1,39 @@
-# -*- coding: utf-8 -*-
 """
-Modbus Scanner (Read-only) - IndustrialScanner-Lite
-Author: Frank + Copilot
-Description:
-  Safe, read-only Modbus/TCP scanner for OT networks. It probes hosts, reads small
-  register/coils windows, assesses exposure risks, and generates JSON/HTML reports.
+Modbus Scanner (Read-only) - IndustrialScanner.
 
-Usage (module):
-  See CLI usage in cli.py or run directly:
-    python -m modbus_scanner.modbus_scan --targets 192.168.0.10 --port 502 --unit 1
+Safe, read-only Modbus/TCP scanner for OT networks. It probes hosts, reads
+small register/coil windows, assesses exposure risks, and generates
+JSON/HTML reports.
 """
+from __future__ import annotations
 
 import json
 import time
 from pathlib import Path
-from typing import Dict, List, Any, Optional
+from typing import Any
 
-from jinja2 import Template
 from pymodbus.client import ModbusTcpClient
 from pymodbus.exceptions import ModbusIOException
 
 from .utils import (
     expand_targets,
+    safe_str,
     setup_logger,
     utc_ts,
-    safe_str,
-    html_template_path
 )
 
 LOG = setup_logger("modbus_scanner")
 
 
-def probe_host(ip: str, port: int, unit_id: int, timeout: float = 2.0) -> Dict[str, Any]:
+def probe_host(ip: str, port: int, unit_id: int, timeout: float = 2.0) -> dict[str, Any]:
     """
     Probe a single Modbus/TCP host safely (read-only).
-    - Attempts short reads for coils, discrete inputs, holding and input registers.
-    - Collects basic latency and exposure signals.
+
+    Issues short reads for coils, discrete inputs, holding and input registers,
+    and collects basic latency and exposure signals.
     """
     start = time.time()
-    result: Dict[str, Any] = {
+    result: dict[str, Any] = {
         "ip": ip,
         "port": port,
         "unit_id": unit_id,
@@ -54,9 +49,10 @@ def probe_host(ip: str, port: int, unit_id: int, timeout: float = 2.0) -> Dict[s
             "unauthenticated_read": False,
             "broad_register_access": False,
         },
-        "errors": []
+        "errors": [],
     }
 
+    client: ModbusTcpClient | None = None
     try:
         client = ModbusTcpClient(host=ip, port=port, timeout=timeout)
         if not client.connect():
@@ -76,7 +72,9 @@ def probe_host(ip: str, port: int, unit_id: int, timeout: float = 2.0) -> Dict[s
         try:
             rr = client.read_discrete_inputs(address=0, count=16, unit=unit_id)
             if not isinstance(rr, ModbusIOException) and rr.isError() is False:
-                result["reads"]["discrete_inputs"] = list(rr.bits) if rr.bits is not None else []
+                result["reads"]["discrete_inputs"] = (
+                    list(rr.bits) if rr.bits is not None else []
+                )
                 result["exposure"]["unauthenticated_read"] = True
         except Exception as e:
             result["errors"].append(f"discrete_inputs_read_error: {safe_str(e)}")
@@ -84,7 +82,9 @@ def probe_host(ip: str, port: int, unit_id: int, timeout: float = 2.0) -> Dict[s
         try:
             rr = client.read_holding_registers(address=0, count=10, unit=unit_id)
             if not isinstance(rr, ModbusIOException) and rr.isError() is False:
-                result["reads"]["holding_registers"] = list(rr.registers) if rr.registers is not None else []
+                result["reads"]["holding_registers"] = (
+                    list(rr.registers) if rr.registers is not None else []
+                )
                 result["exposure"]["unauthenticated_read"] = True
         except Exception as e:
             result["errors"].append(f"holding_registers_read_error: {safe_str(e)}")
@@ -92,13 +92,15 @@ def probe_host(ip: str, port: int, unit_id: int, timeout: float = 2.0) -> Dict[s
         try:
             rr = client.read_input_registers(address=0, count=10, unit=unit_id)
             if not isinstance(rr, ModbusIOException) and rr.isError() is False:
-                result["reads"]["input_registers"] = list(rr.registers) if rr.registers is not None else []
+                result["reads"]["input_registers"] = (
+                    list(rr.registers) if rr.registers is not None else []
+                )
                 result["exposure"]["unauthenticated_read"] = True
         except Exception as e:
             result["errors"].append(f"input_registers_read_error: {safe_str(e)}")
 
         windows_with_data = sum(
-            1 for k, v in result["reads"].items() if isinstance(v, list) and len(v) > 0
+            1 for _, v in result["reads"].items() if isinstance(v, list) and len(v) > 0
         )
         if windows_with_data >= 2:
             result["exposure"]["broad_register_access"] = True
@@ -106,17 +108,20 @@ def probe_host(ip: str, port: int, unit_id: int, timeout: float = 2.0) -> Dict[s
     except Exception as e:
         result["errors"].append(f"probe_error: {safe_str(e)}")
     finally:
-        try:
-            client.close()
-        except Exception:
-            pass
+        if client is not None:
+            try:
+                client.close()
+            except Exception:
+                pass
         end = time.time()
         result["latency_ms"] = round((end - start) * 1000, 2)
 
     return result
 
 
-def scan_targets(targets: List[str], port: int, unit_id: int, timeout: float) -> Dict[str, Any]:
+def scan_targets(
+    targets: list[str], port: int, unit_id: int, timeout: float
+) -> dict[str, Any]:
     aggregate = {
         "meta": {
             "generated_at": utc_ts(),
@@ -129,12 +134,12 @@ def scan_targets(targets: List[str], port: int, unit_id: int, timeout: float) ->
         "summary": {
             "reachable": 0,
             "unauthenticated_read": 0,
-            "broad_register_access": 0
-        }
+            "broad_register_access": 0,
+        },
     }
 
     for ip in targets:
-        LOG.info(f"Probing {ip}:{port} (unit {unit_id})")
+        LOG.info("Probing %s:%d (unit %d)", ip, port, unit_id)
         res = probe_host(ip, port, unit_id, timeout)
         aggregate["results"].append(res)
 
@@ -148,21 +153,22 @@ def scan_targets(targets: List[str], port: int, unit_id: int, timeout: float) ->
     return aggregate
 
 
-def write_json_report(data: Dict[str, Any], out_path: Path) -> Path:
+def write_json_report(data: dict[str, Any], out_path: Path) -> Path:
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with out_path.open("w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
     return out_path
 
 
-def write_html_report(data: Dict[str, Any], out_path: Path, template_path: Optional[Path] = None) -> Path:
+def write_html_report(
+    data: dict[str, Any], out_path: Path, template_path: Path | None = None
+) -> Path:
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    # SECURITY: render with autoescape=True to prevent XSS from untrusted PCAP bytes.
-    # Original code used `Template(...).render()` without autoescape, which emitted
-    # raw bytes (including attacker-controlled HTML/JS) into the report.
+    # Render with autoescape=True to prevent XSS from untrusted PCAP bytes.
     from ics_scanner.security import safe_render
-    template_dir = (template_path.parent) if template_path else Path("reports/templates")
-    template_name = (template_path.name) if template_path else "modbus_report.html"
+
+    template_dir = template_path.parent if template_path else Path("reports/templates")
+    template_name = template_path.name if template_path else "modbus_report.html"
     html = safe_render(template_name, {"report": data}, template_dir=str(template_dir))
     out_path.write_text(html, encoding="utf-8")
     return out_path
@@ -173,15 +179,14 @@ def main(
     port: int = 502,
     unit_id: int = 1,
     timeout: float = 2.0,
-    json_out: Optional[str] = None,
-    html_out: Optional[str] = None,
-):
+    json_out: str | None = None,
+    html_out: str | None = None,
+) -> None:
     targets = expand_targets(targets_arg)
-    LOG.info(f"Expanded targets: {targets}")
+    LOG.info("Expanded targets: %s", targets)
 
     data = scan_targets(targets=targets, port=port, unit_id=unit_id, timeout=timeout)
 
-    # Default outputs if not provided → ahora en reports/modbus_batch/
     ts = utc_ts().replace(":", "-")
     json_path = Path(json_out or f"reports/modbus_batch/modbus_scan_{ts}.json")
     html_path = Path(html_out or f"reports/modbus_batch/modbus_scan_{ts}.html")
@@ -189,19 +194,26 @@ def main(
     write_json_report(data, json_path)
     write_html_report(data, html_path)
 
-    LOG.info(f"JSON report: {json_path}")
-    LOG.info(f"HTML report: {html_path}")
+    LOG.info("JSON report: %s", json_path)
+    LOG.info("HTML report: %s", html_path)
 
 
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="IndustrialScanner-Lite Modbus read-only scanner")
-    parser.add_argument("--targets", required=True,
-                        help="Comma-separated IPs, CIDR (e.g., 192.168.0.0/24), or @file with one IP per line")
+    parser = argparse.ArgumentParser(
+        description="IndustrialScanner Modbus read-only scanner"
+    )
+    parser.add_argument(
+        "--targets",
+        required=True,
+        help="Comma-separated IPs, CIDR (e.g. 192.168.0.0/24), or @file with one IP per line",
+    )
     parser.add_argument("--port", type=int, default=502, help="Modbus/TCP port (default: 502)")
     parser.add_argument("--unit", type=int, default=1, help="Modbus Unit ID (default: 1)")
-    parser.add_argument("--timeout", type=float, default=2.0, help="Socket timeout in seconds (default: 2.0)")
+    parser.add_argument(
+        "--timeout", type=float, default=2.0, help="Socket timeout in seconds (default: 2.0)"
+    )
     parser.add_argument("--json-out", type=str, default=None, help="Path for JSON report")
     parser.add_argument("--html-out", type=str, default=None, help="Path for HTML report")
 

@@ -1,21 +1,24 @@
-# -*- coding: utf-8 -*-
 """
 DNP3 Monitor: PCAP analysis for DNP3 traffic over TCP/UDP port 20000.
 Generates JSON and HTML reports with summary and per-packet details.
 """
 import json
 import os
-from typing import Any, Dict, List
 from datetime import datetime
-from scapy.all import rdpcap, TCP, UDP
-from .parsers import parse_dnp3_packet, SUSPECT_FUNCS
+from typing import Any
+
+from scapy.all import TCP, UDP, rdpcap
+
+from .parsers import parse_dnp3_packet
+
 
 def utc_ts() -> str:
-    return datetime.utcnow().strftime("%Y-%m-%dT%H-%M-%SZ")
+    from datetime import UTC
+    return datetime.now(UTC).strftime("%Y-%m-%dT%H-%M-%SZ")
 
-def analyze_pcap(pcap_path: str) -> Dict[str, Any]:
+def analyze_pcap(pcap_path: str) -> dict[str, Any]:
     packets = rdpcap(pcap_path)
-    results: List[Dict[str, Any]] = []
+    results: list[dict[str, Any]] = []
 
     summary = {
         "total_packets": 0,
@@ -27,9 +30,7 @@ def analyze_pcap(pcap_path: str) -> Dict[str, Any]:
     for pkt in packets:
         summary["total_packets"] += 1
         is_dnp3 = False
-        if TCP in pkt and (pkt[TCP].dport == 20000 or pkt[TCP].sport == 20000):
-            is_dnp3 = True
-        elif UDP in pkt and (pkt[UDP].dport == 20000 or pkt[UDP].sport == 20000):
+        if (TCP in pkt and (pkt[TCP].dport == 20000 or pkt[TCP].sport == 20000)) or (UDP in pkt and (pkt[UDP].dport == 20000 or pkt[UDP].sport == 20000)):
             is_dnp3 = True
 
         if not is_dnp3:
@@ -58,12 +59,12 @@ def analyze_pcap(pcap_path: str) -> Dict[str, Any]:
         }
     }
 
-def save_json(report: Dict[str, Any], json_out: str) -> None:
+def save_json(report: dict[str, Any], json_out: str) -> None:
     os.makedirs(os.path.dirname(json_out), exist_ok=True)
     with open(json_out, "w", encoding="utf-8") as f:
         json.dump(report, f, indent=2)
 
-def build_html(report: Dict[str, Any]) -> str:
+def build_html(report: dict[str, Any]) -> str:
     """Build DNP3 HTML report with proper HTML escaping (XSS fix).
 
     Original code used f-strings to embed PCAP-derived bytes directly into HTML,
@@ -99,7 +100,7 @@ def build_html(report: Dict[str, Any]) -> str:
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>IndustrialScanner-Lite | DNP3 Analysis Report</title>
+  <title>IndustrialScanner | DNP3 Analysis Report</title>
   <style>
     body {{ font-family: Arial, sans-serif; margin: 24px; color: #222; }}
     h1 {{ margin-bottom: 4px; }}
@@ -155,7 +156,7 @@ def build_html(report: Dict[str, Any]) -> str:
 </html>
 """
 
-def save_html(report: Dict[str, Any], html_out: str) -> None:
+def save_html(report: dict[str, Any], html_out: str) -> None:
     os.makedirs(os.path.dirname(html_out), exist_ok=True)
     html = build_html(report)
     with open(html_out, "w", encoding="utf-8") as f:
@@ -165,7 +166,7 @@ def main(
     pcap_file: str,
     json_out: str = None,
     html_out: str = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     data = analyze_pcap(pcap_file)
     if not json_out:
         json_out = os.path.join("reports", f"dnp3_scan_{utc_ts()}.json")

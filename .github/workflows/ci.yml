@@ -69,11 +69,11 @@ jobs:
       - name: Bandit
         run: |
           pip install bandit
-          bandit -r modbus_scanner s7_comm_analyzer dnp3_monitor ics_scanner -c pyproject.toml || true
+          bandit -r modbus_scanner s7_comm_analyzer dnp3_monitor ics_scanner -c pyproject.toml
       - name: pip-audit
         run: |
           pip install pip-audit
-          pip-audit -r requirements.txt --strict || true
+          pip-audit -r requirements.txt --strict
       - name: Semgrep
         uses: returntocorp/semgrep-action@v1
         with:
