@@ -10,7 +10,7 @@ from __future__ import annotations
 import html as html_lib
 import json
 import os
-from datetime import datetime
+from datetime import UTC, datetime
 
 REPORTS = {
     "Modbus": os.path.join("reports", "modbus_batch"),
@@ -44,7 +44,7 @@ def collect_summary(folder):
 
 
 def build_index(results):
-    now = datetime.now(datetime.UTC).strftime("%Y-%m-%d %H:%M:%SZ")
+    now = datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%SZ")
     parts = []
     parts.append("<!doctype html><html lang='en'><head><meta charset='utf-8'>")
     parts.append("<title>IndustrialScanner | Global Executive Dashboard</title>")

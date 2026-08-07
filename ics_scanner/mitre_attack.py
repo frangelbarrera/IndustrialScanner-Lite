@@ -182,16 +182,16 @@ PROTOCOL_FUNCTION_MAPPING: dict[str, dict[str, list[str]]] = {
         "ReadInputRegisters": ["T0801", "T0802"],
         # Modbus write/control operations (not issued by this tool, but
         # detected in passive PCAP analysis)
-        "WriteSingleCoil": ["T0858", "T0858"],
+        "WriteSingleCoil": ["T0858"],
         "WriteMultipleCoils": ["T0858"],
         "WriteSingleRegister": ["T0858"],
         "WriteMultipleRegisters": ["T0858"],
         "ForceListenOnly": ["T0858"],
         "RestartCommunications": ["T0858"],
-        "Diagnostics": ["T0808"],
+        "Diagnostics": ["T0808", "T0881"],
     },
     "s7comm": {
-        "ReadVar": ["T0801", "T0802", "T0808"],
+        "ReadVar": ["T0801", "T0802", "T0808", "T0881"],
         "WriteVar": ["T0848", "T0858"],
         "Start": ["T0858"],
         "Stop": ["T0858"],
@@ -202,10 +202,10 @@ PROTOCOL_FUNCTION_MAPPING: dict[str, dict[str, list[str]]] = {
         "CopyRamToRom": ["T0885", "T0879"],
         "FirmwareUpdate": ["T0858", "T0885", "T0879"],
         "Password": ["T0859"],
-        "ReadDiag": ["T0801", "T0808"],
+        "ReadDiag": ["T0801", "T0808", "T0881"],
     },
     "dnp3": {
-        "Read": ["T0801", "T0802", "T0808"],
+        "Read": ["T0801", "T0802", "T0808", "T0881"],
         "Write": ["T0848", "T0858"],
         "Select": ["T0858"],
         "Operate": ["T0858", "T0894"],
@@ -219,10 +219,13 @@ PROTOCOL_FUNCTION_MAPPING: dict[str, dict[str, list[str]]] = {
         "StartApplication": ["T0858"],
         "DeleteFile": ["T0879"],
         "EnableUnsolicited": ["T0858"],
+        "DisableUnsolicited": ["T0858"],
         "AssignClass": ["T0858"],
         "Authenticate": ["T0859"],
         "OpenFile": ["T0801"],
         "CloseFile": ["T0801"],
+        "DelayMeasure": ["T0801"],
+        "RecordCurrentTime": ["T0801"],
     },
 }
 

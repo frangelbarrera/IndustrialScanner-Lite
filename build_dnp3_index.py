@@ -10,7 +10,7 @@ from __future__ import annotations
 import html as html_lib
 import json
 import os
-from datetime import datetime
+from datetime import UTC, datetime
 
 REPORT_DIR = os.path.join("reports", "dnp3_batch")
 OUTPUT_FILE = os.path.join("reports", "dnp3_index.html")
@@ -42,7 +42,7 @@ def load_reports():
 
 
 def build_index(reports):
-    now = datetime.now(datetime.UTC).strftime("%Y-%m-%d %H:%M:%SZ")
+    now = datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%SZ")
 
     labels = []
     total_packets = []
