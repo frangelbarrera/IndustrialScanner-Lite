@@ -193,7 +193,19 @@ class TestParameterBlockParsing:
     )
     def test_parameter_block_respects_param_len(self, param_len, data_len):
         """The parameter block parsing must respect the declared param_len
-        AND the actual payload length."""
+        AND the actual payload length.
+
+        _parse_parameter_block returns None when:
+          - param_len == 0 (no parameter block declared), OR
+          - len(payload) < param_offset(10) + 2 = 12 bytes (cannot read 2 bytes
+            at offset 10 to get function_group and sub_function)
+
+        In our generated frame:
+          len(payload) = 10 (header) + param_len + data_len
+        So the parser returns None when:
+          - param_len == 0, OR
+          - 10 + param_len + data_len < 12, i.e., param_len + data_len < 2
+        """
         # Build a frame with a parameter block of param_len bytes
         param_data = bytes([0x04, 0x00]) + b"\x00" * max(0, param_len - 2)
         param_data = param_data[:param_len]
@@ -210,17 +222,17 @@ class TestParameterBlockParsing:
         header = _parse_s7_header(payload)
         assert header is not None
         param = _parse_parameter_block(payload, header)
-        # _parse_parameter_block returns None when:
-        #   - param_len == 0 (no parameter block at all), OR
-        #   - len(payload) < param_offset(10) + 2 (not enough bytes for header)
-        # In our generated frame, len(payload) is always >= 12, so the only
-        # case that returns None is param_len == 0.
-        if param_len == 0:
-            assert param is None, f"Expected None for param_len=0, got {param}"
+
+        payload_len = len(payload)
+        # The parser needs at least 12 bytes (10 header + 2 param) AND param_len > 0
+        if param_len == 0 or payload_len < 12:
+            assert param is None, (
+                f"Expected None for param_len={param_len}, payload_len={payload_len}, got {param}"
+            )
         else:
-            # param_len >= 1 -> _parse_parameter_block needs at least 2 bytes
-            # available at offset 10. We always have 12+ bytes, so it parses.
-            assert param is not None
+            assert param is not None, (
+                f"Expected dict for param_len={param_len}, payload_len={payload_len}, got None"
+            )
             assert param["param_len"] == param_len
 
 
