@@ -95,3 +95,6 @@ logs/
 
 # Local config
 local_settings.py
+
+# PCAP originals (kept locally as backups after anonymization, never committed)
+pcaps/**/.originals/
