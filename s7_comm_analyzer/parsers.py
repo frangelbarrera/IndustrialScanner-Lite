@@ -16,9 +16,7 @@ code. Function codes live in the parameter block which starts at byte 10 of
 the S7 header.
 """
 
-from __future__ import annotations
-
-from typing import Any, Dict, Optional
+from typing import Any
 
 from scapy.all import Raw
 
@@ -95,7 +93,7 @@ SUSPECT_FUNCS = {
 BLOCK_HINTS = [b"OB1", b"OB", b"DB", b"FB", b"FC", b"System", b"PLC", b"Firmware", b"Update"]
 
 
-def _parse_s7_header(payload: bytes) -> dict[str, int] | None:
+def _parse_s7_header(payload: bytes) -> "dict[str, int] | None":
     """Parse the S7 header (10 bytes minimum) from a payload.
 
     Returns a dict with: protocol_id, rosctr, pdu_ref, param_len, data_len.
@@ -116,7 +114,7 @@ def _parse_s7_header(payload: bytes) -> dict[str, int] | None:
     }
 
 
-def _parse_parameter_block(payload: bytes, header: dict[str, int]) -> dict[str, Any] | None:
+def _parse_parameter_block(payload: bytes, header: "dict[str, int]") -> "dict[str, Any] | None":
     """Parse the S7 parameter block that follows the 10-byte S7 header.
 
     The parameter block begins at byte 10. Byte 0 of the parameter block is
@@ -134,7 +132,7 @@ def _parse_parameter_block(payload: bytes, header: dict[str, int]) -> dict[str, 
     }
 
 
-def _classify_function(header: dict[str, int], param: dict[str, Any] | None) -> str:
+def _classify_function(header: "dict[str, int]", param: "dict[str, Any] | None") -> str:
     """Classify the S7 operation by combining header and parameter info."""
     # If we have a parameter block with a known function code, use it.
     if param is not None:
@@ -165,7 +163,7 @@ def _guess_function(payload: bytes) -> str:
     return _classify_function(header, param)
 
 
-def parse_s7_packet(pkt) -> dict | None:
+def parse_s7_packet(pkt) -> "dict | None":
     """Extract useful metadata from an S7Comm packet.
 
     Returns a dict with src, dst, function_code, length, hints, rosctr,
