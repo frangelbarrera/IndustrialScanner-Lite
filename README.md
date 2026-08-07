@@ -10,15 +10,15 @@ Modbus/TCP &middot; Siemens S7Comm &middot; DNP3
 
 ---
 
-[![License: MIT](https://img.shields.io/github/license/frangelbarrera/IndustrialScanner?style=flat-square)](LICENSE)
-[![CI](https://img.shields.io/github/actions/workflow/status/frangelbarrera/IndustrialScanner/ci.yml?branch=feature/world-class-refactor&style=flat-square&label=CI)](https://github.com/frangelbarrera/IndustrialScanner/actions)
+[![License: MIT](https://img.shields.io/github/license/frangelbarrera/industrial-scanner?style=flat-square)](LICENSE)
+[![CI](https://img.shields.io/github/actions/workflow/status/frangelbarrera/industrial-scanner/ci.yml?branch=feature/world-class-refactor&style=flat-square&label=CI)](https://github.com/frangelbarrera/industrial-scanner/actions)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue?style=flat-square)](https://www.python.org/downloads/)
 [![Ruff](https://img.shields.io/badge/code%20style-ruff-261230?style=flat-square)](https://docs.astral.sh/ruff/)
 [![Coverage](https://img.shields.io/badge/coverage-todo-orange?style=flat-square)](https://pytest.org)
 [![Security: bandit](https://img.shields.io/badge/security-bandit-1f6feb?style=flat-square)](https://github.com/PyCQA/bandit)
-[![Stars](https://img.shields.io/github/stars/frangelbarrera/IndustrialScanner?style=flat-square)](https://github.com/frangelbarrera/IndustrialScanner/stargazers)
-[![Last Commit](https://img.shields.io/github/last-commit/frangelbarrera/IndustrialScanner?style=flat-square)](https://github.com/frangelbarrera/IndustrialScanner/commits)
-[![Issues](https://img.shields.io/github/issues/frangelbarrera/IndustrialScanner?style=flat-square)](https://github.com/frangelbarrera/IndustrialScanner/issues)
+[![Stars](https://img.shields.io/github/stars/frangelbarrera/industrial-scanner?style=flat-square)](https://github.com/frangelbarrera/industrial-scanner/stargazers)
+[![Last Commit](https://img.shields.io/github/last-commit/frangelbarrera/industrial-scanner?style=flat-square)](https://github.com/frangelbarrera/industrial-scanner/commits)
+[![Issues](https://img.shields.io/github/issues/frangelbarrera/industrial-scanner?style=flat-square)](https://github.com/frangelbarrera/industrial-scanner/issues)
 
 > ⚠️ **Read-only research / education tool.** Never deploy against production OT environments without explicit written authorization. See [`SECURITY.md`](SECURITY.md) and the [Safe Harbor](SECURITY.md#safe-harbor) section.
 
@@ -51,7 +51,7 @@ Commercial ICS/OT tooling (Claroty, Nozomi, Dragos) is excellent but expensive a
 
 ```bash
 # 1. Clone
-git clone https://github.com/frangelbarrera/IndustrialScanner.git
+git clone https://github.com/frangelbarrera/industrial-scanner.git
 cd IndustrialScanner
 
 # 2. Install
@@ -62,16 +62,20 @@ pip install -e ".[dev]"
 cp .env.example .env
 
 # 4. Run a Modbus scan (read-only, safe probes)
-ics-scan modbus --targets 127.0.0.1 --unit 1
+industrial-scanner modbus --targets 127.0.0.1 --unit 1
 # or
 python -m modbus_scanner.modbus_scan --targets 127.0.0.1 --unit 1
 
-# 5. Analyze S7Comm PCAPs
-python run_dnp3_all.py    # processes all PCAPs in pcaps/dnp3/
-python build_s7_index.py  # builds consolidated dashboard
+# 5. Analyze S7Comm PCAPs (single file)
+industrial-scanner s7 --pcap pcaps/s7/step7_s300_stop.pcapng
 
-# 6. Global executive dashboard
-python build_global_index.py
+# 6. Batch-analyze all DNP3 PCAPs in pcaps/dnp3/
+python run_dnp3_all.py
+
+# 7. Build consolidated dashboards
+python build_s7_index.py        # S7 dashboard
+python build_dnp3_index.py      # DNP3 dashboard
+python build_global_index.py    # Global executive dashboard
 ```
 
 Outputs land in `reports/` as HTML dashboards with Chart.js visualizations.
@@ -118,12 +122,12 @@ IndustrialScanner/
 
 ## Unified CLI (new)
 
-The new Click+Rich based CLI lives in `ics_scanner/cli.py`. Install exposes the `ics-scan` entry point:
+The new Click+Rich based CLI lives in `ics_scanner/cli.py`. Install exposes the `industrial-scanner` entry point:
 
 ```bash
-ics-scan modbus --targets 192.168.0.10,192.168.0.11 --unit 1
-ics-scan s7 --pcap pcaps/s7/step7_s300_stop.pcapng
-ics-scan dnp3 --pcap pcaps/dnp3/read_and_response.pcap
+industrial-scanner modbus --targets 192.168.0.10,192.168.0.11 --unit 1
+industrial-scanner s7 --pcap pcaps/s7/step7_s300_stop.pcapng
+industrial-scanner dnp3 --pcap pcaps/dnp3/read_and_response.pcap
 ```
 
 The CLI enforces a **target safety policy**: public IPs are refused by default (use `--allow-public` only after explicit written authorization). This prevents accidental wide-area scanning of legacy PLCs.
@@ -137,7 +141,7 @@ The CLI enforces a **target safety policy**: public IPs are refused by default (
 ```bash
 python -m modbus_scanner.modbus_scan --targets 127.0.0.1 --port 502 --unit 1
 # or
-ics-scan modbus --targets 127.0.0.1 --port 502 --unit 1
+industrial-scanner modbus --targets 127.0.0.1 --port 502 --unit 1
 ```
 
 - Issues **only read function codes**: `0x01 Read Coils`, `0x02 Read Discrete Inputs`, `0x03 Read Holding Registers`, `0x04 Read Input Registers`.
@@ -147,7 +151,7 @@ ics-scan modbus --targets 127.0.0.1 --port 502 --unit 1
 ### S7Comm (passive, from PCAPs)
 
 ```bash
-python run_s7_all.bat          # processes every .pcap/.pcapng in pcaps/s7/
+python -m s7_comm_analyzer.s7_analyze  # processes every .pcap/.pcapng in pcaps/s7/
 python build_s7_index.py      # consolidated dashboard with Chart.js
 ```
 

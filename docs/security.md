@@ -51,7 +51,7 @@ initiate via the Modbus scanner.
 
 ## Reporting vulnerabilities
 
-See [SECURITY.md](https://github.com/frangelbarrera/IndustrialScanner/blob/main/SECURITY.md)
+See [SECURITY.md](https://github.com/frangelbarrera/industrial-scanner/blob/main/SECURITY.md)
 for the vulnerability reporting process, Safe Harbor, and supported versions.
 
 ## Known limitations

@@ -14,7 +14,7 @@ from pathlib import Path
 
 import pytest
 
-REPO_ROOT = Path("/home/z/my-project/repos/IndustrialScanner-Lite")
+REPO_ROOT = Path(__file__).resolve().parents[1]
 SNAPSHOT_DIR = Path(__file__).parent / "snapshots"
 SNAPSHOT_DIR.mkdir(exist_ok=True)
 

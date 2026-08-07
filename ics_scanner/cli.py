@@ -20,7 +20,7 @@ log = configure_logging("ics_scanner.cli")
 
 
 @click.group(help="IndustrialScanner — read-only ICS/OT analyzer.")
-@click.version_option(package_name="ics-ot-scanner")
+@click.version_option(package_name="industrial-scanner")
 def cli() -> None:
     """Entry group."""
 

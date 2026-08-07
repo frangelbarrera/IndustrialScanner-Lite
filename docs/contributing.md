@@ -98,7 +98,7 @@ a new protocol:
 ## Code of Conduct
 
 By participating, you agree to abide by our
-[Code of Conduct](https://github.com/frangelbarrera/IndustrialScanner/blob/main/CODE_OF_CONDUCT.md).
+[Code of Conduct](https://github.com/frangelbarrera/industrial-scanner/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 

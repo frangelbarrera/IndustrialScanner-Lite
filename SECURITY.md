@@ -1,28 +1,25 @@
 # Security Policy — IndustrialScanner
 
-> **Repository status:** This repository is being **archived** (read-only). It
-> remains available for educational reference, but no active development or
-> security fixes are planned. See *Supported Versions* below.
-
 IndustrialScanner is a Python toolkit for **passive analysis of ICS/OT
 traffic** (Siemens S7Comm over TCP/102, DNP3 over TCP-UDP/20000) and
-**read-only active probing** of Modbus/TCP devices (port 502). It is designed
-for auditors, researchers, and educators working on industrial control systems
-security, and **must never be deployed against production OT environments**
-without explicit written authorization from the asset owner.
+**read-only active probing** of Modbus/TCP devices (port 502). It is
+designed for auditors, researchers, and educators working on industrial
+control systems security.
+
+The project is **actively maintained**. Security reports are welcomed and
+will be triaged and patched.
 
 ---
 
 ## Supported Versions
 
-| Version | Supported          | Notes                                                |
-|---------|--------------------|------------------------------------------------------|
-| `main`  | :x: Archived       | No new fixes will be released upstream.              |
-| forks   | Community-driven   | The maintainer does not track downstream forks.      |
+| Version | Supported   | Notes                                            |
+|---------|-------------|--------------------------------------------------|
+| `main`  | Yes         | Active development branch.                       |
+| tags    | Best effort | Tagged releases receive fixes via new tags.      |
 
-Because the project is archived, vulnerability reports will be acknowledged
-and documented, but **patches will not be issued upstream**. Researchers who
-need a fixed version are encouraged to maintain a private fork.
+If you need a fix backported to an older tag, please open an issue describing
+the version and the CVE/finding.
 
 ---
 
@@ -32,8 +29,6 @@ Please report security issues **privately** before any public disclosure:
 
 - **Email:** `frangelrcbarrera@gmail.com`
 - **Subject prefix:** `[SECURITY] IndustrialScanner — <short summary>`
-- **PGP:** Not available at this time. If the issue is sensitive, send a
-  short summary first and request an encrypted channel.
 
 Include in the report:
 
@@ -57,8 +52,8 @@ Include in the report:
 | Public advisory (if accepted)     | Mutually agreed date  |
 
 The maintainer operates this project on a personal, part-time basis. The
-above targets are best-effort and may slip; researchers will be kept
-informed if delays occur.
+above targets are best-effort; researchers will be kept informed if delays
+occur.
 
 ---
 
@@ -67,22 +62,24 @@ informed if delays occur.
 ### In scope
 
 - The Python source tree under `modbus_scanner/`, `s7_comm_analyzer/`,
-  `dnp3_monitor/`, plus the top-level `cli.py`, `build_*_index.py`, and
-  `run_dnp3_all.py` scripts.
+  `dnp3_monitor/`, and `ics_scanner/`.
 - The Jinja2 HTML templates under `reports/templates/`.
 - Parsing of untrusted PCAP/PCAPNG files via `scapy.rdpcap`.
 - HTML/JSON report generation from PCAP-derived or Modbus-derived data.
+- The CLI entry points declared in `pyproject.toml`.
+- The CI/CD workflows under `.github/workflows/`.
+- The `Dockerfile` and the published Docker image on GHCR.
 
 ### Out of scope
 
 - The committed sample PCAPs under `pcaps/` (public ICS training captures,
-  not part of the tool's runtime).
+  anonymized; not part of the tool's runtime).
 - `ModbusPal.jar`, an unrelated third-party Modbus emulator bundled for
   convenience — report issues to its upstream project.
-- Vulnerabilities in dependencies (`pymodbus`, `scapy`, `Jinja2`) — please
-  report them to their respective maintainers via their CVE/CSAF channels.
+- Vulnerabilities in dependencies (`pymodbus`, `scapy`, `Jinja2`,
+  `pydantic`) — please report them to their respective maintainers via
+  their CVE/CSAF channels.
 - Self-XSS requiring the attacker to already control the auditor's machine.
-- The committed `.pyc` files in `__pycache__/` (build artifacts).
 
 ---
 
@@ -117,64 +114,102 @@ understanding and complying with the laws of their jurisdiction.
 - **United States — Computer Fraud and Abuse Act (18 U.S.C. § 1030)**,
   particularly the research and good-faith limitations recognized in
   recent DOJ guidelines.
-- **United Kingdom — Computer Misuse Act 1990**, sections 1 (unauthorized
-  access) and 3 (unauthorized acts impairing operation).
 - **European Union — Directive 2013/40/EU** on attacks against information
-  systems, in particular Article 4 (illegal system interference) and the
-  recitals acknowledging proportionate treatment of research.
+  systems.
 
-Nothing in this policy overrides statutory obligations; it only expresses the
-maintainer's intent **not to refer for prosecution** reports that comply
-with this Safe Harbor.
+Nothing in this policy overrides statutory obligations; it only expresses
+the maintainer's intent **not to refer for prosecution** reports that
+comply with this Safe Harbor.
+
+---
+
+## Security Features
+
+IndustrialScanner implements the following security features:
+
+### Read-only by design
+
+- The Modbus scanner issues **only** function codes `0x01 Read Coils`,
+  `0x02 Read Discrete Inputs`, `0x03 Read Holding Registers`,
+  `0x04 Read Input Registers`. Write/control codes (`0x05`, `0x06`,
+  `0x0F`, `0x10`, etc.) are **never** issued.
+- S7Comm and DNP3 analyzers operate on captured PCAP files only — they
+  send **no traffic** to the network.
+
+### Target safety policy
+
+- The CLI enforces a target safety policy: public IPs are refused by default.
+  Pass `--allow-public` only after explicit written authorization from the
+  asset owner.
+- CIDR scans are limited to `/24` (256 hosts) by default.
+- Path traversal is blocked for user-supplied output filenames via
+  `ics_scanner.security.safe_join_path`.
+
+### HTML/JSON output safety
+
+- All HTML reports use **Jinja2 with `autoescape=True`** or
+  `markupsafe.escape()` on every untrusted field. This prevents stored XSS
+  from malicious PCAPs.
+- Index builders (`build_*.py`) use `html.escape()` on every untrusted
+  field.
+- A regression test (`tests/test_xss_regression.py`) verifies that
+  `<script>` tags in PCAP-derived fields are escaped.
+
+### Strict protocol parsing
+
+- S7Comm parser uses **binary decoding** per the Siemens spec (TPKT/COTP
+  unwrapping + S7 header + parameter block) with no string-based guessing.
+- DNP3 parser uses **binary decoding** per IEEE 1815-2012 (link layer +
+  transport + application layer) with no pattern matching on payload bytes.
+- Property-based fuzz testing with Hypothesis verifies that the parsers
+  never crash on arbitrary input.
+
+### CI/CD security
+
+- **Bandit** static analysis runs on every push and PR (0 HIGH findings
+  accepted; LOW findings are reviewed).
+- **pip-audit** scans dependencies for known CVEs on every push and daily.
+- **Semgrep** runs OWASP Top 10 + Python rulesets.
+- **CodeQL** semantic analysis runs on every push.
+- **Dependabot** is enabled for dependency updates.
+
+### No telemetry, no outbound calls
+
+IndustrialScanner runs entirely offline. It does not:
+- Phone home
+- Send usage statistics
+- Download updates
+- Connect to any external service
+
+All processing is local. The only network connections are the ones you
+initiate via the Modbus scanner.
 
 ---
 
 ## Known Security Considerations
 
-The repository is a **research prototype**, not a production tool. Honest
-disclosure of its current limitations:
-
-- **Heuristic parsers.** S7Comm and DNP3 protocol classifiers rely on
-  ASCII substring matching and approximate byte offsets rather than strict
-  protocol decoding. They are **not suitable** as the sole basis for
-  compliance or incident-response decisions and may produce both false
-  positives and false negatives.
-- **HTML report generation.** JSON and HTML reports are produced without
-  strict output escaping. Reports should be opened in a sandboxed browser
-  and treated as untrusted if generated from PCAPs of unknown provenance.
-- **Active Modbus probing.** The Modbus scanner is read-only by design
-  (`read_coils`, `read_discrete_inputs`, `read_holding_registers`,
-  `read_input_registers`). It does not issue write or control commands.
-  Even so, scanning live PLCs carries operational risk; only scan devices
-  you own or are explicitly authorized to test, and avoid wide CIDR sweeps
-  against legacy equipment.
-- **Repo hygiene.** Historical commits include build artifacts
-  (`__pycache__/*.pyc`), a bundled third-party JAR (`ModbusPal.jar`), and
-  sample PCAP files. None of these affect runtime security of the tool,
-  but they inflate the clone footprint and may include IPs from lab
-  networks.
-- **No automated CI, tests, or dependency scanning.** There is no
-  continuous integration pipeline; downstream users should pin and audit
-  dependencies (`pymodbus`, `scapy`, `Jinja2`) themselves.
-- **Prototype CLI integration.** The unified `cli.py` does not cleanly map
-  to every analyzer's `main()` signature. Use the per-module entry points
-  (`python -m modbus_scanner.modbus_scan`,
-  `python -m s7_comm_analyzer.s7_analyze`,
-  `python -m dnp3_monitor.dnp3_analyze`) for reliable behavior.
+- **S7Comm-Plus** (firmware ≥ V3.0 on S7-1200/1500) uses encrypted X3.1324
+  framing and is **not** supported. The analyzer returns `NonS7Payload`
+  for these frames.
+- **DNP3 Secure Authentication v5 (SA v5)** is detected (function `0x1D`)
+  but the challenge-response is not validated. SA v5 is mandatory for
+  IEC 62443 SL 3+ compliance. (Roadmap: Q2 2026.)
+- **Modbus/TCP TLS (RFC 9441)** is not yet implemented. Modbus traffic is
+  sent in plaintext. (Roadmap: Q2 2026.)
+- **Sample PCAPs** in `pcaps/` have been anonymized (public IPs replaced
+  with synthetic 10.x.x.x addresses), but may still contain MAC addresses
+  from lab equipment. Treat them as public artifacts.
 
 ---
 
 ## Contact
 
-- **Maintainer:** Frangel Raúl Crespo Barrera
+- **Maintainer:** Frangel Barrera
 - **Email:** `frangelrcbarrera@gmail.com`
-- **GitHub:** [`frangelbarrera/IndustrialScanner`](https://github.com/frangelbarrera/IndustrialScanner)
+- **GitHub:** [`frangelbarrera/industrial-scanner`](https://github.com/frangelbarrera/industrial-scanner)
 
-For non-security questions, please open a regular GitHub issue while the
-repository is still interactive. After archiving, the issue tracker will be
-disabled and email will remain the only channel.
+For non-security questions, please open a regular GitHub issue.
 
 ---
 
-*This policy is versioned with the repository. Last update coincides with the
-final commit prior to archival.*
+*This policy is versioned with the repository.*

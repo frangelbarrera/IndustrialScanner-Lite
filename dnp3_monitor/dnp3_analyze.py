@@ -61,7 +61,14 @@ def analyze_pcap(pcap_path: str) -> dict[str, Any]:
 
 
 def save_json(report: dict[str, Any], json_out: str) -> None:
-    os.makedirs(os.path.dirname(json_out), exist_ok=True)
+    """Write the JSON report, creating parent directories if needed.
+
+    Handles the case where json_out has no directory component (e.g., "out.json"
+    in the current working directory) without raising from os.makedirs('').
+    """
+    parent = os.path.dirname(json_out)
+    if parent:
+        os.makedirs(parent, exist_ok=True)
     with open(json_out, "w", encoding="utf-8") as f:
         json.dump(report, f, indent=2)
 
@@ -158,7 +165,10 @@ def build_html(report: dict[str, Any]) -> str:
 
 
 def save_html(report: dict[str, Any], html_out: str) -> None:
-    os.makedirs(os.path.dirname(html_out), exist_ok=True)
+    """Write the HTML report, creating parent directories if needed."""
+    parent = os.path.dirname(html_out)
+    if parent:
+        os.makedirs(parent, exist_ok=True)
     html = build_html(report)
     with open(html_out, "w", encoding="utf-8") as f:
         f.write(html)

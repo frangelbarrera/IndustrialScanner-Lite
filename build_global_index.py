@@ -37,8 +37,10 @@ def collect_summary(folder):
             summ = data.get("summary", {})
             total_packets += summ.get("total_packets", 0)
             suspect += summ.get("suspect_functions", 0)
-        except Exception:
-            # Skip malformed report files rather than aborting the build.
+        except Exception as e:
+            # Log the corrupt file for traceability instead of silently
+            # skipping. Using print() because this is a standalone script.
+            print(f"[WARN] Could not read {fname} in {folder}: {e}")
             continue
     return (total_pcaps, total_packets, suspect)
 

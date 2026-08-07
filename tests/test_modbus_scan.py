@@ -224,7 +224,7 @@ class TestWriteHtmlReport:
             "summary": {"reachable": 1, "unauthenticated_read": 0, "broad_register_access": 0},
         }
         # Need to use the actual templates directory
-        template_dir = Path("/home/z/my-project/repos/IndustrialScanner-Lite/reports/templates")
+        template_dir = Path(__file__).resolve().parents[1] / "reports" / "templates"
         out = tmp_path / "report.html"
         if template_dir.exists():
             write_html_report(data, out)

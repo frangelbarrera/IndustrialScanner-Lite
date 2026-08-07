@@ -14,7 +14,7 @@ pip install industrial-scanner
 ### From source (development)
 
 ```bash
-git clone https://github.com/frangelbarrera/IndustrialScanner.git
+git clone https://github.com/frangelbarrera/industrial-scanner.git
 cd IndustrialScanner
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"

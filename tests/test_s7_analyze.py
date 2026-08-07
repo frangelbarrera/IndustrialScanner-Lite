@@ -27,7 +27,7 @@ from s7_comm_analyzer.s7_analyze import (
     write_json_report,
 )
 
-REPO_ROOT = Path("/home/z/my-project/repos/IndustrialScanner-Lite")
+REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 def _build_s7_packet(src="10.0.0.1", dst="10.0.0.2", func=FUNC_READ_VAR):

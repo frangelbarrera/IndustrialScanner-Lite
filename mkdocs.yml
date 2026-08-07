@@ -3,8 +3,8 @@
 site_name: IndustrialScanner
 site_description: Read-only security analyzer for ICS/OT — Modbus/TCP, Siemens S7Comm, DNP3
 site_url: https://frangelbarrera.github.io/IndustrialScanner/
-repo_url: https://github.com/frangelbarrera/IndustrialScanner
-repo_name: frangelbarrera/IndustrialScanner
+repo_url: https://github.com/frangelbarrera/industrial-scanner
+repo_name: frangelbarrera/industrial-scanner
 edit_uri: edit/main/docs/
 
 theme:
@@ -81,4 +81,4 @@ markdown_extensions:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/frangelbarrera/IndustrialScanner
+      link: https://github.com/frangelbarrera/industrial-scanner

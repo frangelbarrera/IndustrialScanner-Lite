@@ -13,7 +13,7 @@ By participating in this project, you agree to abide by our
 
 ### Reporting Bugs
 
-1. Search existing [issues](https://github.com/frangelbarrera/IndustrialScanner/issues)
+1. Search existing [issues](https://github.com/frangelbarrera/industrial-scanner/issues)
    to avoid duplicates.
 2. Open a new issue with:
    - A clear title and description.
