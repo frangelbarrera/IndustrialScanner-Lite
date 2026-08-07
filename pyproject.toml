@@ -35,6 +35,8 @@ dependencies = [
     "click>=8.1",
     "rich>=13.7",
     "pydantic>=2.5",
+    "pydantic-settings>=2.1",
+    "markupsafe>=2.1",
 ]
 
 [project.optional-dependencies]
