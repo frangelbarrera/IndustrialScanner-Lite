@@ -1,13 +1,58 @@
 {
   "meta": {
-    "generated_at": "2025-09-30T11:37:23Z",
-    "pcap_file": "pcaps\\s7\\step7_s300_stop.pcapng"
+    "generated_at": "2026-08-07T21:20:51Z",
+    "pcap_file": "pcaps/s7/step7_s300_stop.pcapng",
+    "mitre_enriched": true
   },
-  "results": [],
+  "results": [
+    {
+      "src": "10.134.249.12",
+      "dst": "10.134.249.225",
+      "function_code": "Unknown",
+      "length": 33,
+      "hints": [],
+      "rosctr": "Job",
+      "pdu_ref": 13568,
+      "mitre_attack": []
+    },
+    {
+      "src": "10.134.249.225",
+      "dst": "10.134.249.12",
+      "function_code": "Unknown",
+      "length": 20,
+      "hints": [],
+      "rosctr": "AckData",
+      "pdu_ref": 13568,
+      "mitre_attack": []
+    },
+    {
+      "src": "10.134.249.225",
+      "dst": "10.134.249.12",
+      "function_code": "Userdata",
+      "length": 49,
+      "hints": [],
+      "rosctr": "Userdata",
+      "pdu_ref": 0,
+      "mitre_attack": []
+    },
+    {
+      "src": "10.134.249.225",
+      "dst": "10.134.249.12",
+      "function_code": "Userdata",
+      "length": 25,
+      "hints": [],
+      "rosctr": "Userdata",
+      "pdu_ref": 0,
+      "mitre_attack": []
+    }
+  ],
   "summary": {
     "total_packets": 4,
-    "s7_packets": 0,
+    "s7_packets": 4,
     "suspect_functions": 0,
-    "unique_hosts": []
+    "unique_hosts": [
+      "10.134.249.225",
+      "10.134.249.12"
+    ]
   }
 }

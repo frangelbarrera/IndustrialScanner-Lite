@@ -11,11 +11,13 @@ Modbus/TCP &middot; Siemens S7Comm &middot; DNP3
 ---
 
 [![License: MIT](https://img.shields.io/github/license/frangelbarrera/industrial-scanner?style=flat-square)](LICENSE)
-[![CI](https://img.shields.io/github/actions/workflow/status/frangelbarrera/industrial-scanner/ci.yml?branch=feature/world-class-refactor&style=flat-square&label=CI)](https://github.com/frangelbarrera/industrial-scanner/actions)
+[![CI](https://img.shields.io/github/actions/workflow/status/frangelbarrera/industrial-scanner/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/frangelbarrera/industrial-scanner/actions)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue?style=flat-square)](https://www.python.org/downloads/)
 [![Ruff](https://img.shields.io/badge/code%20style-ruff-261230?style=flat-square)](https://docs.astral.sh/ruff/)
-[![Coverage](https://img.shields.io/badge/coverage-todo-orange?style=flat-square)](https://pytest.org)
+[![Coverage](https://img.shields.io/badge/coverage-81%25-brightgreen?style=flat-square)](https://pytest.org)
 [![Security: bandit](https://img.shields.io/badge/security-bandit-1f6feb?style=flat-square)](https://github.com/PyCQA/bandit)
+[![MITRE ATT&CK for ICS](https://img.shields.io/badge/MITRE%20ATT%26CK%20for%20ICS-mapped-00B4D8?style=flat-square)](https://attack.mitre.org/matrices/ics/)
+[![Docker](https://img.shields.io/badge/docker-ghcr.io-2496ED?style=flat-square)](https://github.com/frangelbarrera/industrial-scanner/pkgs/container/industrial-scanner)
 [![Stars](https://img.shields.io/github/stars/frangelbarrera/industrial-scanner?style=flat-square)](https://github.com/frangelbarrera/industrial-scanner/stargazers)
 [![Last Commit](https://img.shields.io/github/last-commit/frangelbarrera/industrial-scanner?style=flat-square)](https://github.com/frangelbarrera/industrial-scanner/commits)
 [![Issues](https://img.shields.io/github/issues/frangelbarrera/industrial-scanner?style=flat-square)](https://github.com/frangelbarrera/industrial-scanner/issues)
@@ -151,24 +153,27 @@ industrial-scanner modbus --targets 127.0.0.1 --port 502 --unit 1
 ### S7Comm (passive, from PCAPs)
 
 ```bash
-python -m s7_comm_analyzer.s7_analyze  # processes every .pcap/.pcapng in pcaps/s7/
-python build_s7_index.py      # consolidated dashboard with Chart.js
+industrial-scanner s7 --pcap pcaps/s7/step7_s300_stop.pcapng
+python -m s7_comm_analyzer.s7_analyze  # batch-process all PCAPs in pcaps/s7/
+python build_s7_index.py                # consolidated dashboard with Chart.js
 ```
 
-- Detects TPKT/COTP/S7 traffic on TCP port 102.
-- Heuristic function classifier: `ReadVar`, `WriteVar`, `Start`, `Stop`, `DownloadBlock`, `CopyRamToRom`, `FirmwareUpdate`.
-- ⚠️ Heuristic parser — suitable for triage, not compliance-grade evidence.
+- Unwraps **TPKT/COTP framing** (RFC 1006 / ISO 8073) before parsing the S7 PDU.
+- **Strict binary parser** per Siemens spec: decodes the S7 header (ROSCTR) and parameter block (function code at offset 10), not heuristic ASCII matching.
+- Function classifier: `ReadVar`, `WriteVar`, `Start`, `Stop`, `DownloadBlock`, `CopyRamToRom`, `FirmwareUpdate`, `Password`, `ReadDiag`.
+- Each packet is enriched with **MITRE ATT&CK for ICS** techniques (T0801, T0802, T0808, T0848, T0858, T0859, T0879, T0885, T0881).
 
 ### DNP3 (passive, from PCAPs)
 
 ```bash
-python run_dnp3_all.py
+industrial-scanner dnp3 --pcap pcaps/dnp3/read_and_response.pcap
+python run_dnp3_all.py     # batch-process all PCAPs in pcaps/dnp3/
 python build_dnp3_index.py
 ```
 
-- Detects DNP3 over TCP/UDP port 20000.
-- Heuristic classifier: `Read`, `Write`, `Operate`, `Select`, `EnableUnsolicited`, `ColdRestart`, `WarmRestart`, `ClearRestart`.
-- ⚠️ Heuristic parser — does not decode link/application layer per IEEE 1815.
+- **Strict binary parser** per IEEE 1815-2012: decodes the link layer (10 bytes), transport layer, and application layer (function code at offset 12).
+- Function classifier: `Read`, `Write`, `Select`, `Operate`, `DirectOperate`, `ColdRestart`, `WarmRestart`, `StopApplication`, `DeleteFile`, `EnableUnsolicited`, `AssignClass`, `Authenticate`, and 16 more.
+- Each suspect function is flagged and enriched with MITRE ATT&CK for ICS techniques.
 
 ### Global executive dashboard
 
@@ -182,23 +187,31 @@ Produces `reports/index.html` with totals and quick links per protocol.
 
 ## Screenshots
 
+### Demo (animated)
+
+![IndustrialScanner demo](docs/images/dashboard_demo.gif)
+
+*The demo cycles through the global executive dashboard, S7Comm dashboard, DNP3 dashboard, and a per-PCAP DNP3 report showing MITRE ATT&CK mapping in action.*
+
 ### Global Executive Dashboard
-![Global Dashboard](docs/images/Screenshot_1.jpg)
 
-### Modbus
-**Global Dashboard** &mdash; ![Modbus Global](docs/images/Screenshot_2.jpg)
+![Global Dashboard](docs/images/dashboard_global.png)
 
-**Individual Report** &mdash; ![Modbus Scan Report](docs/images/Screenshot_7.jpg)
+### S7Comm Dashboard (with Chart.js visualizations)
 
-### Siemens S7Comm
-**Global Dashboard** &mdash; ![S7 Global Report](docs/images/Screenshot_3.jpg) ![S7 Global Report (continued)](docs/images/Screenshot_4.jpg)
+![S7 Dashboard](docs/images/dashboard_s7.png)
 
-**Individual Report** &mdash; ![S7 Analysis Report](docs/images/Screenshot_8.jpg)
+### DNP3 Dashboard (with Chart.js visualizations)
 
-### DNP3
-**Global Dashboard** &mdash; ![DNP3 Global Report](docs/images/Screenshot_5.jpg) ![DNP3 Global Report (continued)](docs/images/Screenshot_6.jpg)
+![DNP3 Dashboard](docs/images/dashboard_dnp3.png)
 
-**Individual Report** &mdash; ![DNP3 Analysis Report](docs/images/Screenshot_9.jpg)
+### Per-PCAP report with MITRE ATT&CK enrichment
+
+**S7 individual report** — shows parsed packets with ROSCTR, function code, and hints:
+![S7 Report](docs/images/report_s7_detail.png)
+
+**DNP3 individual report** — shows parsed packets with function code, suspect flag, and MITRE techniques:
+![DNP3 Report](docs/images/report_dnp3_detail.png)
 
 ---
 

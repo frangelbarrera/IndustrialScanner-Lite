@@ -1,33 +1,43 @@
 {
   "meta": {
-    "generated_at": "2025-09-30T10-58-35Z",
-    "pcap_file": "pcaps\\dnp3\\enable_unsolicited_and_response.pcap"
+    "generated_at": "2026-08-07T21-21-24Z",
+    "pcap_file": "pcaps/dnp3/enable_unsolicited_and_response.pcap",
+    "mitre_enriched": true
   },
   "results": [
     {
       "src": "192.168.60.1",
       "dst": "192.168.60.130",
-      "function": "UnknownDNP3",
+      "function": "EnableUnsolicited",
       "length": 24,
       "hints": [],
-      "suspect": false
+      "suspect": true,
+      "mitre_attack": [
+        {
+          "technique_id": "T0858",
+          "name": "Change Operating Mode",
+          "tactic": "Execution, Impact",
+          "url": "https://attack.mitre.org/techniques/T0858/"
+        }
+      ]
     },
     {
       "src": "192.168.60.130",
       "dst": "192.168.60.1",
-      "function": "UnknownDNP3",
+      "function": "Response",
       "length": 17,
       "hints": [],
-      "suspect": false
+      "suspect": false,
+      "mitre_attack": []
     }
   ],
   "summary": {
     "total_packets": 10,
     "dnp3_packets": 2,
-    "suspect_functions": 0,
+    "suspect_functions": 1,
     "unique_hosts": [
-      "192.168.60.1",
-      "192.168.60.130"
+      "192.168.60.130",
+      "192.168.60.1"
     ]
   }
 }

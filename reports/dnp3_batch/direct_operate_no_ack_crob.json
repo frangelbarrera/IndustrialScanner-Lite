@@ -1,25 +1,40 @@
 {
   "meta": {
-    "generated_at": "2025-09-30T10-58-35Z",
-    "pcap_file": "pcaps\\dnp3\\direct_operate_no_ack_crob.pcap"
+    "generated_at": "2026-08-07T21-21-24Z",
+    "pcap_file": "pcaps/dnp3/direct_operate_no_ack_crob.pcap",
+    "mitre_enriched": true
   },
   "results": [
     {
       "src": "192.168.5.145",
       "dst": "192.168.5.165",
-      "function": "UnknownDNP3",
+      "function": "DirectOperateNoAck",
       "length": 35,
       "hints": [],
-      "suspect": false
+      "suspect": true,
+      "mitre_attack": [
+        {
+          "technique_id": "T0858",
+          "name": "Change Operating Mode",
+          "tactic": "Execution, Impact",
+          "url": "https://attack.mitre.org/techniques/T0858/"
+        },
+        {
+          "technique_id": "T0894",
+          "name": "Modify Program",
+          "tactic": "Impact",
+          "url": "https://attack.mitre.org/techniques/T0894/"
+        }
+      ]
     }
   ],
   "summary": {
     "total_packets": 1,
     "dnp3_packets": 1,
-    "suspect_functions": 0,
+    "suspect_functions": 1,
     "unique_hosts": [
-      "192.168.5.165",
-      "192.168.5.145"
+      "192.168.5.145",
+      "192.168.5.165"
     ]
   }
 }

@@ -1,32 +1,61 @@
 {
   "meta": {
-    "generated_at": "2025-09-30T10-58-36Z",
-    "pcap_file": "pcaps\\dnp3\\read_and_response.pcap"
+    "generated_at": "2026-08-07T21-21-24Z",
+    "pcap_file": "pcaps/dnp3/read_and_response.pcap",
+    "mitre_enriched": true
   },
   "results": [
     {
       "src": "192.168.60.1",
       "dst": "192.168.60.130",
-      "function": "UnknownDNP3",
+      "function": "Read",
       "length": 27,
       "hints": [],
-      "suspect": false
+      "suspect": false,
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Discovery",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Discovery",
+          "tactic": "Discovery",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        },
+        {
+          "technique_id": "T0808",
+          "name": "Control System Identification",
+          "tactic": "Discovery",
+          "url": "https://attack.mitre.org/techniques/T0808/"
+        },
+        {
+          "technique_id": "T0881",
+          "name": "Service System Information",
+          "tactic": "Discovery",
+          "url": "https://attack.mitre.org/techniques/T0881/"
+        }
+      ]
     },
     {
       "src": "192.168.60.130",
       "dst": "192.168.60.1",
-      "function": "UnknownDNP3",
+      "function": "Response",
       "length": 292,
       "hints": [],
-      "suspect": false
+      "suspect": false,
+      "mitre_attack": []
     },
     {
       "src": "192.168.60.130",
       "dst": "192.168.60.1",
-      "function": "UnknownDNP3",
+      "function": "Confirm",
       "length": 35,
       "hints": [],
-      "suspect": false
+      "suspect": false,
+      "mitre_attack": []
     }
   ],
   "summary": {
@@ -34,8 +63,8 @@
     "dnp3_packets": 3,
     "suspect_functions": 0,
     "unique_hosts": [
-      "192.168.60.1",
-      "192.168.60.130"
+      "192.168.60.130",
+      "192.168.60.1"
     ]
   }
 }
