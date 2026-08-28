@@ -89,10 +89,13 @@ def modbus_cmd(
 @click.option("--json-out", default=None)
 @click.option("--html-out", default=None)
 def s7_cmd(pcap: str, json_out: str | None, html_out: str | None) -> None:
+    from ics_scanner.mitre_attack import enrich_report_with_attack
     from modbus_scanner.utils import utc_ts
     from s7_comm_analyzer.s7_analyze import analyze_pcap, write_html_report, write_json_report
 
     data = analyze_pcap(pcap)
+    data = enrich_report_with_attack(data, "s7comm")
+    data["meta"]["mitre_enriched"] = True
     base = Path(pcap).stem
     ts = utc_ts().replace(":", "-")
     json_path = Path(json_out or f"reports/s7_batch/{base}_{ts}.json")
@@ -109,8 +112,11 @@ def s7_cmd(pcap: str, json_out: str | None, html_out: str | None) -> None:
 @click.option("--html-out", default=None)
 def dnp3_cmd(pcap: str, json_out: str | None, html_out: str | None) -> None:
     from dnp3_monitor.dnp3_analyze import analyze_pcap, save_html, save_json
+    from ics_scanner.mitre_attack import enrich_report_with_attack
 
     data = analyze_pcap(pcap)
+    data = enrich_report_with_attack(data, "dnp3")
+    data["meta"]["mitre_enriched"] = True
     base = Path(pcap).stem
     json_path = json_out or f"reports/dnp3_batch/{base}.json"
     html_path = html_out or f"reports/dnp3_batch/{base}.html"
