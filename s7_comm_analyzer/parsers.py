@@ -38,53 +38,58 @@ ROSCTR_NAMES = {
     ROSCTR_USERDATA: "Userdata",
 }
 
-# Parameter block function codes (per Siemens spec, byte 0 of the parameter
-# block which begins at S7 header offset 10).
-# Reference: Wireshark packet-s7comm.c, "param_func" enumeration.
+# Parameter block function codes (per byte 0 of the parameter block,
+# which begins at S7 header offset 10).
+# Reference: Wireshark epan/dissectors/packet-s7comm.c, param_functionnames.
+FUNC_CPU_SERVICES = 0x00
+FUNC_MODE_TRANSITION = 0x01
 FUNC_READ_VAR = 0x04
 FUNC_WRITE_VAR = 0x05
-FUNC_START = 0x28  # 0x28 = Start CPU
-FUNC_STOP = 0x29  # 0x29 = Stop CPU
-FUNC_START_DELETE = 0x2A  # (rarely seen)
+FUNC_REQUEST_DOWNLOAD = 0x1A
+FUNC_DOWNLOAD_BLOCK = 0x1B
+FUNC_DOWNLOAD_ENDED = 0x1C
+FUNC_START_UPLOAD = 0x1D
+FUNC_UPLOAD_BLOCK = 0x1E
+FUNC_END_UPLOAD = 0x1F
+FUNC_START = 0x28  # PI-service group (CPU start/copy operations)
+FUNC_STOP = 0x29  # PLC Stop
 FUNC_SETUP_COMM = 0xF0  # Setup communication (handshake)
 
-# Block / firmware / RAM operations (parameter function group 0x3 series)
-FUNC_DOWNLOAD_BLOCK = 0x3A
-FUNC_UPLOAD_BLOCK = 0x3B
-FUNC_DELETE_BLOCK = 0x3C
-FUNC_COPY_RAM_TO_ROM = 0x4E
-FUNC_COPY_ROM_TO_RAM = 0x4F
-FUNC_FIRMWARE_UPDATE = 0x44
-FUNC_PASSWORD = 0x45
-FUNC_READ_DIAG = 0x46
-
 FUNC_NAMES = {
+    FUNC_CPU_SERVICES: "CpuServices",
+    FUNC_MODE_TRANSITION: "ModeTransition",
     FUNC_READ_VAR: "ReadVar",
     FUNC_WRITE_VAR: "WriteVar",
+    FUNC_REQUEST_DOWNLOAD: "DownloadBlock",
+    FUNC_DOWNLOAD_BLOCK: "DownloadBlock",
+    FUNC_DOWNLOAD_ENDED: "DownloadBlock",
+    FUNC_START_UPLOAD: "UploadBlock",
+    FUNC_UPLOAD_BLOCK: "UploadBlock",
+    FUNC_END_UPLOAD: "UploadBlock",
     FUNC_START: "Start",
     FUNC_STOP: "Stop",
-    FUNC_START_DELETE: "StartDelete",
     FUNC_SETUP_COMM: "SetupComm",
-    FUNC_DOWNLOAD_BLOCK: "DownloadBlock",
-    FUNC_UPLOAD_BLOCK: "UploadBlock",
-    FUNC_DELETE_BLOCK: "DeleteBlock",
-    FUNC_COPY_RAM_TO_ROM: "CopyRamToRom",
-    FUNC_COPY_ROM_TO_RAM: "CopyRomToRam",
-    FUNC_FIRMWARE_UPDATE: "FirmwareUpdate",
-    FUNC_PASSWORD: "Password",
-    FUNC_READ_DIAG: "ReadDiag",
 }
 
-# Function codes that represent control operations and should be flagged as
+# Userdata (ROSCTR 0x07) carries programming commands in a nested header.
+# After the 10-byte S7 header and 4 Userdata header bytes, byte 15 holds the
+# function group (with request/response type bits in the high bits) and byte
+# 16 the sub-function. Reference: packet-s7comm.c s7comm_ud_header func/subfunc.
+UD_FUNC_SECURITY = 0x05
+UD_SUB_PLC_PASSWORD = 0x01
+UD_FUNC_READ_SZL = 0x04
+UD_SUB_READ_SZL = 0x01
+UD_FUNC_MODETRANS = 0x01
+UD_SUB_FLASH_LED = 0x16
+
+# Function names that represent control operations and should be flagged as
 # suspect when present in traffic (potential unauthorized control attempts).
 SUSPECT_FUNCS = {
     "WriteVar",
     "Start",
     "Stop",
     "DownloadBlock",
-    "DeleteBlock",
     "CopyRamToRom",
-    "FirmwareUpdate",
     "Password",
 }
 
@@ -176,17 +181,49 @@ def _parse_parameter_block(payload: bytes, header: "dict[str, int]") -> "dict[st
     }
 
 
+def _classify_userdata(param: "dict[str, Any] | None") -> str:
+    """Classify a Userdata (ROSCTR 0x07) programming command.
+
+    Userdata frames carry a nested header: bytes 10-13 (fragmentation and
+    method), byte 14 (function group with type bits), byte 15 (sub-function).
+    The parameter block ``raw`` starts at byte 10, so the group lives at
+    ``raw[5]`` (masked with 0x3F to drop the request/response type bits) and
+    the sub-function at ``raw[6]``.
+    """
+    if param is None:
+        return "Userdata"
+    raw = param.get("raw", b"")
+    if len(raw) < 7:
+        return "Userdata"
+    group = raw[5] & 0x3F
+    sub = raw[6]
+    if group == UD_FUNC_SECURITY and sub == UD_SUB_PLC_PASSWORD:
+        return "Password"
+    if group == UD_FUNC_READ_SZL and sub == UD_SUB_READ_SZL:
+        return "ReadSzl"
+    if group == UD_FUNC_MODETRANS and sub == UD_SUB_FLASH_LED:
+        return "FlashLed"
+    return "Userdata"
+
+
 def _classify_function(header: "dict[str, int]", param: "dict[str, Any] | None") -> str:
     """Classify the S7 operation by combining header and parameter info."""
-    # If we have a parameter block with a known function code, use it.
+    # Userdata frames use a nested header, not the plain function code table.
+    if header["rosctr"] == ROSCTR_USERDATA:
+        return _classify_userdata(param)
+    # Ack-data responses with a 1-byte parameter carry only the return code;
+    # there is no function code to decode.
+    if header["rosctr"] == ROSCTR_ACK_DATA and header["param_len"] <= 1:
+        return "AckData"
     if param is not None:
         fg = param["function_group"]
+        raw = param.get("raw", b"")
+        # PI-service 0x28 covers CPU start and copy operations; the concrete
+        # job is named by an ASCII string inside the parameter block.
+        if fg == FUNC_START and b"_MODU" in raw:
+            return "CopyRamToRom"
         if fg in FUNC_NAMES:
             return FUNC_NAMES[fg]
-        # For Userdata (0x07) frames, the function group may be a different
-        # set of codes (programmer commands). Mark as Unknown for now.
-        if header["rosctr"] == ROSCTR_USERDATA:
-            return "Userdata"
     # Setup communication is sometimes sent without a parameter block (handshake).
     if header["rosctr"] == ROSCTR_JOB and header["param_len"] == 0:
         return "SetupComm"
@@ -225,11 +262,16 @@ def parse_s7_packet(pkt) -> "dict | None":
 
     payload = bytes(pkt[Raw])
 
-    header = _parse_s7_header(payload)
+    # Unwrap TPKT/COTP framing once so that every downstream decoder operates
+    # on the same view of the S7 PDU. _unwrap_tpkt_cotp is idempotent: raw
+    # S7 PDUs (already starting with protocol id 0x32) are returned unchanged.
+    s7_pdu = _unwrap_tpkt_cotp(payload)
+
+    header = _parse_s7_header(s7_pdu)
     if header is None:
         return None
 
-    param = _parse_parameter_block(payload, header)
+    param = _parse_parameter_block(s7_pdu, header)
     func_name = _classify_function(header, param)
 
     src = getattr(pkt[0][1], "src", None)

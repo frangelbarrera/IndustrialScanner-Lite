@@ -5,7 +5,7 @@ from __future__ import annotations
 from scapy.all import IP, TCP, Ether, Raw
 
 from s7_comm_analyzer.parsers import (
-    FUNC_FIRMWARE_UPDATE,
+    FUNC_DOWNLOAD_BLOCK,
     FUNC_READ_VAR,
     FUNC_SETUP_COMM,
     FUNC_START,
@@ -101,11 +101,11 @@ class TestClassifyFunction:
         param = _parse_parameter_block(payload, header)
         assert _classify_function(header, param) == "SetupComm"
 
-    def test_firmware_update(self):
-        payload = _build_s7_frame(ROSCTR_JOB, param_len=2, func=FUNC_FIRMWARE_UPDATE)
+    def test_download_block(self):
+        payload = _build_s7_frame(ROSCTR_JOB, param_len=2, func=FUNC_DOWNLOAD_BLOCK)
         header = _parse_s7_header(payload)
         param = _parse_parameter_block(payload, header)
-        assert _classify_function(header, param) == "FirmwareUpdate"
+        assert _classify_function(header, param) == "DownloadBlock"
 
 
 class TestGuessFunction:

@@ -13,9 +13,10 @@ from typing import Any
 
 from scapy.all import TCP, rdpcap
 
+from ics_scanner.mitre_attack import enrich_report_with_attack
 from modbus_scanner.utils import setup_logger, utc_ts
 
-from .parsers import parse_s7_packet
+from .parsers import SUSPECT_FUNCS, parse_s7_packet
 
 LOG = setup_logger("s7_analyzer")
 
@@ -43,14 +44,7 @@ def analyze_pcap(pcap_path: str) -> dict[str, Any]:
                 summary["s7_packets"] += 1
                 summary["unique_hosts"].add(parsed["src"])
                 summary["unique_hosts"].add(parsed["dst"])
-                if parsed["function_code"] in {
-                    "WriteVar",
-                    "Start",
-                    "Stop",
-                    "DownloadBlock",
-                    "CopyRamToRom",
-                    "FirmwareUpdate",
-                }:
+                if parsed["function_code"] in SUSPECT_FUNCS:
                     summary["suspect_functions"] += 1
 
     return {
@@ -107,6 +101,8 @@ def main() -> None:
         LOG.info("Analyzing %s", pcap_file.name)
         try:
             data = analyze_pcap(pcap_file)
+            data = enrich_report_with_attack(data, "s7comm")
+            data["meta"]["mitre_enriched"] = True
             base = pcap_file.stem
             json_path = OUT_DIR / f"{base}.json"
             html_path = OUT_DIR / f"{base}.html"
