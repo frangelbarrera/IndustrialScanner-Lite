@@ -13,7 +13,7 @@ th { background: #f4f4f4; text-align: left; }
 .chart-container { width: 45%; }
 </style></head><body>
 <h1>S7Comm Global Report Index</h1>
-<div><strong>Generated:</strong> 2026-08-28 19:02:12Z</div>
+<div><strong>Generated:</strong> 2026-08-28 19:52:18Z</div>
 <table>
 <tr><th>Report</th><th>PCAP File</th><th>Total Packets</th><th>S7 Packets</th><th>Suspect Functions</th><th>Unique Hosts</th></tr>
 <tr>
@@ -45,7 +45,7 @@ th { background: #f4f4f4; text-align: left; }
 <td>pcaps/s7/snap7_s300_everything.pcapng</td>
 <td>64</td>
 <td>64</td>
-<td><span class='bad'>6</span></td>
+<td><span class='bad'>5</span></td>
 <td>10.134.217.23, 10.134.217.193</td>
 </tr>
 <tr>
@@ -54,7 +54,7 @@ th { background: #f4f4f4; text-align: left; }
 <td>2</td>
 <td>2</td>
 <td>0</td>
-<td>10.134.249.19, 10.134.249.225</td>
+<td>10.134.249.225, 10.134.249.19</td>
 </tr>
 <tr>
 <td><a href='s7_batch/tia_s300_flashLed.html'>tia_s300_flashLed.html</a></td>
@@ -118,7 +118,7 @@ th { background: #f4f4f4; text-align: left; }
 <td>2</td>
 <td>2</td>
 <td>0</td>
-<td>10.134.249.19, 10.134.249.225</td>
+<td>10.134.249.225, 10.134.249.19</td>
 </tr>
 <tr>
 <td><a href='s7_batch/wincc_s300_setup-alarm-read-write.html'>wincc_s300_setup-alarm-read-write.html</a></td>
@@ -142,7 +142,7 @@ th { background: #f4f4f4; text-align: left; }
 <td>2</td>
 <td>2</td>
 <td><span class='bad'>1</span></td>
-<td>10.134.249.19, 10.134.249.225</td>
+<td>10.134.249.225, 10.134.249.19</td>
 </tr>
 <tr>
 <td><a href='s7_batch/step7_s300_download.html'>step7_s300_download.html</a></td>
@@ -185,7 +185,7 @@ th { background: #f4f4f4; text-align: left; }
 const labels = ['step7_s300_AuthPassword.html', 'tia_s300_goOnline.html', 'wincc_s400_production.html', 'snap7_s300_everything.html', 'snap7_s300_setupCommunication.html', 'tia_s300_flashLed.html', 'wincc_s300_setup-alarm-read.html', 'wincc_s300_setup-alarm-read_2.html', 'tia_s300_updateFirmware.html', 'tia_s300_downloadHwConfig.html', 'step7_s300_readVarTab.html', 'tia_s300_downloadOb1.html', 'snap7_s300_readVar.html', 'wincc_s300_setup-alarm-read-write.html', 'step7_s300_stop.html', 'snap7_s300_stop.html', 'step7_s300_download.html', 'step7_s300_rwVarTab.html', 'step7_s300_copyRamToRom.html', 'step7_s300_readDiagData.html'];
 const totalPackets = [6, 448, 1658, 64, 2, 4, 128, 487, 67749, 154, 548, 106, 2, 164, 4, 2, 96, 24, 2, 679];
 const s7Packets = [6, 448, 1658, 64, 2, 4, 128, 487, 67749, 154, 331, 106, 2, 164, 4, 2, 96, 16, 2, 410];
-const suspects = [2, 0, 27, 6, 0, 0, 2, 8, 33659, 40, 0, 5, 0, 36, 1, 1, 4, 0, 1, 0];
+const suspects = [2, 0, 27, 5, 0, 0, 2, 8, 33659, 40, 0, 5, 0, 36, 1, 1, 4, 0, 1, 0];
 
     new Chart(document.getElementById('chartPackets'), {
         type: 'bar',

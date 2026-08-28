@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-08-28T19:01:50Z",
+    "generated_at": "2026-08-28T19:52:00Z",
     "pcap_file": "pcaps/s7/step7_s300_download.pcapng",
     "mitre_enriched": true
   },
@@ -973,17 +973,23 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Start",
+      "function_code": "DownloadBlock",
       "length": 43,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 33792,
       "mitre_attack": [
         {
-          "technique_id": "T0858",
-          "name": "Change Operating Mode",
-          "tactic": "Evasion, Execution",
-          "url": "https://attack.mitre.org/techniques/T0858/"
+          "technique_id": "T0843",
+          "name": "Program Download",
+          "tactic": "Lateral Movement",
+          "url": "https://attack.mitre.org/techniques/T0843/"
+        },
+        {
+          "technique_id": "T0889",
+          "name": "Modify Program",
+          "tactic": "Persistence",
+          "url": "https://attack.mitre.org/techniques/T0889/"
         }
       ]
     },

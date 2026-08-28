@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-08-28T19:01:50Z",
+    "generated_at": "2026-08-28T19:52:00Z",
     "pcap_file": "pcaps/s7/snap7_s300_setupCommunication.pcapng",
     "mitre_enriched": true
   },
@@ -31,8 +31,8 @@
     "s7_packets": 2,
     "suspect_functions": 0,
     "unique_hosts": [
-      "10.134.249.19",
-      "10.134.249.225"
+      "10.134.249.225",
+      "10.134.249.19"
     ]
   }
 }

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-08-28T19:01:49Z",
+    "generated_at": "2026-08-28T19:52:00Z",
     "pcap_file": "pcaps/s7/snap7_s300_everything.pcapng",
     "mitre_enriched": true
   },
@@ -695,7 +695,7 @@
     {
       "src": "10.134.217.23",
       "dst": "10.134.217.193",
-      "function_code": "Unknown",
+      "function_code": "AckData",
       "length": 19,
       "hints": [],
       "rosctr": "Ack",
@@ -925,19 +925,12 @@
     {
       "src": "10.134.217.193",
       "dst": "10.134.217.23",
-      "function_code": "Start",
+      "function_code": "PiService",
       "length": 33,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 7680,
-      "mitre_attack": [
-        {
-          "technique_id": "T0858",
-          "name": "Change Operating Mode",
-          "tactic": "Evasion, Execution",
-          "url": "https://attack.mitre.org/techniques/T0858/"
-        }
-      ]
+      "mitre_attack": []
     },
     {
       "src": "10.134.217.23",
@@ -980,7 +973,7 @@
   "summary": {
     "total_packets": 64,
     "s7_packets": 64,
-    "suspect_functions": 6,
+    "suspect_functions": 5,
     "unique_hosts": [
       "10.134.217.23",
       "10.134.217.193"
