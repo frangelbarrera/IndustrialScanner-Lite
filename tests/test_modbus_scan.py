@@ -35,8 +35,15 @@ class _FakeResponse:
 
 
 def _make_mock_client(*, reachable=True, with_data=True):
-    """Return a MagicMock that simulates a connected ModbusTcpClient."""
-    client = MagicMock()
+    """Return a MagicMock that simulates a connected ModbusTcpClient.
+
+    ``spec=ModbusTcpClient`` keeps the mocked methods signature-faithful,
+    so the version-dependent unit-id keyword detection in ``probe_host``
+    is exercised against the real client API.
+    """
+    from pymodbus.client import ModbusTcpClient
+
+    client = MagicMock(spec=ModbusTcpClient)
     client.connect.return_value = reachable
     if with_data:
         client.read_coils.return_value = _FakeResponse(bits=[True, False, True] * 5 + [True])
