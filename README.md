@@ -14,7 +14,7 @@ Modbus/TCP &middot; Siemens S7Comm &middot; DNP3
 [![CI](https://img.shields.io/github/actions/workflow/status/frangelbarrera/industrial-scanner/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/frangelbarrera/industrial-scanner/actions)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue?style=flat-square)](https://www.python.org/downloads/)
 [![Ruff](https://img.shields.io/badge/code%20style-ruff-261230?style=flat-square)](https://docs.astral.sh/ruff/)
-[![Coverage](https://img.shields.io/badge/coverage-81%25-brightgreen?style=flat-square)](https://pytest.org)
+[![Coverage](https://img.shields.io/badge/coverage-89%25-brightgreen?style=flat-square)](https://pytest.org)
 [![Security: bandit](https://img.shields.io/badge/security-bandit-1f6feb?style=flat-square)](https://github.com/PyCQA/bandit)
 [![MITRE ATT&CK for ICS](https://img.shields.io/badge/MITRE%20ATT%26CK%20for%20ICS-mapped-00B4D8?style=flat-square)](https://attack.mitre.org/matrices/ics/)
 [![Docker](https://img.shields.io/badge/docker-ghcr.io-2496ED?style=flat-square)](https://github.com/frangelbarrera/industrial-scanner/pkgs/container/industrial-scanner)
@@ -160,8 +160,8 @@ python build_s7_index.py                # consolidated dashboard with Chart.js
 
 - Unwraps **TPKT/COTP framing** (RFC 1006 / ISO 8073) before parsing the S7 PDU.
 - **Strict binary parser** per Siemens spec: decodes the S7 header (ROSCTR) and parameter block (function code at offset 10), not heuristic ASCII matching.
-- Function classifier: `ReadVar`, `WriteVar`, `Start`, `Stop`, `DownloadBlock`, `CopyRamToRom`, `FirmwareUpdate`, `Password`, `ReadDiag`.
-- Each packet is enriched with **MITRE ATT&CK for ICS** techniques (T0801, T0802, T0808, T0848, T0858, T0859, T0879, T0885, T0881).
+- Function classifier: `ReadVar`, `WriteVar`, `Start`, `Stop`, `DownloadBlock`, `UploadBlock`, `CopyRamToRom`, `Password`, `ReadSzl`, plus `SetupComm`, `CpuServices`, `ModeTransition`, `FlashLed` and `AckData` responses.
+- Each packet is enriched with **MITRE ATT&CK for ICS** techniques (T0801, T0802, T0816, T0821, T0831, T0836, T0843, T0845, T0858, T0859, T0868, T0888, T0889), validated against the official STIX bundle by `tests/test_mitre_attack_ground_truth.py`.
 
 ### DNP3 (passive, from PCAPs)
 
