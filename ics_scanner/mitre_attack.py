@@ -5,9 +5,11 @@ Maps protocol-level suspect functions to MITRE ATT&CK for ICS techniques
 (https://attack.mitre.org/matrices/ics/). This produces structured threat
 intelligence that SOCs and analysts can use to enrich findings.
 
-The mapping is intentionally conservative: only suspect functions that
-represent meaningful adversary techniques are mapped. Read operations are
-mapped to T0801 (Monitor Process State) where they enable reconnaissance.
+The technique catalog is kept in sync with the official MITRE ATT&CK for ICS
+STIX bundle (validated by tests/test_mitre_attack_ground_truth.py against
+tests/fixtures/attack_ics_official.json). The mapping is intentionally
+conservative: only functions that represent meaningful adversary techniques
+are mapped.
 """
 
 from __future__ import annotations
@@ -26,153 +28,123 @@ class ATTACKTechnique:
     url: str
 
 
-# MITRE ATT&CK for ICS technique mapping.
-# Source: https://attack.mitre.org/techniques/ics/
-# Last reviewed: 2025-01
+# MITRE ATT&CK for ICS technique catalog.
+# Source: official MITRE ATT&CK for ICS STIX bundle (ics-attack.json).
 TECHNIQUE_CATALOG: dict[str, ATTACKTechnique] = {
     "T0801": ATTACKTechnique(
         technique_id="T0801",
         name="Monitor Process State",
-        tactic="Discovery",
-        description="Adversaries may monitor process state to understand the"
-        " current operational state of the ICS.",
+        tactic="Collection",
+        description="Adversaries may gather information about the physical process state.",
         url="https://attack.mitre.org/techniques/T0801/",
-    ),
-    "T0807": ATTACKTechnique(
-        technique_id="T0807",
-        name="Command-Line Interface",
-        tactic="Execution",
-        description="Adversaries may use command-line interfaces to interact"
-        " with systems and execute commands.",
-        url="https://attack.mitre.org/techniques/T0807/",
-    ),
-    "T0817": ATTACKTechnique(
-        technique_id="T0817",
-        name="Drive-by Compromise",
-        tactic="Initial Access",
-        description="Adversaries may compromise victims through drive-by"
-        " downloads of malicious code.",
-        url="https://attack.mitre.org/techniques/T0817/",
-    ),
-    "T0853": ATTACKTechnique(
-        technique_id="T0853",
-        name="Panel Shell",
-        tactic="Execution",
-        description="Adversaries may use panel shells to interact with the HMI/panel.",
-        url="https://attack.mitre.org/techniques/T0853/",
-    ),
-    "T0859": ATTACKTechnique(
-        technique_id="T0859",
-        name="Valid Accounts",
-        tactic="Defense Evasion, Persistence, Privilege Escalation, Initial Access",
-        description="Adversaries may use valid accounts to gain access to"
-        " systems and execute operations.",
-        url="https://attack.mitre.org/techniques/T0859/",
-    ),
-    "T0866": ATTACKTechnique(
-        technique_id="T0866",
-        name="Exploitation of Remote Services",
-        tactic="Lateral Movement",
-        description="Adversaries may exploit remote services to obtain access to systems.",
-        url="https://attack.mitre.org/techniques/T0866/",
-    ),
-    "T0872": ATTACKTechnique(
-        technique_id="T0872",
-        name="Native API",
-        tactic="Execution",
-        description="Adversaries may directly interact with the native OS API"
-        " to execute procedures or modify files.",
-        url="https://attack.mitre.org/techniques/T0872/",
-    ),
-    "T0885": ATTACKTechnique(
-        technique_id="T0885",
-        name="Persistent Component Location",
-        tactic="Persistence",
-        description="Adversaries may persist their components in specific"
-        " locations to maintain access.",
-        url="https://attack.mitre.org/techniques/T0885/",
-    ),
-    "T0888": ATTACKTechnique(
-        technique_id="T0888",
-        name="Remote Services",
-        tactic="Lateral Movement",
-        description="Adversaries may use remote services to access and control systems.",
-        url="https://attack.mitre.org/techniques/T0888/",
-    ),
-    "T0890": ATTACKTechnique(
-        technique_id="T0890",
-        name="Exploitation for Privilege Escalation",
-        tactic="Privilege Escalation",
-        description="Adversaries may exploit software vulnerabilities to escalate privileges.",
-        url="https://attack.mitre.org/techniques/T0890/",
     ),
     "T0802": ATTACKTechnique(
         technique_id="T0802",
-        name="Automated Discovery",
-        tactic="Discovery",
-        description="Adversaries may use automated discovery to gather"
-        " information about the system or network.",
+        name="Automated Collection",
+        tactic="Collection",
+        description="Adversaries may automate collection of industrial environment "
+        "information using tools or scripts.",
         url="https://attack.mitre.org/techniques/T0802/",
     ),
-    "T0808": ATTACKTechnique(
-        technique_id="T0808",
-        name="Control System Identification",
-        tactic="Discovery",
-        description="Adversaries may attempt to identify the control system and its components.",
-        url="https://attack.mitre.org/techniques/T0808/",
+    "T0816": ATTACKTechnique(
+        technique_id="T0816",
+        name="Device Restart/Shutdown",
+        tactic="Inhibit Response Function",
+        description="Adversaries may forcibly restart or shutdown a device in an ICS "
+        "environment to disrupt and potentially negatively impact "
+        "physical processes.",
+        url="https://attack.mitre.org/techniques/T0816/",
     ),
-    "T0848": ATTACKTechnique(
-        technique_id="T0848",
-        name="Modify Program",
-        tactic="Execution, Persistence",
-        description="Adversaries may modify programs to achieve malicious"
-        " objectives by altering the original control logic.",
-        url="https://attack.mitre.org/techniques/T0848/",
+    "T0821": ATTACKTechnique(
+        technique_id="T0821",
+        name="Modify Controller Tasking",
+        tactic="Execution",
+        description="Adversaries may modify the tasking of a controller to allow for "
+        "the execution of their own programs.",
+        url="https://attack.mitre.org/techniques/T0821/",
+    ),
+    "T0831": ATTACKTechnique(
+        technique_id="T0831",
+        name="Manipulation of Control",
+        tactic="Impact",
+        description="Adversaries may manipulate physical process control within the "
+        "industrial environment.",
+        url="https://attack.mitre.org/techniques/T0831/",
+    ),
+    "T0836": ATTACKTechnique(
+        technique_id="T0836",
+        name="Modify Parameter",
+        tactic="Impair Process Control",
+        description="Adversaries may modify parameters used to instruct industrial "
+        "control system devices.",
+        url="https://attack.mitre.org/techniques/T0836/",
+    ),
+    "T0843": ATTACKTechnique(
+        technique_id="T0843",
+        name="Program Download",
+        tactic="Lateral Movement",
+        description="Adversaries may perform a program download to transfer a user "
+        "program to a controller.",
+        url="https://attack.mitre.org/techniques/T0843/",
+    ),
+    "T0845": ATTACKTechnique(
+        technique_id="T0845",
+        name="Program Upload",
+        tactic="Collection",
+        description="Adversaries may attempt to upload a program from a PLC to gather "
+        "information about an industrial process.",
+        url="https://attack.mitre.org/techniques/T0845/",
     ),
     "T0858": ATTACKTechnique(
         technique_id="T0858",
         name="Change Operating Mode",
-        tactic="Execution, Impact",
-        description="Adversaries may change the operating mode of a control"
-        " device (PLC, RTU, etc.) to enable further actions or"
-        " cause impact.",
+        tactic="Evasion, Execution",
+        description="Adversaries may change the operating mode of a controller to "
+        "gain additional access to engineering functions such as Program "
+        "Download.",
         url="https://attack.mitre.org/techniques/T0858/",
     ),
-    "T0879": ATTACKTechnique(
-        technique_id="T0879",
-        name="Modify Program",
-        tactic="Persistence, Execution",
-        description="Adversaries may modify control logic to disrupt or damage operations.",
-        url="https://attack.mitre.org/techniques/T0879/",
+    "T0859": ATTACKTechnique(
+        technique_id="T0859",
+        name="Valid Accounts",
+        tactic="Lateral Movement, Persistence",
+        description="Adversaries may steal the credentials of a specific user or "
+        "service account using credential access techniques.",
+        url="https://attack.mitre.org/techniques/T0859/",
     ),
-    "T0881": ATTACKTechnique(
-        technique_id="T0881",
-        name="Service System Information",
+    "T0868": ATTACKTechnique(
+        technique_id="T0868",
+        name="Detect Operating Mode",
+        tactic="Collection",
+        description="Adversaries may gather information about a PLCs or controllers "
+        "current operating mode.",
+        url="https://attack.mitre.org/techniques/T0868/",
+    ),
+    "T0888": ATTACKTechnique(
+        technique_id="T0888",
+        name="Remote System Information Discovery",
         tactic="Discovery",
-        description="Adversaries may gather information about service systems"
-        " and their components.",
-        url="https://attack.mitre.org/techniques/T0881/",
+        description="An adversary may attempt to get detailed information about "
+        "remote systems and their peripherals, such as make/model, role, "
+        "and configuration.",
+        url="https://attack.mitre.org/techniques/T0888/",
     ),
-    "T0887": ATTACKTechnique(
-        technique_id="T0887",
+    "T0889": ATTACKTechnique(
+        technique_id="T0889",
         name="Modify Program",
-        tactic="Impact",
-        description="Adversaries may modify control logic to cause physical impact.",
-        url="https://attack.mitre.org/techniques/T0887/",
-    ),
-    "T0894": ATTACKTechnique(
-        technique_id="T0894",
-        name="Modify Program",
-        tactic="Impact",
-        description="Adversaries may modify the control logic to cause physical impact.",
-        url="https://attack.mitre.org/techniques/T0894/",
+        tactic="Persistence",
+        description="Adversaries may modify or add a program on a controller to "
+        "affect how it interacts with the physical process, peripheral "
+        "devices and other hosts on the network.",
+        url="https://attack.mitre.org/techniques/T0889/",
     ),
 }
 
 
 # Mapping of (protocol, function_name) -> list of MITRE technique IDs.
-# These are the analyst-vetted correlations between protocol-level functions
-# and MITRE ATT&CK for ICS techniques.
+# Analyst-vetted correlations between protocol-level functions and MITRE
+# ATT&CK for ICS techniques. Benign handshakes and data-freeze operations
+# are intentionally unmapped.
 PROTOCOL_FUNCTION_MAPPING: dict[str, dict[str, list[str]]] = {
     "modbus": {
         # Modbus read operations
@@ -182,42 +154,37 @@ PROTOCOL_FUNCTION_MAPPING: dict[str, dict[str, list[str]]] = {
         "ReadInputRegisters": ["T0801", "T0802"],
         # Modbus write/control operations (not issued by this tool, but
         # detected in passive PCAP analysis)
-        "WriteSingleCoil": ["T0858"],
-        "WriteMultipleCoils": ["T0858"],
-        "WriteSingleRegister": ["T0858"],
-        "WriteMultipleRegisters": ["T0858"],
+        "WriteSingleCoil": ["T0836"],
+        "WriteMultipleCoils": ["T0836"],
+        "WriteSingleRegister": ["T0836"],
+        "WriteMultipleRegisters": ["T0836"],
         "ForceListenOnly": ["T0858"],
         "RestartCommunications": ["T0858"],
-        "Diagnostics": ["T0808", "T0881"],
+        "Diagnostics": ["T0888"],
     },
     "s7comm": {
-        "ReadVar": ["T0801", "T0802", "T0808", "T0881"],
-        "WriteVar": ["T0848", "T0858"],
+        "ReadVar": ["T0801", "T0802"],
+        "WriteVar": ["T0836"],
         "Start": ["T0858"],
-        "Stop": ["T0858"],
-        "SetupComm": ["T0808"],
-        "DownloadBlock": ["T0848", "T0885", "T0879"],
-        "UploadBlock": ["T0801"],
-        "DeleteBlock": ["T0879"],
-        "CopyRamToRom": ["T0885", "T0879"],
-        "FirmwareUpdate": ["T0858", "T0885", "T0879"],
+        "Stop": ["T0858", "T0816"],
+        "DownloadBlock": ["T0843", "T0889"],
+        "UploadBlock": ["T0845"],
+        "CopyRamToRom": ["T0889"],
         "Password": ["T0859"],
-        "ReadDiag": ["T0801", "T0808", "T0881"],
+        "ReadSzl": ["T0868", "T0888"],
     },
     "dnp3": {
-        "Read": ["T0801", "T0802", "T0808", "T0881"],
-        "Write": ["T0848", "T0858"],
-        "Select": ["T0858"],
-        "Operate": ["T0858", "T0894"],
-        "DirectOperate": ["T0858", "T0894"],
-        "DirectOperateNoAck": ["T0858", "T0894"],
+        "Read": ["T0801", "T0802"],
+        "Write": ["T0836"],
+        "Operate": ["T0821", "T0831"],
+        "DirectOperate": ["T0821", "T0831"],
+        "DirectOperateNoAck": ["T0821", "T0831"],
         "ImmediateFreeze": ["T0801"],
-        "FreezeClear": ["T0858"],
-        "ColdRestart": ["T0858", "T0879"],
-        "WarmRestart": ["T0858"],
-        "StopApplication": ["T0858"],
+        "ColdRestart": ["T0816"],
+        "WarmRestart": ["T0816"],
+        "StopApplication": ["T0816"],
         "StartApplication": ["T0858"],
-        "DeleteFile": ["T0879"],
+        "DeleteFile": ["T0889"],
         "EnableUnsolicited": ["T0858"],
         "DisableUnsolicited": ["T0858"],
         "AssignClass": ["T0858"],

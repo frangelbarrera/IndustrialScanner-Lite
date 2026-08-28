@@ -179,7 +179,11 @@ def main(
     json_out: str = None,
     html_out: str = None,
 ) -> dict[str, Any]:
+    from ics_scanner.mitre_attack import enrich_report_with_attack
+
     data = analyze_pcap(pcap_file)
+    data = enrich_report_with_attack(data, "dnp3")
+    data["meta"]["mitre_enriched"] = True
     if not json_out:
         json_out = os.path.join("reports", f"dnp3_scan_{utc_ts()}.json")
     if not html_out:
