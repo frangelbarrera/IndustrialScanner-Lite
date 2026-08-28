@@ -82,7 +82,7 @@ class ProtocolParser(Protocol):
 
 ## Testing strategy
 
-- **Unit tests** (pytest): 225 tests covering parsers, security primitives,
+- **Unit tests** (pytest): 226 tests covering parsers, security primitives,
   services, MITRE mapping
 - **Property-based tests** (Hypothesis): ~2900 generated test cases per run for
   parser invariants (never crashes, deterministic, field preservation)
