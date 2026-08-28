@@ -206,22 +206,36 @@ def _classify_userdata(param: "dict[str, Any] | None") -> str:
     return "Userdata"
 
 
+def _classify_pi_service(raw: bytes) -> str:
+    """Classify a PI-service (0x28) job by its parameter-block tail.
+
+    The concrete operation is named by the IEC string inside the parameter
+    block. Long binary tails (block inserts/deletes during a download
+    session) are transfers, not CPU starts.
+    """
+    if b"_MODU" in raw:
+        return "CopyRamToRom"
+    if b"_GARB" in raw:
+        return "PiService"
+    if b"P_PROG" in raw or len(raw) <= 2:
+        return "Start"
+    return "DownloadBlock"
+
+
 def _classify_function(header: "dict[str, int]", param: "dict[str, Any] | None") -> str:
     """Classify the S7 operation by combining header and parameter info."""
     # Userdata frames use a nested header, not the plain function code table.
     if header["rosctr"] == ROSCTR_USERDATA:
         return _classify_userdata(param)
-    # Ack-data responses with a 1-byte parameter carry only the return code;
-    # there is no function code to decode.
-    if header["rosctr"] == ROSCTR_ACK_DATA and header["param_len"] <= 1:
+    # Ack/ack-data responses with a 0-1 byte parameter carry only the return
+    # code; there is no function code to decode.
+    if header["rosctr"] in (ROSCTR_ACK, ROSCTR_ACK_DATA) and header["param_len"] <= 1:
         return "AckData"
     if param is not None:
         fg = param["function_group"]
         raw = param.get("raw", b"")
-        # PI-service 0x28 covers CPU start and copy operations; the concrete
-        # job is named by an ASCII string inside the parameter block.
-        if fg == FUNC_START and b"_MODU" in raw:
-            return "CopyRamToRom"
+        if fg == FUNC_START:
+            return _classify_pi_service(raw)
         if fg in FUNC_NAMES:
             return FUNC_NAMES[fg]
     # Setup communication is sometimes sent without a parameter block (handshake).
