@@ -84,7 +84,7 @@ class ProtocolParser(Protocol):
 
 - **Unit tests** (pytest): 225 tests covering parsers, security primitives,
   services, MITRE mapping
-- **Property-based tests** (Hypothesis): ~5000 generated test cases for
+- **Property-based tests** (Hypothesis): ~2900 generated test cases per run for
   parser invariants (never crashes, deterministic, field preservation)
 - **Snapshot tests**: 6 HTML baselines for the 4 dashboard builders
 - **Coverage**: 89% (target 80%+)

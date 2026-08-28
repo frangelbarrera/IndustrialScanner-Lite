@@ -238,7 +238,7 @@ mypy modbus_scanner s7_comm_analyzer dnp3_monitor ics_scanner
 
 ### CI/CD
 
-The repo ships three GitHub Actions workflows under `.github/workflows/`:
+The repo ships five GitHub Actions workflows under `.github/workflows/`:
 
 | Workflow | Purpose |
 |---|---|

@@ -12,7 +12,7 @@ evaluating the tool knows exactly what it does and does not provide.
 |---|---|---|
 | **MITRE ATT&CK for ICS** | Direct mapping | Suspect protocol functions are enriched with ATT&CK for ICS techniques. The catalog is validated against the official STIX bundle in CI (`tests/test_mitre_attack_ground_truth.py`). |
 | **NIST SP 800-82 Rev. 3** | Partial support (detection aid) | Passive PCAP analysis of Modbus/TCP, S7Comm and DNP3 can feed the network-monitoring evidence expected for OT security programs. It is a point tool, not a monitoring platform. |
-| **IEC 62443** | Reference only | Read-only design and a target safety policy are aligned with the spirit of zone/conduit segmentation (IEC 62443-3-3 SR 5.x network monitoring), but the tool implements no 62443 requirements and performs no certification testing. |
+| **IEC 62443** | Reference only | Read-only design and a target safety policy are aligned with the defensive spirit of the standard (system security requirements for IACS), but the tool implements no 62443 requirements and performs no certification testing. |
 | **NERC CIP** | Reference only | Report outputs (JSON/HTML, per-PCAP evidence) can contribute to an audit evidence portfolio (e.g. CIP-010 configuration monitoring), but the tool itself satisfies no CIP requirement. |
 | **ISO/IEC 27019** | Reference only | Same as above: outputs may inform energy-utility security reviews; the tool makes no certification claim. |
 
@@ -29,6 +29,14 @@ Honest limitations of the current implementation:
   not devices; it does not build a passive asset baseline.
 - **Protocol coverage is deliberately narrow.** S7Comm (classic), Modbus/TCP
   and DNP3 only. No S7Comm-Plus (`0x72`), PROFINET, EtherNet/IP or IEC 61850.
+- **No TCP reassembly.** Frames split across TCP segments (or several TPKT
+  PDUs coalesced into one segment) are not reassembled; analysis is
+  per-segment. S7 PDUs larger than one MSS (e.g. S7-1500, PDU 1920) may be
+  under-counted.
+- **Userdata sub-function coverage is partial.** Password, ReadSZL and Flash
+  LED commands are decoded; other programming commands (variable-table
+  transfers, block info, mode transitions) are reported with the generic
+  `Userdata` label.
 - **Target safety policy covers the CLI entry point.** The service layer and
   CLI filter public targets; scripts that import the Modbus scanner directly
   bypass that filter and are the operator's responsibility.
