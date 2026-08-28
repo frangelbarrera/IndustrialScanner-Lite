@@ -83,3 +83,10 @@ class TestTechniqueCatalog:
     def test_technique_has_url(self):
         t = TECHNIQUE_CATALOG["T0801"]
         assert t.url.startswith("https://attack.mitre.org/techniques/")
+
+
+class TestEnrichEdgeCases:
+    def test_none_results_handled(self):
+        report = {"results": None}
+        enriched = enrich_report_with_attack(report, "s7comm")
+        assert enriched["results"] is None

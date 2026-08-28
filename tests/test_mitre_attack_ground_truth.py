@@ -2,13 +2,12 @@
 
 WHY THIS TEST EXISTS
 --------------------
-The technique catalog in ``ics_scanner/mitre_attack.py`` was originally
-written from memory (AI-assisted) and drifted from the real matrix: IDs were
-shifted (e.g. "Modify Program" listed as T0848/T0879/T0887/T0894 when MITRE
-never duplicates a name and the real ID is T0889), and one referenced ID
-(T0808) did not exist at all. Every value in that file LOOKS plausible —
-that is exactly why it must be validated against an authoritative source
-instead of human (or model) recall.
+An earlier revision of the technique catalog in ``ics_scanner/mitre_attack.py``
+had drifted from the real matrix: IDs were shifted (e.g. "Modify Program"
+listed as T0848/T0879/T0887/T0894 when MITRE never duplicates a name and the
+real ID is T0889), and one referenced ID (T0808) did not exist at all. Every
+value in that file LOOKED plausible — that is exactly why it must be
+validated against an authoritative source instead of relying on recall.
 
 The ground truth is ``tests/fixtures/attack_ics_official.json``, generated
 verbatim from MITRE's official STIX bundle by

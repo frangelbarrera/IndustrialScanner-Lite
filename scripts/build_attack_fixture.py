@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Regenerates tests/fixtures/attack_ics_official.json from the official MITRE STIX bundle.
 
-Anti-hallucination ground truth: the fixture is NOT hand-written. It is
-extracted verbatim from MITRE's official STIX/JSON bundle so that the
-TECHNIQUE_CATALOG in ics_scanner/mitre_attack.py can never silently drift
-from the real ATT&CK for ICS matrix.
+The fixture is NOT hand-written: it is extracted verbatim from MITRE's
+official STIX/JSON bundle so that the TECHNIQUE_CATALOG in
+ics_scanner/mitre_attack.py can never silently drift from the real
+ATT&CK for ICS matrix.
 
 Usage:
     python scripts/build_attack_fixture.py [path/to/ics-attack.json]

@@ -218,7 +218,7 @@ def enrich_report_with_attack(report: dict, protocol: str) -> dict:
     func_field = (
         "function_code" if "function_code" in (report.get("results") or [{}])[0] else "function"
     )
-    for item in report.get("results", []):
+    for item in report.get("results") or []:
         func_name = item.get(func_field, "")
         techniques = map_function_to_techniques(protocol, func_name)
         item["mitre_attack"] = [
