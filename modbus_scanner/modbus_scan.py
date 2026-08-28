@@ -62,81 +62,51 @@ def probe_host(ip: str, port: int, unit_id: int, timeout: float = 2.0) -> dict[s
 
         result["reachable"] = True
 
+        # pymodbus renamed the unit-id keyword across versions:
+        # 3.14+ uses device_id, 3.5+ uses slave, older uses unit.
+        import inspect
+
+        read_params = inspect.signature(client.read_coils).parameters
+        if "device_id" in read_params:
+            unit_kwarg = "device_id"
+        elif "slave" in read_params:
+            unit_kwarg = "slave"
+        else:
+            unit_kwarg = "unit"
+
         try:
-            rr = client.read_coils(address=0, count=16, slave=unit_id)
+            rr = client.read_coils(address=0, count=16, **{unit_kwarg: unit_id})
             if not isinstance(rr, ModbusIOException) and rr.isError() is False:
                 result["reads"]["coils"] = list(rr.bits) if rr.bits is not None else []
                 result["exposure"]["unauthenticated_read"] = True
-        except TypeError:
-            # pymodbus < 3.5 uses `unit=` instead of `slave=` — try the old API
-            try:
-                rr = client.read_coils(address=0, count=16, unit=unit_id)
-                if not isinstance(rr, ModbusIOException) and rr.isError() is False:
-                    result["reads"]["coils"] = list(rr.bits) if rr.bits is not None else []
-                    result["exposure"]["unauthenticated_read"] = True
-            except Exception as e:
-                result["errors"].append(f"coils_read_error: {safe_str(e)}")
         except Exception as e:
             result["errors"].append(f"coils_read_error: {safe_str(e)}")
 
         try:
-            rr = client.read_discrete_inputs(address=0, count=16, slave=unit_id)
+            rr = client.read_discrete_inputs(address=0, count=16, **{unit_kwarg: unit_id})
             if not isinstance(rr, ModbusIOException) and rr.isError() is False:
                 result["reads"]["discrete_inputs"] = list(rr.bits) if rr.bits is not None else []
                 result["exposure"]["unauthenticated_read"] = True
-        except TypeError:
-            # pymodbus < 3.5 uses `unit=` instead of `slave=`
-            try:
-                rr = client.read_discrete_inputs(address=0, count=16, unit=unit_id)
-                if not isinstance(rr, ModbusIOException) and rr.isError() is False:
-                    result["reads"]["discrete_inputs"] = (
-                        list(rr.bits) if rr.bits is not None else []
-                    )
-                    result["exposure"]["unauthenticated_read"] = True
-            except Exception as e:
-                result["errors"].append(f"discrete_inputs_read_error: {safe_str(e)}")
         except Exception as e:
             result["errors"].append(f"discrete_inputs_read_error: {safe_str(e)}")
 
         try:
-            rr = client.read_holding_registers(address=0, count=10, slave=unit_id)
+            rr = client.read_holding_registers(address=0, count=10, **{unit_kwarg: unit_id})
             if not isinstance(rr, ModbusIOException) and rr.isError() is False:
                 result["reads"]["holding_registers"] = (
                     list(rr.registers) if rr.registers is not None else []
                 )
                 result["exposure"]["unauthenticated_read"] = True
-        except TypeError:
-            # pymodbus < 3.5 uses `unit=` instead of `slave=`
-            try:
-                rr = client.read_holding_registers(address=0, count=10, unit=unit_id)
-                if not isinstance(rr, ModbusIOException) and rr.isError() is False:
-                    result["reads"]["holding_registers"] = (
-                        list(rr.registers) if rr.registers is not None else []
-                    )
-                    result["exposure"]["unauthenticated_read"] = True
-            except Exception as e:
-                result["errors"].append(f"holding_registers_read_error: {safe_str(e)}")
         except Exception as e:
             result["errors"].append(f"holding_registers_read_error: {safe_str(e)}")
 
         try:
-            rr = client.read_input_registers(address=0, count=10, slave=unit_id)
+            rr = client.read_input_registers(address=0, count=10, **{unit_kwarg: unit_id})
             if not isinstance(rr, ModbusIOException) and rr.isError() is False:
                 result["reads"]["input_registers"] = (
                     list(rr.registers) if rr.registers is not None else []
                 )
                 result["exposure"]["unauthenticated_read"] = True
-        except TypeError:
-            # pymodbus < 3.5 uses `unit=` instead of `slave=`
-            try:
-                rr = client.read_input_registers(address=0, count=10, unit=unit_id)
-                if not isinstance(rr, ModbusIOException) and rr.isError() is False:
-                    result["reads"]["input_registers"] = (
-                        list(rr.registers) if rr.registers is not None else []
-                    )
-                    result["exposure"]["unauthenticated_read"] = True
-            except Exception as e:
-                result["errors"].append(f"input_registers_read_error: {safe_str(e)}")
         except Exception as e:
             result["errors"].append(f"input_registers_read_error: {safe_str(e)}")
 
