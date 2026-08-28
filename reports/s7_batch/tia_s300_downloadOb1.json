@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-08-07T21:20:51Z",
+    "generated_at": "2026-08-28T19:02:06Z",
     "pcap_file": "pcaps/s7/tia_s300_downloadOb1.pcapng",
     "mitre_enriched": true
   },
@@ -574,17 +574,30 @@
     {
       "src": "10.134.217.193",
       "dst": "10.134.217.23",
-      "function_code": "Unknown",
+      "function_code": "DownloadBlock",
       "length": 49,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 48394,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0843",
+          "name": "Program Download",
+          "tactic": "Lateral Movement",
+          "url": "https://attack.mitre.org/techniques/T0843/"
+        },
+        {
+          "technique_id": "T0889",
+          "name": "Modify Program",
+          "tactic": "Persistence",
+          "url": "https://attack.mitre.org/techniques/T0889/"
+        }
+      ]
     },
     {
       "src": "10.134.217.23",
       "dst": "10.134.217.193",
-      "function_code": "Unknown",
+      "function_code": "AckData",
       "length": 20,
       "hints": [],
       "rosctr": "AckData",
@@ -594,17 +607,30 @@
     {
       "src": "10.134.217.23",
       "dst": "10.134.217.193",
-      "function_code": "Unknown",
+      "function_code": "DownloadBlock",
       "length": 35,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 47872,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0843",
+          "name": "Program Download",
+          "tactic": "Lateral Movement",
+          "url": "https://attack.mitre.org/techniques/T0843/"
+        },
+        {
+          "technique_id": "T0889",
+          "name": "Modify Program",
+          "tactic": "Persistence",
+          "url": "https://attack.mitre.org/techniques/T0889/"
+        }
+      ]
     },
     {
       "src": "10.134.217.193",
       "dst": "10.134.217.23",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 247,
       "hints": [],
       "rosctr": "AckData",
@@ -614,17 +640,30 @@
     {
       "src": "10.134.217.23",
       "dst": "10.134.217.193",
-      "function_code": "Unknown",
+      "function_code": "DownloadBlock",
       "length": 35,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 48384,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0843",
+          "name": "Program Download",
+          "tactic": "Lateral Movement",
+          "url": "https://attack.mitre.org/techniques/T0843/"
+        },
+        {
+          "technique_id": "T0889",
+          "name": "Modify Program",
+          "tactic": "Persistence",
+          "url": "https://attack.mitre.org/techniques/T0889/"
+        }
+      ]
     },
     {
       "src": "10.134.217.193",
       "dst": "10.134.217.23",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 135,
       "hints": [],
       "rosctr": "AckData",
@@ -634,17 +673,30 @@
     {
       "src": "10.134.217.23",
       "dst": "10.134.217.193",
-      "function_code": "Unknown",
+      "function_code": "DownloadBlock",
       "length": 35,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 48896,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0843",
+          "name": "Program Download",
+          "tactic": "Lateral Movement",
+          "url": "https://attack.mitre.org/techniques/T0843/"
+        },
+        {
+          "technique_id": "T0889",
+          "name": "Modify Program",
+          "tactic": "Persistence",
+          "url": "https://attack.mitre.org/techniques/T0889/"
+        }
+      ]
     },
     {
       "src": "10.134.217.193",
       "dst": "10.134.217.23",
-      "function_code": "Unknown",
+      "function_code": "AckData",
       "length": 20,
       "hints": [],
       "rosctr": "AckData",
@@ -654,17 +706,24 @@
     {
       "src": "10.134.217.193",
       "dst": "10.134.217.23",
-      "function_code": "Unknown",
+      "function_code": "Start",
       "length": 43,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 48650,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0858",
+          "name": "Change Operating Mode",
+          "tactic": "Evasion, Execution",
+          "url": "https://attack.mitre.org/techniques/T0858/"
+        }
+      ]
     },
     {
       "src": "10.134.217.23",
       "dst": "10.134.217.193",
-      "function_code": "Unknown",
+      "function_code": "AckData",
       "length": 20,
       "hints": [],
       "rosctr": "AckData",
@@ -1081,7 +1140,7 @@
   "summary": {
     "total_packets": 106,
     "s7_packets": 106,
-    "suspect_functions": 0,
+    "suspect_functions": 5,
     "unique_hosts": [
       "10.134.217.23",
       "10.134.217.193"

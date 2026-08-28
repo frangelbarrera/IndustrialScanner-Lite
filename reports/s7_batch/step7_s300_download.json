@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-08-07T21:20:51Z",
+    "generated_at": "2026-08-28T19:01:50Z",
     "pcap_file": "pcaps/s7/step7_s300_download.pcapng",
     "mitre_enriched": true
   },
@@ -8,7 +8,7 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "SetupComm",
       "length": 25,
       "hints": [],
       "rosctr": "Job",
@@ -18,7 +18,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 27,
       "hints": [],
       "rosctr": "AckData",
@@ -874,17 +874,30 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "DownloadBlock",
       "length": 49,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 33536,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0843",
+          "name": "Program Download",
+          "tactic": "Lateral Movement",
+          "url": "https://attack.mitre.org/techniques/T0843/"
+        },
+        {
+          "technique_id": "T0889",
+          "name": "Modify Program",
+          "tactic": "Persistence",
+          "url": "https://attack.mitre.org/techniques/T0889/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "AckData",
       "length": 20,
       "hints": [],
       "rosctr": "AckData",
@@ -894,17 +907,30 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "DownloadBlock",
       "length": 35,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 25857,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0843",
+          "name": "Program Download",
+          "tactic": "Lateral Movement",
+          "url": "https://attack.mitre.org/techniques/T0843/"
+        },
+        {
+          "technique_id": "T0889",
+          "name": "Modify Program",
+          "tactic": "Persistence",
+          "url": "https://attack.mitre.org/techniques/T0889/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 241,
       "hints": [],
       "rosctr": "AckData",
@@ -914,17 +940,30 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "DownloadBlock",
       "length": 35,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 26369,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0843",
+          "name": "Program Download",
+          "tactic": "Lateral Movement",
+          "url": "https://attack.mitre.org/techniques/T0843/"
+        },
+        {
+          "technique_id": "T0889",
+          "name": "Modify Program",
+          "tactic": "Persistence",
+          "url": "https://attack.mitre.org/techniques/T0889/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "AckData",
       "length": 20,
       "hints": [],
       "rosctr": "AckData",
@@ -934,17 +973,24 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "Start",
       "length": 43,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 33792,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0858",
+          "name": "Change Operating Mode",
+          "tactic": "Evasion, Execution",
+          "url": "https://attack.mitre.org/techniques/T0858/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "AckData",
       "length": 20,
       "hints": [],
       "rosctr": "AckData",
@@ -975,7 +1021,7 @@
   "summary": {
     "total_packets": 96,
     "s7_packets": 96,
-    "suspect_functions": 0,
+    "suspect_functions": 4,
     "unique_hosts": [
       "10.134.249.184",
       "10.134.249.244"

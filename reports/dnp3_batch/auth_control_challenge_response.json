@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-08-07T21-21-24Z",
+    "generated_at": "2026-08-28T19-02-07Z",
     "pcap_file": "pcaps/dnp3/auth_control_challenge_response.pcap",
     "mitre_enriched": true
   },
@@ -14,16 +14,16 @@
       "suspect": true,
       "mitre_attack": [
         {
-          "technique_id": "T0858",
-          "name": "Change Operating Mode",
-          "tactic": "Execution, Impact",
-          "url": "https://attack.mitre.org/techniques/T0858/"
+          "technique_id": "T0821",
+          "name": "Modify Controller Tasking",
+          "tactic": "Execution",
+          "url": "https://attack.mitre.org/techniques/T0821/"
         },
         {
-          "technique_id": "T0894",
-          "name": "Modify Program",
+          "technique_id": "T0831",
+          "name": "Manipulation of Control",
           "tactic": "Impact",
-          "url": "https://attack.mitre.org/techniques/T0894/"
+          "url": "https://attack.mitre.org/techniques/T0831/"
         }
       ]
     },

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-08-07T21:20:51Z",
+    "generated_at": "2026-08-28T19:02:07Z",
     "pcap_file": "pcaps/s7/step7_s300_rwVarTab.pcapng",
     "mitre_enriched": true
   },
@@ -171,8 +171,8 @@
     "s7_packets": 16,
     "suspect_functions": 0,
     "unique_hosts": [
-      "10.134.249.244",
-      "10.134.249.15"
+      "10.134.249.15",
+      "10.134.249.244"
     ]
   }
 }

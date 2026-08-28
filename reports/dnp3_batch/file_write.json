@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-08-07T21-21-24Z",
+    "generated_at": "2026-08-28T19-02-07Z",
     "pcap_file": "pcaps/dnp3/file_write.pcap",
     "mitre_enriched": true
   },
@@ -16,7 +16,7 @@
         {
           "technique_id": "T0801",
           "name": "Monitor Process State",
-          "tactic": "Discovery",
+          "tactic": "Collection",
           "url": "https://attack.mitre.org/techniques/T0801/"
         }
       ]
@@ -39,16 +39,10 @@
       "suspect": true,
       "mitre_attack": [
         {
-          "technique_id": "T0848",
-          "name": "Modify Program",
-          "tactic": "Execution, Persistence",
-          "url": "https://attack.mitre.org/techniques/T0848/"
-        },
-        {
-          "technique_id": "T0858",
-          "name": "Change Operating Mode",
-          "tactic": "Execution, Impact",
-          "url": "https://attack.mitre.org/techniques/T0858/"
+          "technique_id": "T0836",
+          "name": "Modify Parameter",
+          "tactic": "Impair Process Control",
+          "url": "https://attack.mitre.org/techniques/T0836/"
         }
       ]
     },
@@ -72,7 +66,7 @@
         {
           "technique_id": "T0801",
           "name": "Monitor Process State",
-          "tactic": "Discovery",
+          "tactic": "Collection",
           "url": "https://attack.mitre.org/techniques/T0801/"
         }
       ]

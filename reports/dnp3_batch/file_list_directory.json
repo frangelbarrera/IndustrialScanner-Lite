@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-08-07T21-21-24Z",
+    "generated_at": "2026-08-28T19-02-07Z",
     "pcap_file": "pcaps/dnp3/file_list_directory.pcap",
     "mitre_enriched": true
   },
@@ -16,7 +16,7 @@
         {
           "technique_id": "T0801",
           "name": "Monitor Process State",
-          "tactic": "Discovery",
+          "tactic": "Collection",
           "url": "https://attack.mitre.org/techniques/T0801/"
         }
       ]
@@ -41,26 +41,14 @@
         {
           "technique_id": "T0801",
           "name": "Monitor Process State",
-          "tactic": "Discovery",
+          "tactic": "Collection",
           "url": "https://attack.mitre.org/techniques/T0801/"
         },
         {
           "technique_id": "T0802",
-          "name": "Automated Discovery",
-          "tactic": "Discovery",
+          "name": "Automated Collection",
+          "tactic": "Collection",
           "url": "https://attack.mitre.org/techniques/T0802/"
-        },
-        {
-          "technique_id": "T0808",
-          "name": "Control System Identification",
-          "tactic": "Discovery",
-          "url": "https://attack.mitre.org/techniques/T0808/"
-        },
-        {
-          "technique_id": "T0881",
-          "name": "Service System Information",
-          "tactic": "Discovery",
-          "url": "https://attack.mitre.org/techniques/T0881/"
         }
       ]
     },
@@ -84,7 +72,7 @@
         {
           "technique_id": "T0858",
           "name": "Change Operating Mode",
-          "tactic": "Execution, Impact",
+          "tactic": "Evasion, Execution",
           "url": "https://attack.mitre.org/techniques/T0858/"
         }
       ]
@@ -127,26 +115,14 @@
         {
           "technique_id": "T0801",
           "name": "Monitor Process State",
-          "tactic": "Discovery",
+          "tactic": "Collection",
           "url": "https://attack.mitre.org/techniques/T0801/"
         },
         {
           "technique_id": "T0802",
-          "name": "Automated Discovery",
-          "tactic": "Discovery",
+          "name": "Automated Collection",
+          "tactic": "Collection",
           "url": "https://attack.mitre.org/techniques/T0802/"
-        },
-        {
-          "technique_id": "T0808",
-          "name": "Control System Identification",
-          "tactic": "Discovery",
-          "url": "https://attack.mitre.org/techniques/T0808/"
-        },
-        {
-          "technique_id": "T0881",
-          "name": "Service System Information",
-          "tactic": "Discovery",
-          "url": "https://attack.mitre.org/techniques/T0881/"
         }
       ]
     },
@@ -179,7 +155,7 @@
         {
           "technique_id": "T0801",
           "name": "Monitor Process State",
-          "tactic": "Discovery",
+          "tactic": "Collection",
           "url": "https://attack.mitre.org/techniques/T0801/"
         }
       ]

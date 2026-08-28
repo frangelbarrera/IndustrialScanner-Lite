@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-08-07T21-21-24Z",
+    "generated_at": "2026-08-28T19-02-07Z",
     "pcap_file": "pcaps/dnp3/assign_class.pcap",
     "mitre_enriched": true
   },
@@ -16,7 +16,7 @@
         {
           "technique_id": "T0858",
           "name": "Change Operating Mode",
-          "tactic": "Execution, Impact",
+          "tactic": "Evasion, Execution",
           "url": "https://attack.mitre.org/techniques/T0858/"
         }
       ]

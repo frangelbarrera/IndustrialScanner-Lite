@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-08-07T21:20:51Z",
+    "generated_at": "2026-08-28T19:01:49Z",
     "pcap_file": "pcaps/s7/step7_s300_stop.pcapng",
     "mitre_enriched": true
   },
@@ -8,17 +8,30 @@
     {
       "src": "10.134.249.12",
       "dst": "10.134.249.225",
-      "function_code": "Unknown",
+      "function_code": "Stop",
       "length": 33,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 13568,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0858",
+          "name": "Change Operating Mode",
+          "tactic": "Evasion, Execution",
+          "url": "https://attack.mitre.org/techniques/T0858/"
+        },
+        {
+          "technique_id": "T0816",
+          "name": "Device Restart/Shutdown",
+          "tactic": "Inhibit Response Function",
+          "url": "https://attack.mitre.org/techniques/T0816/"
+        }
+      ]
     },
     {
       "src": "10.134.249.225",
       "dst": "10.134.249.12",
-      "function_code": "Unknown",
+      "function_code": "AckData",
       "length": 20,
       "hints": [],
       "rosctr": "AckData",
@@ -49,10 +62,10 @@
   "summary": {
     "total_packets": 4,
     "s7_packets": 4,
-    "suspect_functions": 0,
+    "suspect_functions": 1,
     "unique_hosts": [
-      "10.134.249.225",
-      "10.134.249.12"
+      "10.134.249.12",
+      "10.134.249.225"
     ]
   }
 }

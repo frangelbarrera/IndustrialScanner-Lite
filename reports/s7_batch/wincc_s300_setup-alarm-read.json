@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-08-07T21:21:23Z",
+    "generated_at": "2026-08-28T19:01:50Z",
     "pcap_file": "pcaps/s7/wincc_s300_setup-alarm-read.pcapng",
     "mitre_enriched": true
   },
@@ -8,7 +8,7 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "SetupComm",
       "length": 25,
       "hints": [],
       "rosctr": "Job",
@@ -18,7 +18,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 27,
       "hints": [],
       "rosctr": "AckData",
@@ -38,12 +38,25 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
@@ -68,7 +81,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -78,12 +91,25 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 127,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
@@ -98,17 +124,30 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 31,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 81,
       "hints": [],
       "rosctr": "AckData",
@@ -128,7 +167,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 29,
       "hints": [],
       "rosctr": "AckData",
@@ -168,27 +207,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 127,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -198,7 +263,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 81,
       "hints": [],
       "rosctr": "AckData",
@@ -208,27 +273,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 31,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -238,17 +329,30 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 115,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 29,
       "hints": [],
       "rosctr": "AckData",
@@ -258,7 +362,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 73,
       "hints": [],
       "rosctr": "AckData",
@@ -268,27 +372,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 127,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -298,7 +428,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 81,
       "hints": [],
       "rosctr": "AckData",
@@ -308,27 +438,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 127,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -338,7 +494,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 81,
       "hints": [],
       "rosctr": "AckData",
@@ -348,27 +504,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 127,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -378,7 +560,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 81,
       "hints": [],
       "rosctr": "AckData",
@@ -388,27 +570,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 31,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -418,17 +626,30 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 115,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 29,
       "hints": [],
       "rosctr": "AckData",
@@ -438,7 +659,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 73,
       "hints": [],
       "rosctr": "AckData",
@@ -448,17 +669,24 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "WriteVar",
       "length": 36,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0836",
+          "name": "Modify Parameter",
+          "tactic": "Impair Process Control",
+          "url": "https://attack.mitre.org/techniques/T0836/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 22,
       "hints": [],
       "rosctr": "AckData",
@@ -468,27 +696,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 31,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -498,17 +752,30 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 115,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 29,
       "hints": [],
       "rosctr": "AckData",
@@ -518,7 +785,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 73,
       "hints": [],
       "rosctr": "AckData",
@@ -528,27 +795,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 31,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -558,17 +851,30 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 115,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 29,
       "hints": [],
       "rosctr": "AckData",
@@ -578,7 +884,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 73,
       "hints": [],
       "rosctr": "AckData",
@@ -588,17 +894,24 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "WriteVar",
       "length": 36,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0836",
+          "name": "Modify Parameter",
+          "tactic": "Impair Process Control",
+          "url": "https://attack.mitre.org/techniques/T0836/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 22,
       "hints": [],
       "rosctr": "AckData",
@@ -608,27 +921,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 31,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -638,17 +977,30 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 115,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 29,
       "hints": [],
       "rosctr": "AckData",
@@ -658,7 +1010,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 73,
       "hints": [],
       "rosctr": "AckData",
@@ -668,27 +1020,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 127,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -698,7 +1076,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 81,
       "hints": [],
       "rosctr": "AckData",
@@ -708,27 +1086,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 127,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -738,7 +1142,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 81,
       "hints": [],
       "rosctr": "AckData",
@@ -748,27 +1152,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 127,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -778,7 +1208,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 81,
       "hints": [],
       "rosctr": "AckData",
@@ -788,27 +1218,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 127,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -818,7 +1274,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 81,
       "hints": [],
       "rosctr": "AckData",
@@ -828,27 +1284,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 31,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -858,17 +1340,30 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 115,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 29,
       "hints": [],
       "rosctr": "AckData",
@@ -878,7 +1373,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 73,
       "hints": [],
       "rosctr": "AckData",
@@ -888,27 +1383,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 31,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -918,17 +1439,30 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 115,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 29,
       "hints": [],
       "rosctr": "AckData",
@@ -938,7 +1472,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 73,
       "hints": [],
       "rosctr": "AckData",
@@ -948,27 +1482,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 127,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -978,7 +1538,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 81,
       "hints": [],
       "rosctr": "AckData",
@@ -988,27 +1548,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 127,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -1018,7 +1604,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 81,
       "hints": [],
       "rosctr": "AckData",
@@ -1028,27 +1614,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 127,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -1058,7 +1670,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 81,
       "hints": [],
       "rosctr": "AckData",
@@ -1068,27 +1680,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 31,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -1098,17 +1736,30 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 115,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 29,
       "hints": [],
       "rosctr": "AckData",
@@ -1118,7 +1769,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 73,
       "hints": [],
       "rosctr": "AckData",
@@ -1128,27 +1779,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 127,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -1158,7 +1835,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 81,
       "hints": [],
       "rosctr": "AckData",
@@ -1168,27 +1845,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 127,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -1198,7 +1901,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 81,
       "hints": [],
       "rosctr": "AckData",
@@ -1208,27 +1911,53 @@
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 247,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 1,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.184",
       "dst": "10.134.249.244",
-      "function_code": "Unknown",
+      "function_code": "ReadVar",
       "length": 127,
       "hints": [],
       "rosctr": "Job",
       "pdu_ref": 2,
-      "mitre_attack": []
+      "mitre_attack": [
+        {
+          "technique_id": "T0801",
+          "name": "Monitor Process State",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0801/"
+        },
+        {
+          "technique_id": "T0802",
+          "name": "Automated Collection",
+          "tactic": "Collection",
+          "url": "https://attack.mitre.org/techniques/T0802/"
+        }
+      ]
     },
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 173,
       "hints": [],
       "rosctr": "AckData",
@@ -1238,7 +1967,7 @@
     {
       "src": "10.134.249.244",
       "dst": "10.134.249.184",
-      "function_code": "Unknown",
+      "function_code": "CpuServices",
       "length": 81,
       "hints": [],
       "rosctr": "AckData",
@@ -1289,7 +2018,7 @@
   "summary": {
     "total_packets": 128,
     "s7_packets": 128,
-    "suspect_functions": 0,
+    "suspect_functions": 2,
     "unique_hosts": [
       "10.134.249.184",
       "10.134.249.244"

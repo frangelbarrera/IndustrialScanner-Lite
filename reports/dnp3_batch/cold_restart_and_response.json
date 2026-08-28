@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-08-07T21-21-24Z",
+    "generated_at": "2026-08-28T19-02-07Z",
     "pcap_file": "pcaps/dnp3/cold_restart_and_response.pcap",
     "mitre_enriched": true
   },
@@ -14,16 +14,10 @@
       "suspect": true,
       "mitre_attack": [
         {
-          "technique_id": "T0858",
-          "name": "Change Operating Mode",
-          "tactic": "Execution, Impact",
-          "url": "https://attack.mitre.org/techniques/T0858/"
-        },
-        {
-          "technique_id": "T0879",
-          "name": "Modify Program",
-          "tactic": "Persistence, Execution",
-          "url": "https://attack.mitre.org/techniques/T0879/"
+          "technique_id": "T0816",
+          "name": "Device Restart/Shutdown",
+          "tactic": "Inhibit Response Function",
+          "url": "https://attack.mitre.org/techniques/T0816/"
         }
       ]
     },
@@ -42,8 +36,8 @@
     "dnp3_packets": 2,
     "suspect_functions": 1,
     "unique_hosts": [
-      "192.168.60.130",
-      "192.168.60.1"
+      "192.168.60.1",
+      "192.168.60.130"
     ]
   }
 }

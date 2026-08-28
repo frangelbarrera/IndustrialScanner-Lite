@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-08-07T21-21-24Z",
+    "generated_at": "2026-08-28T19-02-07Z",
     "pcap_file": "pcaps/dnp3/full_exchange.pcap",
     "mitre_enriched": true
   },
@@ -25,7 +25,7 @@
         {
           "technique_id": "T0858",
           "name": "Change Operating Mode",
-          "tactic": "Execution, Impact",
+          "tactic": "Evasion, Execution",
           "url": "https://attack.mitre.org/techniques/T0858/"
         }
       ]
@@ -57,16 +57,10 @@
       "suspect": true,
       "mitre_attack": [
         {
-          "technique_id": "T0848",
-          "name": "Modify Program",
-          "tactic": "Execution, Persistence",
-          "url": "https://attack.mitre.org/techniques/T0848/"
-        },
-        {
-          "technique_id": "T0858",
-          "name": "Change Operating Mode",
-          "tactic": "Execution, Impact",
-          "url": "https://attack.mitre.org/techniques/T0858/"
+          "technique_id": "T0836",
+          "name": "Modify Parameter",
+          "tactic": "Impair Process Control",
+          "url": "https://attack.mitre.org/techniques/T0836/"
         }
       ]
     },
@@ -90,26 +84,14 @@
         {
           "technique_id": "T0801",
           "name": "Monitor Process State",
-          "tactic": "Discovery",
+          "tactic": "Collection",
           "url": "https://attack.mitre.org/techniques/T0801/"
         },
         {
           "technique_id": "T0802",
-          "name": "Automated Discovery",
-          "tactic": "Discovery",
+          "name": "Automated Collection",
+          "tactic": "Collection",
           "url": "https://attack.mitre.org/techniques/T0802/"
-        },
-        {
-          "technique_id": "T0808",
-          "name": "Control System Identification",
-          "tactic": "Discovery",
-          "url": "https://attack.mitre.org/techniques/T0808/"
-        },
-        {
-          "technique_id": "T0881",
-          "name": "Service System Information",
-          "tactic": "Discovery",
-          "url": "https://attack.mitre.org/techniques/T0881/"
         }
       ]
     },
@@ -142,7 +124,7 @@
         {
           "technique_id": "T0858",
           "name": "Change Operating Mode",
-          "tactic": "Execution, Impact",
+          "tactic": "Evasion, Execution",
           "url": "https://attack.mitre.org/techniques/T0858/"
         }
       ]
@@ -162,8 +144,8 @@
     "dnp3_packets": 11,
     "suspect_functions": 3,
     "unique_hosts": [
-      "192.168.60.130",
-      "192.168.60.1"
+      "192.168.60.1",
+      "192.168.60.130"
     ]
   }
 }
